@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import YoungDongRouter from './router';
+import run from './init/start';
+import { React, useEffect } from 'react';
+import 'antd/dist/reset.css';
 
 function App() {
+  useEffect(() => {
+    run();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <YoungDongRouter />
+    </>
   );
 }
 
