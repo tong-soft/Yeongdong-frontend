@@ -1,7 +1,7 @@
 // ATOM
 export { default as Image } from './atoms/Image/index';
-// export { default as LoadingIcon } from './atoms/LoadingIcon';
-// export { default as Logo } from './atoms/Logo';
+export { default as NumberField } from './atoms/NumberField';
+export { default as Btn } from './atoms/Button';
 // export { default as Modal } from './atoms/Modal';
 // export { default as Pagination } from './atoms/Pagination/index';
 // export { default as RadioBtn } from './atoms/RadioButton/index';

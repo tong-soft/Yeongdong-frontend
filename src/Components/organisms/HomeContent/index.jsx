@@ -10,7 +10,6 @@ import carousel_2 from "../../../assets/images/carousel_2.png"
 import carousel_3 from "../../../assets/images/carousel_3.png"
 import carousel_4 from "../../../assets/images/carousel_4.png"
 import carousel_5 from "../../../assets/images/carousel_5.png"
-import carouselIcon from "../../../assets/icons/carouselIcon.png"
 import carouselLeft from "../../../assets/icons/carousel_left.png"
 import carouselRight from "../../../assets/icons/carousel_right.png"
 import exhibitImg from "../../../assets/images/test1.png"
@@ -153,7 +152,7 @@ const HomeContent = () => {
 
     return (
         <>
-            <Row>
+            <Row justify={"center"}>
                 <Col span={12}>
                     <Image src={mainImage} width={"100%"} />
                 </Col>
@@ -176,93 +175,95 @@ const HomeContent = () => {
                         </Col>
                     </Row>
                 </Col>
+                <Col span={10} justify={"center"} >
 
-                <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                    <Row gutter={[10, 45]} >
-                        <Col span={6}>
-                            <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={"bold"}>기획전</Typo>
-                            <Image src={exhibitImg} width={"100%"} onClick={monkOnClick}></Image>
-                        </Col>
-                        <Col span={6}>
-                            <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>인기상품</Typo>
-                            <Image src={popularImg} width={"100%"}></Image>
-                        </Col>
-                    </Row>
+
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row gutter={[10, 45]} >
+                            <Col span={6}>
+                                <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={"bold"}>기획전</Typo>
+                                <Image src={exhibitImg} width={"100%"} onClick={monkOnClick}></Image>
+                            </Col>
+                            <Col span={6}>
+                                <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>인기상품</Typo>
+                                <Image src={popularImg} width={"100%"}></Image>
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row gutter={[10, 45]} >
+                            <Col span={12} justify={"center"} >
+                                <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>영동언니의 시그니처</Typo>
+                            </Col>
+                            <Col span={4}>
+                                <Image src={sig1} width={"100%"}></Image>
+                            </Col>
+                            <Col span={4}>
+                                <Image src={sig2} width={"100%"}></Image>
+                            </Col>
+                            <Col span={4}>
+                                <Image src={sig3} width={"100%"}></Image>
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row gutter={[10, 45]} >
+                            <Col span={12} justify={"center"} >
+                                <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>따끈 따끈 신상품</Typo>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new1} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new2} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new3} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new4} width={"100%"}></Image>
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row gutter={[10, 45]} >
+                            <Col span={12} justify={"center"} >
+                                <Typo padding={"0 0 1.5rem 0"} size={"2.5rem"} fontFamily={"Jeju"} weight={'bold'}>전체상품</Typo>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new1} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new2} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new3} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new4} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new1} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new2} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new3} width={"100%"}></Image>
+                            </Col>
+                            <Col span={3}>
+                                <Image src={new4} width={"100%"}></Image>
+                            </Col>
+                            <Col span={12} justify={"flex-end"} >
+                                <Typo cursor={"pointer"}>더보기 ⟫ </Typo>
+                            </Col>
+                        </Row>
+                    </Col>
+
                 </Col>
-
-                <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                    <Row gutter={[10, 45]} >
-                        <Col span={12} justify={"center"} >
-                            <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>영동언니의 시그니처</Typo>
-                        </Col>
-                        <Col span={4}>
-                            <Image src={sig1} width={"100%"}></Image>
-                        </Col>
-                        <Col span={4}>
-                            <Image src={sig2} width={"100%"}></Image>
-                        </Col>
-                        <Col span={4}>
-                            <Image src={sig3} width={"100%"}></Image>
-                        </Col>
-                    </Row>
-                </Col>
-
-                <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                    <Row gutter={[10, 45]} >
-                        <Col span={12} justify={"center"} >
-                            <Typo padding={"0 0 1.5rem 0"} size={"2rem"} fontFamily={"Jeju"} weight={'bold'}>따끈 따끈 신상품</Typo>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new1} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new2} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new3} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new4} width={"100%"}></Image>
-                        </Col>
-                    </Row>
-                </Col>
-
-                <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                    <Row gutter={[10, 45]} >
-                        <Col span={12} justify={"center"} >
-                            <Typo padding={"0 0 1.5rem 0"} size={"2.5rem"} fontFamily={"Jeju"} weight={'bold'}>전체상품</Typo>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new1} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new2} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new3} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new4} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new1} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new2} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new3} width={"100%"}></Image>
-                        </Col>
-                        <Col span={3}>
-                            <Image src={new4} width={"100%"}></Image>
-                        </Col>
-                        <Col span={12} justify={"flex-end"} >
-                            <Typo cursor={"pointer"}>더보기 ⟫ </Typo>
-                        </Col>
-                    </Row>
-                </Col>
-
-
             </Row >
 
 

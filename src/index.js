@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
     }
     #root{
       width : 100%;
-      height : 100%;
+      height : auto;
       margin : 0px;
       padding : 0px;
     }

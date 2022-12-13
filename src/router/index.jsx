@@ -9,7 +9,7 @@ import NoticeRouter from "./NoticeRouter"
 const youngDongRouter = ({ role }) => {
     console.log(role)
     return (
-        <BrowserRouter basename="youngdong">
+        <BrowserRouter basename="youngdong-app">
             <Routes>
                 <Route exact path="/" element={
                     <HomeRouter security={["ADMIN", "GUEST", "USER"]}
