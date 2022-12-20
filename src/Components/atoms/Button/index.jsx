@@ -38,24 +38,28 @@ ${props => {
             `
             default:
                 return `
-                background-color: #FFFFFF;
-                border: 1px solid #000000;
+                background-color: #e9e9e9;
+                border: none;
                 border-radius : 3px;
                 color : #000000;
+                transition : all .2s cubic-bezier(.645,.045,.355,1);
+             
             `
         }
     }}
     ${props => (props.block) ? `width : 100%;` : null}
     ${props => props.bold ? `font-weight : bold` : null};
-    min-width : ${props => props.minWidth ? props.minWidth : null};
+    width : ${props => props.width ? props.width : null};
     font-family : 'Noto Sans KR';
-    font-size: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+
     cursor: pointer;
 `
 
-const Button = ({ href, size, types, block, value, onClick, bold, minWidth, }) => (
+const Button = ({ href, size, types, block, value, onClick, bold, width, }) => (
     <>
-        <ButtonComponent minWidth={minWidth} href={href} size={size} types={types} block={block} value={value} bold={bold} onClick={onClick}>
+        <ButtonComponent width={width} href={href} size={size} types={types} block={block} value={value} bold={bold} onClick={onClick}>
 
         </ButtonComponent>
     </>

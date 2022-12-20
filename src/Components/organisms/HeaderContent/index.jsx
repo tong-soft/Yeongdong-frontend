@@ -14,6 +14,11 @@ import kakaoBtn from "../../../assets/icons/kakaoBtn.png"
 import login_process from "../../../service/utils/login_progress"
 import signup_process from "../../../service/utils/signup_progress"
 import logout_process from "../../../service/utils/logout_progress"
+import Popper from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
+import Paper from '@mui/material/Paper';
+import { useEffect } from "react"
+
 
 const IconHeader = styled.div`
     display : flex;
@@ -113,7 +118,70 @@ const SelectLoginSign = styled.div`
         color: 'white',
     } : null}
 `
+const CategoryWrapper = styled.div`
+    max-height: calc(95vh - 55px);
+    min-height: 200px;
+    position: absolute;
+    display: flex;
+    top : 5rem;
+    padding-top: 1.2rem;
+    margin-top: 5px;
+`
+const CategoryContent = styled.div`
+    position: relative;
+    z-index: 21;
+    min-width : 249px;
+    border : 1px solid #dddddd;
+    background-color: #ffffff;
+    animation: 0s linear 0s 1 normal;
+`
+const CategoryValue = styled.div`
+width : 100%;
+    display : flex;
+    align-items : center;
+    justify-content : flex-start;
+    font-family : "Jeju";
+    font-size : 1.2rem;
+    color : #333333;
+    padding : 15px 0px 15px 24px;
+    box-sizing: border-box;
+    &:hover{
+        background-color:#e9e9e9
+    }
+`
+const CategoryDetailWrapper = styled.div`
+    max-height: calc(95vh - 55px);
+    min-height: auto;
+    position: absolute;
+    display: flex;
+    top : 0;
+    left : 249px;
+    padding-top: 1.2rem;
+    margin-top: 5px;
+`
+const CategoryDetailContent = styled.div`
+    position: relative;
+    z-index: 21;
+    min-width : 249px;
+    border : 1px solid #dddddd;
+    background-color: #f7f7f7;
+    animation: 0s linear 0s 1 normal;
+`
 
+const CategoryDetailValue = styled.div`
+width : 100%;
+    display : flex;
+    align-items : center;
+    justify-content : flex-start;
+    font-family : "Jeju";
+    font-size : 1.2rem;
+    color : #333333;
+    padding : 15px 0px 15px 24px;
+    box-sizing: border-box;
+    &:hover{
+        background-color:#e9e9e9
+    }
+`
 
 
 const HeaderContent = ({ logined, role, }) => {
@@ -205,6 +273,50 @@ const HeaderContent = ({ logined, role, }) => {
         navigate('/')
     }
     //!SECTION
+
+    //SECTION 카테고리
+
+    //카테고리 와퍼 bool
+    const [isCategoryEnter, setCategoryEnter] = useState(false);
+    //카테고리 value
+    const [categoryValue, setCategoryValue] = useState("");
+    //카테고리 세부사항
+    const [isCategoryDetail, setIsCategoryDetail] = useState(false);
+    //카테고리 세부사항 객체
+    const [categoryValueDetail, setCategoryValueDetail] = useState(["친환경", "고구마", "감자", "오이"]);
+    //popper설정
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    useEffect(() => {
+        categoryValue === "과일" ?
+            setCategoryValueDetail(["사과", "바나나", "귤", "수박", "오렌지"])
+            :
+            setCategoryValueDetail(["친환경", "고구마", "감자", "오이"])
+
+    }, [categoryValue])
+
+
+    const mouseEnterHandler = () => {
+        setCategoryEnter(true);
+
+    }
+    const mouseLeaveHandler = () => {
+        setCategoryValue("")
+
+    }
+    const valueMouseEnterHandler = (event, value) => {
+        setAnchorEl(event.currentTarget);
+        console.log(event.currentTarget)
+        setCategoryValue(value)
+        setIsCategoryDetail(true)
+    }
+    const valueMouseLeaveHandler = () => {
+        console.log('mouseLeaveHandler')
+    }
+    //!SECTION
+
+
+
 
     return (
         <>
@@ -368,12 +480,10 @@ const HeaderContent = ({ logined, role, }) => {
                                                                 padding: '1rem 0px',
                                                             }}
                                                                 onClick={SignupBtnOnclick}
-
                                                             >
                                                                 가입신청
                                                             </Button>
                                                         </Col>
-
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -401,16 +511,60 @@ const HeaderContent = ({ logined, role, }) => {
                     <Col xs={1} sm={1} md={0} align={"center"}>
                         <Image src={HamburgerIcon} width={"25px"} padding={"0 10px 0 0 "} />
                     </Col>
-                    <Col xs={0} sm={0} md={2} span={2} align={"center"}>
-                        <Image src={HamburgerIcon} width={"2.5rem"} padding={"0 10px 0 0 "} />
-                        <Typo size={"1.2rem"} fontFamily={"tway"} color={"#545454"}>카테고리</Typo>
+                    <Col xs={0} sm={0} md={2} span={2} align={"center"} justify={"flex-start"}  >
+                        <div
+                            style={{ padding: "5px 0", width: "fit-content", height: "100%", display: "flex", alignItem: "center", justifyContent: "flex-start", cursor: "pointer" }}
+                            onMouseEnter={mouseEnterHandler}
+                            onMouseLeave={mouseLeaveHandler}
+                        >
+                            <Image src={HamburgerIcon} width={"2.5rem"} padding={"0 10px 0 0 "} />
+                            <Typo size={"1.2rem"} fontFamily={"tway"} color={"#545454"}>카테고리</Typo>
+                        </div>
+                        {
+                            isCategoryEnter ?
+                                <CategoryWrapper onMouseLeave={() => {
+                                    setCategoryEnter(false);
+                                }}>
+                                    <CategoryContent>
+                                        <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
+                                            <Col span={12}>
+                                                <CategoryValue onMouseEnter={(event) => valueMouseEnterHandler(event, "채소")} onMouseLeave={valueMouseLeaveHandler}>채소</CategoryValue>
+                                                <CategoryValue onMouseEnter={(event) => valueMouseEnterHandler(event, "과일")} onMouseLeave={valueMouseLeaveHandler}>과일</CategoryValue>
+                                            </Col>
+                                        </Row>
+                                    </CategoryContent>
+                                    {
+                                        isCategoryDetail ?
+                                            <>
+                                                <CategoryDetailContent>
+                                                    <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
+                                                        <Col span={12}>
+                                                            {
+                                                                categoryValueDetail.map((item, index) => {
+                                                                    return <CategoryDetailValue key={index}>{item}</CategoryDetailValue>
+                                                                })
+                                                            }
+
+                                                        </Col>
+                                                    </Row>
+
+                                                </CategoryDetailContent>
+                                            </>
+
+                                            : null
+                                    }
+                                </CategoryWrapper>
+                                :
+                                null
+                        }
+
                     </Col>
                     <Col xs={10} sm={10} md={9} lg={9} xl={9} xxl={8} span={8} justify={"space-evenly"}>
                         <CategoryBox>라이브커머스</CategoryBox>
                         <CategoryBox>인기상품</CategoryBox>
                         <CategoryBox>지역특산물</CategoryBox>
                         <CategoryBox>큐레이션</CategoryBox>
-                        <CategoryBox red>고객센터</CategoryBox>
+                        <CategoryBox red onClick={() => navigate("/servicecenter")}>고객센터</CategoryBox>
                     </Col>
 
                 </Row>

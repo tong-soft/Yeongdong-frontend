@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import HomeRouter from "./HomeRouter"
 import NoticeRouter from "./NoticeRouter"
-
+import Servicecenter from "./ServicecenterRouter"
 
 const youngDongRouter = ({ role }) => {
     console.log(role)
@@ -21,6 +21,14 @@ const youngDongRouter = ({ role }) => {
                     />} />
                 <Route exact path="/notice" element={
                     <NoticeRouter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/servicecenter/:service" element={
+                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/servicecenter" element={
+                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
             </Routes>

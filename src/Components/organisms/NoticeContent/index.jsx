@@ -159,7 +159,7 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
 
                                 </Col>
                                 <Col span={6} justify={"flex-end"}>
-                                    <Btn size={"large"} minWidth={"10rem"} types={"primary"} value={"글쓰기"} ></Btn>
+                                    <Btn size={"large"} width={"10rem"} types={"primary"} value={"글쓰기"} ></Btn>
 
                                 </Col>
                             </Row>
@@ -210,7 +210,7 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
 
                                     </Col>
                                     <Col span={6} justify={"flex-end"}>
-                                        <Btn size={"large"} minWidth={"10rem"} types={"primary"} value={"글쓰기"} ></Btn>
+                                        <Btn size={"large"} width={"10rem"} types={"primary"} value={"글쓰기"} ></Btn>
 
                                     </Col>
                                 </Row>
