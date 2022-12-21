@@ -18,7 +18,7 @@ import reviewTitle from "../../../assets/images/reviewTitle.png"
 import inquiryTitle from "../../../assets/images/inquiryTitle.png"
 
 
-const HomeContent = ({ role, productOptions, selectOption, userProductObj, selectHandleFunc, amountHandleFunc,
+const GoodsContent = ({ role, productOptions, selectOption, userProductObj, selectHandleFunc, amountHandleFunc,
     amountIconHandleFunc, productDeleteHandleFunc
 }) => {
 
@@ -128,7 +128,7 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
                                                             onClick={() => (amountIconHandleFunc.plus(key))} />
                                                     </Col>
                                                     <Col span={6} justify={"flex-end"} align={"center"}>
-                                                        <Typo size={"2rem"} fontFamily={"Jeju"}>10000원</Typo>
+                                                        <Typo size={"2rem"} fontFamily={"Jeju"}>{10000 * userProductObj[key]}원</Typo>
                                                     </Col>
                                                 </Row>
 
@@ -151,7 +151,7 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
                     </Col>
                     {/* //!SECTION */}
                     {/* //SECTION - 제품후기  */}
-                    <Col span={12} justify={"center"} align={"center"} style={{ padding: "2rem 0", borderTop: "#ededed 3px solid " }}>
+                    <Col span={12} justify={"center"} align={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd" }}>
                         <Col span={10} align={"center"}  >
                             <Row align={"center"} >
                                 <Col span={6} justify={"flex-start"}>
@@ -202,7 +202,7 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
                     {/* //!SECTION */}
                     {/* //SECTION - 제품문의  */}
                     <Col span={12} justify={"center"} style={{ padding: "2rem 0" }}>
-                        <Col span={12} justify={"center"} style={{ padding: "2rem 0", borderTop: "#ededed 3px solid " }}>
+                        <Col span={12} justify={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd " }}>
                             <Col span={10} align={"center"}  >
                                 <Row align={"center"} >
                                     <Col span={6} justify={"flex-start"}>
@@ -264,4 +264,4 @@ const HomeContent = ({ role, productOptions, selectOption, userProductObj, selec
 
 }
 
-export default HomeContent
+export default GoodsContent

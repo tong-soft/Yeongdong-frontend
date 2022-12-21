@@ -13,11 +13,12 @@ const ImageStyle = styled.img.attrs((props) => ({
     ${(props) => (props.circle) ? ` border-radius : 100%; ` : null};
     border : ${props => (props.border) || null};
     padding : ${props => (props.padding) || null};
+    object-fit : ${props => props.fit || 'fill'};
 `
 
-const Image = ({ src, width, circle, height, cursor, border, onClick, padding }) => (
+const Image = ({ src, width, circle, height, cursor, border, onClick, padding, fit }) => (
     <>
-        <ImageStyle src={src} width={width} cursor={cursor} border={border} onClick={onClick} padding={padding}
+        <ImageStyle src={src} fit={fit} width={width} cursor={cursor} border={border} onClick={onClick} padding={padding}
             height={height} circle={circle} ></ImageStyle>
     </>
 )

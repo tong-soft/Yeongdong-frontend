@@ -33,12 +33,12 @@ const CategoryHeader = styled.div`
     align-items : center;
     width : 100%;
     height : auto;
-    padding :2.5rem 2rem 2rem 2rem;
+    padding : 0 2rem;
     box-sizing: border-box;
     background-color :#c2e19d;
     position: sticky;
     top : 0;
-    z-index: 1;
+    z-index: 20;
 `
 
 const CategoryBox = styled.div`
@@ -72,7 +72,7 @@ const LoginBtnBox = styled.div`
     right:300px;
     position:sticky;
     top:2rem;
-    z-index:3;
+    z-index:26;
     display:flex;
     align-items:center;
     justify-content:flex-end;
@@ -119,21 +119,21 @@ const SelectLoginSign = styled.div`
     } : null}
 `
 const CategoryWrapper = styled.div`
-    max-height: calc(95vh - 55px);
-    min-height: 200px;
+    height: calc(95vh - 20rem);
+    overflow-y: auto;
     position: absolute;
     display: flex;
     top : 5rem;
-    padding-top: 1.2rem;
-    margin-top: 5px;
+    margin-top: 1.8rem;
 `
 const CategoryContent = styled.div`
     position: relative;
     z-index: 21;
     min-width : 249px;
-    border : 1px solid #dddddd;
+    border-bottom : 1px solid #dddddd;
     background-color: #ffffff;
     animation: 0s linear 0s 1 normal;
+    box-sizing: border-box;
 `
 const CategoryValue = styled.div`
 width : 100%;
@@ -146,30 +146,23 @@ width : 100%;
     padding : 15px 0px 15px 24px;
     box-sizing: border-box;
     &:hover{
-        background-color:#e9e9e9
+        background-color:rgba(233, 233, 233, 0.3);
+        color : #028000;
+        font-weight:bold;
     }
 `
-const CategoryDetailWrapper = styled.div`
-    max-height: calc(95vh - 55px);
-    min-height: auto;
-    position: absolute;
-    display: flex;
-    top : 0;
-    left : 249px;
-    padding-top: 1.2rem;
-    margin-top: 5px;
-`
+
 const CategoryDetailContent = styled.div`
     position: relative;
     z-index: 21;
     min-width : 249px;
-    border : 1px solid #dddddd;
+    border-bottom : 1px solid #dddddd;
     background-color: #f7f7f7;
     animation: 0s linear 0s 1 normal;
 `
 
 const CategoryDetailValue = styled.div`
-width : 100%;
+    width : 100%;
     display : flex;
     align-items : center;
     justify-content : flex-start;
@@ -179,7 +172,13 @@ width : 100%;
     padding : 15px 0px 15px 24px;
     box-sizing: border-box;
     &:hover{
-        background-color:#e9e9e9
+        background-color:#e9e9e9;
+        color : #028000;
+        font-weight:bold;
+        text-decoration: underline;
+        text-underline-position: under;
+        text-decoration-color: #028000;
+        text-decoration-thickness : 2px;
     }
 `
 
@@ -276,6 +275,24 @@ const HeaderContent = ({ logined, role, }) => {
 
     //SECTION 카테고리
 
+    //detail object
+    const categoryValueDetailMonk = {
+        '쌀 · 잡곡': [],
+        '채소': ['잎채소', '근채류', '감자', '고구마', '마늘', '인삼',],
+        '과일': ['딸기', '메론', '배', '복숭아', '사과', '샤인머스켓', '수박', '자두', '포도'],
+        '감 · 곶감': ['감', '곶감'],
+        '견과 · 버섯': ['밤', '호두', '표고버섯'],
+        '와인': ['화이트', '레드', '로제'],
+        '벌꿀': ['아카시아꿀', '밤꿀', '잡화꿀'],
+        '가공식품': ['식초', '과일즙', '쨈', '조청', '호두기름'],
+        '장류': ['된장', '고추장', '청국장', '막장', '간장'],
+        '떡 · 간식': ['떡', '간식'],
+        '기타': ['산골오징어', '산속새우젓'],
+
+    }
+    const categoryValueMonk = Object.keys(categoryValueDetailMonk)
+    console.log("ere")
+    console.log(Object.keys(categoryValueDetailMonk))
     //카테고리 와퍼 bool
     const [isCategoryEnter, setCategoryEnter] = useState(false);
     //카테고리 value
@@ -283,33 +300,37 @@ const HeaderContent = ({ logined, role, }) => {
     //카테고리 세부사항
     const [isCategoryDetail, setIsCategoryDetail] = useState(false);
     //카테고리 세부사항 객체
-    const [categoryValueDetail, setCategoryValueDetail] = useState(["친환경", "고구마", "감자", "오이"]);
-    //popper설정
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [categoryValueDetail, setCategoryValueDetail] = useState([]);
 
-    useEffect(() => {
-        categoryValue === "과일" ?
-            setCategoryValueDetail(["사과", "바나나", "귤", "수박", "오렌지"])
-            :
-            setCategoryValueDetail(["친환경", "고구마", "감자", "오이"])
 
-    }, [categoryValue])
 
 
     const mouseEnterHandler = () => {
         setCategoryEnter(true);
+        setIsCategoryDetail(false)
 
     }
     const mouseLeaveHandler = () => {
         setCategoryValue("")
+        setCategoryEnter(false)
+    }
+
+    const valueMouseEnterHandler = (event, value) => {
+        setCategoryEnter(true);
+
+        setCategoryValue(value)
+
+        console.log(categoryValueDetailMonk[value])
+
+        setCategoryValueDetail(categoryValueDetailMonk[value])
+        categoryValueDetailMonk[value].length === 0 ?
+            setIsCategoryDetail(false)
+            :
+            setIsCategoryDetail(true);
 
     }
-    const valueMouseEnterHandler = (event, value) => {
-        setAnchorEl(event.currentTarget);
-        console.log(event.currentTarget)
-        setCategoryValue(value)
-        setIsCategoryDetail(true)
-    }
+
+
     const valueMouseLeaveHandler = () => {
         console.log('mouseLeaveHandler')
     }
@@ -506,14 +527,16 @@ const HeaderContent = ({ logined, role, }) => {
 
 
             </IconHeader>
+            {/* //NOTE */}
             <CategoryHeader>
                 <Row align={"center"} >
                     <Col xs={1} sm={1} md={0} align={"center"}>
-                        <Image src={HamburgerIcon} width={"25px"} padding={"0 10px 0 0 "} />
+                        <Image src={HamburgerIcon} width={"2rem"} padding={"0 10px 0 0 "} />
                     </Col>
                     <Col xs={0} sm={0} md={2} span={2} align={"center"} justify={"flex-start"}  >
                         <div
-                            style={{ padding: "5px 0", width: "fit-content", height: "100%", display: "flex", alignItem: "center", justifyContent: "flex-start", cursor: "pointer" }}
+                            style={{ height: "7rem", width: "100%", display: "flex", alignItems: "center", justifyContent: "flex-start", cursor: "pointer" }}
+                            onClick={mouseEnterHandler}
                             onMouseEnter={mouseEnterHandler}
                             onMouseLeave={mouseLeaveHandler}
                         >
@@ -528,13 +551,20 @@ const HeaderContent = ({ logined, role, }) => {
                                     <CategoryContent>
                                         <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
                                             <Col span={12}>
-                                                <CategoryValue onMouseEnter={(event) => valueMouseEnterHandler(event, "채소")} onMouseLeave={valueMouseLeaveHandler}>채소</CategoryValue>
-                                                <CategoryValue onMouseEnter={(event) => valueMouseEnterHandler(event, "과일")} onMouseLeave={valueMouseLeaveHandler}>과일</CategoryValue>
+                                                {
+                                                    categoryValueMonk.length > 0 ?
+                                                        categoryValueMonk.map((item, index) =>
+                                                            <CategoryValue key={index} onMouseEnter={(event) => valueMouseEnterHandler(event, item)} onMouseLeave={valueMouseLeaveHandler}>{item}</CategoryValue>
+
+                                                        )
+                                                        :
+                                                        null
+                                                }
                                             </Col>
                                         </Row>
                                     </CategoryContent>
                                     {
-                                        isCategoryDetail ?
+                                        isCategoryDetail === true ?
                                             <>
                                                 <CategoryDetailContent>
                                                     <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
@@ -543,6 +573,7 @@ const HeaderContent = ({ logined, role, }) => {
                                                                 categoryValueDetail.map((item, index) => {
                                                                     return <CategoryDetailValue key={index}>{item}</CategoryDetailValue>
                                                                 })
+
                                                             }
 
                                                         </Col>

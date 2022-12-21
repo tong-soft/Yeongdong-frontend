@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import HomeRouter from "./HomeRouter"
-import NoticeRouter from "./NoticeRouter"
+import GoodsRouter from "./GoodsRouter"
 import Servicecenter from "./ServicecenterRouter"
 
 const youngDongRouter = ({ role }) => {
@@ -15,12 +15,12 @@ const youngDongRouter = ({ role }) => {
                     <HomeRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
-                <Route exact path="/notice/:id/:product" element={
-                    <NoticeRouter security={["ADMIN", "GUEST", "USER"]}
+                <Route exact path="/goods/:id/:product" element={
+                    <GoodsRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
-                <Route exact path="/notice" element={
-                    <NoticeRouter security={["ADMIN", "GUEST", "USER"]}
+                <Route exact path="/goods" element={
+                    <GoodsRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
                 <Route exact path="/servicecenter/:service" element={
@@ -28,6 +28,10 @@ const youngDongRouter = ({ role }) => {
                         role={role}
                     />} />
                 <Route exact path="/servicecenter" element={
+                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/collections/popular" element={
                     <Servicecenter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />

@@ -1,15 +1,15 @@
 import { notification } from "antd"
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import Notice from "../pages/NoticePage"
+import Goods from "../pages/GoodsPage"
 
-const NoticeRouter = ({ security, role }) => {
+const GoodsRouter = ({ security, role }) => {
 
     console.log(role)
     const navigate = useNavigate();
 
     if (security.includes(role)) {
-        return <Notice />
+        return <Goods />
     }
 
     navigate('/')
@@ -21,4 +21,4 @@ const NoticeRouter = ({ security, role }) => {
     return null;
 }
 
-export default NoticeRouter
+export default GoodsRouter

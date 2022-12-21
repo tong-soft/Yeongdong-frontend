@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NoticeContent from "../../../Components/organisms/NoticeContent"
+import GoodsContent from "../../../Components/organisms/GoodsContent"
 import { useParams } from "react-router-dom"
 
 
@@ -58,7 +58,7 @@ const ContentContainer = ({ role }) => {
 
     return (
         <>
-            <NoticeContent
+            <GoodsContent
                 role={role}
                 productOptions={productOptions}
                 userProductObj={userProductObj}

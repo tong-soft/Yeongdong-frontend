@@ -1,9 +1,9 @@
 import React from "react";
-import ContentContainer from "../../Containers/redux/pages/notice/ContentContainer";
+import ContentContainer from "../../Containers/redux/pages/goods/ContentContainer";
 import Header from "../../Containers/redux/components/Header"
 import Footer from "../../layout/Footer";
 
-const Notice = () => {
+const Goods = () => {
     return (
         <>
             <Header />
@@ -13,4 +13,4 @@ const Notice = () => {
     )
 }
 
-export default Notice;
+export default Goods;
