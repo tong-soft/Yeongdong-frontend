@@ -124,7 +124,7 @@ const CategoryWrapper = styled.div`
     position: absolute;
     display: flex;
     top : 5rem;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
 `
 const CategoryContent = styled.div`
     position: relative;
@@ -291,8 +291,7 @@ const HeaderContent = ({ logined, role, }) => {
 
     }
     const categoryValueMonk = Object.keys(categoryValueDetailMonk)
-    console.log("ere")
-    console.log(Object.keys(categoryValueDetailMonk))
+
     //카테고리 와퍼 bool
     const [isCategoryEnter, setCategoryEnter] = useState(false);
     //카테고리 value
@@ -530,18 +529,20 @@ const HeaderContent = ({ logined, role, }) => {
             {/* //NOTE */}
             <CategoryHeader>
                 <Row align={"center"} >
-                    <Col xs={1} sm={1} md={0} align={"center"}>
-                        <Image src={HamburgerIcon} width={"2rem"} padding={"0 10px 0 0 "} />
-                    </Col>
-                    <Col xs={0} sm={0} md={2} span={2} align={"center"} justify={"flex-start"}  >
+                    <Col xs={1} sm={1} md={2} span={2} align={"center"} justify={"flex-start"}  >
                         <div
-                            style={{ height: "7rem", width: "100%", display: "flex", alignItems: "center", justifyContent: "flex-start", cursor: "pointer" }}
+                            style={{ height: "6rem", width: "100%", display: "flex", alignItems: "center", justifyContent: "flex-start", cursor: "pointer" }}
                             onClick={mouseEnterHandler}
                             onMouseEnter={mouseEnterHandler}
                             onMouseLeave={mouseLeaveHandler}
                         >
-                            <Image src={HamburgerIcon} width={"2.5rem"} padding={"0 10px 0 0 "} />
-                            <Typo size={"1.2rem"} fontFamily={"tway"} color={"#545454"}>카테고리</Typo>
+                            <Col xs={0} sm={0} md={12} span={12}>
+                                <Image src={HamburgerIcon} width={"2.5rem"} padding={"0 10px 0 0 "} />
+                                <Typo size={"1.2rem"} fontFamily={"tway"} color={"#545454"}>카테고리</Typo>
+                            </Col>
+                            <Col xs={12} sm={12} md={0} justify={"center"} align={"center"} style={{ width: "100%" }}>
+                                <Image src={HamburgerIcon} width={"3rem"} padding={"0 10px 0 0 "} cursor={"pointer"} />
+                            </Col>
                         </div>
                         {
                             isCategoryEnter ?

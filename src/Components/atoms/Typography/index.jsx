@@ -7,7 +7,7 @@ const Typo = styled.div`
 display : inline-block;
 transition: all 0.5s ease  ;
 ${props => (props.full) ? 'width : 100%; justify-content : inherit; flex-basis :100%' : null};
-overflow : hidden;
+overflow : inherit;
 font-size : ${props => (props.size) || '1rem'};
 font-family : ${props => (props.fontFamily) || 'Noto Sans KR'};
 color : ${props => (props.color)};

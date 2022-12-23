@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import HomeRouter from "./HomeRouter"
 import GoodsRouter from "./GoodsRouter"
-import Servicecenter from "./ServicecenterRouter"
+import ServicecenterRouter from "./ServicecenterRouter"
+import CollectionsRouter from "./CollectionsRouter"
 
 const youngDongRouter = ({ role }) => {
     console.log(role)
@@ -24,15 +25,19 @@ const youngDongRouter = ({ role }) => {
                         role={role}
                     />} />
                 <Route exact path="/servicecenter/:service" element={
-                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
+                    <ServicecenterRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
                 <Route exact path="/servicecenter" element={
-                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
+                    <ServicecenterRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
-                <Route exact path="/collections/popular" element={
-                    <Servicecenter security={["ADMIN", "GUEST", "USER"]}
+                <Route exact path="/collections/:sort" element={
+                    <CollectionsRouter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/collections" element={
+                    <CollectionsRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
             </Routes>
