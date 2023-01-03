@@ -1,9 +1,12 @@
 import monkListImg from '../assets/images/monkListImg.png';
+import monkListImg2 from '../assets/images/monkListImg2.jpeg';
+import monkListImg3 from '../assets/images/monkListImg3.jpeg';
+import monkListImg4 from '../assets/images/monkListImg4.jpeg';
 
 const lists = [
   {
     id: 1,
-    img: monkListImg,
+    img: monkListImg2,
     title: '은하수산 - 랍스타 바스켓',
     desc: '식탁을 빛내줄 푸짐한 보일링 크랩',
     price: 10000,
@@ -12,21 +15,21 @@ const lists = [
   },
   {
     id: 2,
-    img: monkListImg,
+    img: monkListImg3,
     title: '제목',
     desc: '설명문',
     price: 10000,
-    discountRate: 10,
-    discountPrice: 10000 * (100 - 10) * 0.01,
+    discountRate: 0,
+    discountPrice: 10000,
   },
   {
     id: 3,
-    img: monkListImg,
+    img: monkListImg4,
     title: '가시제거연구소 고등어밥상 그린라벨 800g 가시없는 고등어',
     desc: '제목일 길떄 TEST',
     price: 10000,
     discountRate: 0,
-    discountPrice: 10000 * (100 - 10) * 0.01,
+    discountPrice: 10000,
   },
   {
     id: 4,

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Row, Col } from "../../../layout"
 import { useNavigate } from "react-router-dom"
-import { Image, Typo } from "../../index"
+import { Image, Typo, GoodsImg } from "../../index"
 import styled from "styled-components"
 import mainImage from "../../../assets/images/mainImage.png"
 import liveCommerceIcon from "../../../assets/icons/liveCommerceIcon.png"
@@ -10,7 +10,10 @@ import carousel_2 from "../../../assets/images/carousel_2.png"
 import carousel_3 from "../../../assets/images/carousel_3.png"
 import carousel_4 from "../../../assets/images/carousel_4.png"
 import carousel_5 from "../../../assets/images/carousel_5.png"
+
+
 import monkLists from "../../../mocks/lists"
+
 
 import { Carousel } from 'antd';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -34,7 +37,7 @@ const CarouselImage = styled.img.attrs((props) => ({
 }))`
     top : 50%;
     position: absolute;
-    transition: transform 1s, left 1s, opacity 1s, z-index 0s;
+    transition: all 1s, left 1s, opacity 1s, z-index 0s;
     width: 150px;
     height : auto;
  
@@ -118,7 +121,7 @@ const CarouselCounters = styled.div`
     transition: all 1s, left 1s, opacity 1s, z-index 0s;
     opacity: 1;
     border-radius : 100%;
-    border : 2px solid rgba(6, 64, 68, 0.8);
+    border : 2px solid rgb(13, 112, 0, 0.8);
     z-index: 112;
     left: 50%;
     width : 15px;
@@ -148,12 +151,10 @@ const CarouselCounters = styled.div`
         margin : 0 40px;
         ` : null}
     ${props => props.actived === true ? `
-        background: rgba(6,64,68,1);
+        background: rgb(13, 112, 0);
     ` : null}
 
 `
-
-
 
 
 const HomeContent = () => {
@@ -215,8 +216,8 @@ const HomeContent = () => {
         }
     }
 
-    const monkOnClick = () => {
-        navigate('/goods/0/monk')
+    const monkOnClick = (id) => {
+        navigate(`/goods/${id}/monk`)
     }
 
     return (
@@ -265,43 +266,58 @@ const HomeContent = () => {
                 </Col>
 
                 {/* SECTION 내용 전체 */}
-                <Col span={8} justify={"center"} >
+                <Col xs={11} sm={10} md={10} lg={8} xl={8} xxl={8} span={8} justify={"center"} >
                     {/* SECTION  인기상품 - hot Item*/}
                     <Col span={12} justify={"center"} style={{ padding: "5rem 1rem 1rem 1rem", }}>
                         <Row justify={"center"}>
                             <Col span={12} justify={"center"} algin={"center"} style={{ padding: "5rem 0 3rem 0" }}>
                                 <Typo cursor={"pointer"} fontFamily={'nixgon'} size={"2rem"}>인기상품&nbsp;{">"}</Typo>
                             </Col>
+
                             {
                                 hotItemArr.map((lists) => {
                                     return (
-                                        <Col key={lists.id} span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                            <Row justify={"center"} align={"center"}>
-                                                <Col span={12} justify={"center"} align={"center"}>
-                                                    <Image src={lists.img} width={"100%"} height={"15rem"}  ></Image>
-                                                </Col>
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem", }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>
-                                                </Col>
 
-                                                {
-                                                    (lists.discountRate !== 0) ?
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{lists.discountRate}%</Typo>
-                                                            <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
-                                                        </Col>
-                                                        :
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
-                                                        </Col>
-                                                }
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
-                                                </Col>
+                                        <Col span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                            <div
+                                                onClick={() => { monkOnClick(lists.id) }}
+                                                key={lists.id}
 
-                                            </Row>
+                                                style={{
+                                                    display: "flex",
+                                                    boxSizing: 'border-box',
+                                                    cursor: "pointer"
+                                                }}>
+                                                <Row justify={"center"} align={"center"}>
+
+                                                    <Col span={12} justify={"center"} align={"center"}>
+                                                        <GoodsImg imgSrc={lists.img} height={"15rem"} ></GoodsImg>
+
+                                                    </Col>
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem", }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>
+                                                    </Col>
+
+                                                    {
+                                                        (lists.discountRate !== 0) ?
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{lists.discountRate}%</Typo>
+                                                                <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
+                                                            </Col>
+                                                            :
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
+                                                            </Col>
+                                                    }
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
+                                                    </Col>
+                                                </Row>
+                                            </div>
                                         </Col>
+
+
                                     )
                                 })
                             }
@@ -321,7 +337,7 @@ const HomeContent = () => {
                                         <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                             <Row justify={"center"} align={"center"}>
                                                 <Col span={12} justify={"center"} align={"center"}>
-                                                    <Image src={lists.img} width={"100%"}></Image>
+                                                    <GoodsImg imgSrc={lists.img} ></GoodsImg>
                                                 </Col>
                                                 <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
                                                     <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>
@@ -362,10 +378,12 @@ const HomeContent = () => {
                             {
                                 newArr.map((lists) => {
                                     return (
-                                        <Col key={lists.id} span={3} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                        <Col key={lists.id}
+                                            xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
+                                            justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                             <Row justify={"center"} align={"center"}>
                                                 <Col span={12} justify={"center"} align={"center"}>
-                                                    <Image src={lists.img} width={"100%"}></Image>
+                                                    <GoodsImg imgSrc={lists.img} ></GoodsImg>
                                                 </Col>
                                                 <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
                                                     <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>
@@ -406,10 +424,12 @@ const HomeContent = () => {
                             {
                                 allArr.map((lists) => {
                                     return (
-                                        <Col key={lists.id} span={3} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                        <Col key={lists.id}
+                                            xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
+                                            justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                             <Row justify={"center"} align={"center"}>
                                                 <Col span={12} justify={"center"} align={"center"}>
-                                                    <Image src={lists.img} width={"100%"}></Image>
+                                                    <GoodsImg imgSrc={lists.img} ></GoodsImg>
                                                 </Col>
                                                 <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
                                                     <Typo fontFamily={'Noto Sans KR'} size={"1rem"} weight={"normal"} >{lists.title}</Typo>

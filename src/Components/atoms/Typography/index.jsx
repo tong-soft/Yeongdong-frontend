@@ -25,11 +25,11 @@ text-align : ${props => (props.textAlign) || null};
 
 
 
-const Typography = ({ size, color, onClick, radius, fontFamily, full, width, textAlign,
+const Typography = ({ size, color, onClick, radius, fontFamily, full, width, textAlign, style,
     backColor, children, opacity, weight, cursor, border, padding }) => {
     return (
         <>
-            <Typo size={size} color={color} onClick={onClick} fontFamily={fontFamily} width={width}
+            <Typo size={size} color={color} onClick={onClick} fontFamily={fontFamily} width={width} style={style}
                 radius={radius} backColor={backColor} weight={weight} full={full} textAlign={textAlign}
                 children={children} opacity={opacity} cursor={cursor} border={border} padding={padding}>
             </Typo>

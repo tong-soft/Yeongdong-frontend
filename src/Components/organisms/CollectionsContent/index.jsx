@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, Pagination, goodsForm } from "../../index"
+import { Image, Typo, Pagination, GoodsImg } from "../../index"
 import { Carousel } from 'antd';
 import mainImage from "../../../assets/images/mainImage.png"
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -58,7 +58,7 @@ const CollectionsContent = ({ role,
                                                     <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                                         <Row justify={"center"} align={"center"}>
                                                             <Col span={12} justify={"center"} align={"center"}>
-                                                                <Image src={lists.img} width={"100%"}></Image>
+                                                                <GoodsImg square imgSrc={lists.img} ></GoodsImg>
                                                             </Col>
                                                             <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
                                                                 <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>

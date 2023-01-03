@@ -36,12 +36,13 @@ const GlobalStyle = createGlobalStyle`
 const rootNode = document.getElementById('root');
 
 ReactDOM.createRoot(rootNode).render(
-  <React.StrictMode>
+  <>
+    <React.StrictMode />
     <GlobalStyle />
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function

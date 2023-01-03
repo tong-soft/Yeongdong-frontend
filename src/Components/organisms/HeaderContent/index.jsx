@@ -53,14 +53,6 @@ const CategoryBox = styled.div`
     font-family: "tway" ;
     
     cursor : pointer;
-    ${props => props.login ? `
-        font-family : "nixgon";
-        margin-right : 20px;
-        border-left-width : 1px;
-        font-size : 1.1rem;
-        font-weight :bold;
-    `  : null
-    }
 `
 const LoginBtnBox = styled.div`
     display: flex;
@@ -69,15 +61,46 @@ const LoginBtnBox = styled.div`
     padding-left:5px;
     height:0;
     /*width:max-content;*/
-    right:300px;
-    position:sticky;
+    right:10px;
+    position:relative;
     top:2rem;
     z-index:26;
     display:flex;
     align-items:center;
     justify-content:flex-end;
     padding-right: 2rem;
+    @media (max-width: 600px) {
+        position : static;
+        height : auto ;
+        margin : 1.5rem 0 0 0;
+        justify-content: space-evenly;
+    }
 `
+
+const LoginValueBtn = styled.div`
+    margin : 5px;
+    display : flex;
+    align-items : center;
+    justify-content: flex-start;
+    font-size : inherit;
+    border-left : ${props => props.red ? `#e64937` : `#545454`} 2px solid;
+    padding-left: 5px;
+    color : ${props => props.red ? `#e64937` : `#545454`};
+    cursor : pointer;
+    font-family : "nixgon";
+        margin-right : 20px;
+        border-left-width : 1px;
+        font-weight :bold;
+        @media (max-width: 600px) {
+        justify-content: center;
+        border : none;
+        padding : 5px 10px;
+        font-size : 1.5rem;
+        margin-top :0px;
+        margin-bottom :0px;
+    }
+`
+
 
 const SnsLoginBtn = styled.div`
     margin : 5px 0;
@@ -340,182 +363,186 @@ const HeaderContent = ({ logined, role, }) => {
 
     return (
         <>
+
             {
                 logined ?
                     <LoginBtnBox>
-                        <CategoryBox login onClick={logOutOnClick}>로그아웃</CategoryBox>
+                        <LoginValueBtn onClick={logOutOnClick}>로그아웃</LoginValueBtn>
                     </LoginBtnBox>
                     :
-                    <LoginBtnBox>
-                        <CategoryBox login onClick={doingLogin}>로그인</CategoryBox>
-                        <Modal
-                            open={openLoginModal}
-                            onClose={handleLoginModalClose}
-                        >
-                            <Box sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: '55%',
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                borderRadius: '5px',
-                                p: 4,
-                                overflow: 'auto',
-                                maxHeight: ' 80%'
-                            }}>
-                                <Row>
-                                    <Col span={12} style={{ borderBottom: "2px solid #393939" }}>
-                                        <Row>
-                                            <Col span={6}>
-                                                <SelectLoginSign isSelect={(isSelectLoginSignup === "login" ? true : false)} onClick={selectLogin}>
-                                                    로그인
-                                                </SelectLoginSign>
-                                            </Col>
-                                            <Col span={6}>
-                                                <SelectLoginSign isSelect={(isSelectLoginSignup === "signup" ? true : false)} onClick={selectSignup}>
-                                                    회원가입
-                                                </SelectLoginSign>
-                                            </Col>
-                                        </Row>
-                                    </Col>
+                    <>
+                        <LoginBtnBox>
+                            <LoginValueBtn onClick={() => navigate('/cart')} >장바구니</LoginValueBtn>
+                            <LoginValueBtn onClick={doingLogin}>로그인</LoginValueBtn>
+                            <Modal
+                                open={openLoginModal}
+                                onClose={handleLoginModalClose}
+                            >
+                                <Box sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    width: '55%',
+                                    bgcolor: 'background.paper',
+                                    boxShadow: 24,
+                                    borderRadius: '5px',
+                                    p: 4,
+                                    overflow: 'auto',
+                                    maxHeight: ' 80%'
+                                }}>
+                                    <Row>
+                                        <Col span={12} style={{ borderBottom: "2px solid #393939" }}>
+                                            <Row>
+                                                <Col span={6}>
+                                                    <SelectLoginSign isSelect={(isSelectLoginSignup === "login" ? true : false)} onClick={selectLogin}>
+                                                        로그인
+                                                    </SelectLoginSign>
+                                                </Col>
+                                                <Col span={6}>
+                                                    <SelectLoginSign isSelect={(isSelectLoginSignup === "signup" ? true : false)} onClick={selectSignup}>
+                                                        회원가입
+                                                    </SelectLoginSign>
+                                                </Col>
+                                            </Row>
+                                        </Col>
 
-                                    {
-                                        isSelectLoginSignup === "login" ?
-                                            <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo>
-                                                <Row justify={"space-between"}>
-                                                    <Col span={12}>
+                                        {
+                                            isSelectLoginSignup === "login" ?
+                                                <Col span={12} style={{ marginTop: "1.5rem" }}>
+                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo>
+                                                    <Row justify={"space-between"}>
                                                         <Col span={12}>
-                                                            <TextField
-                                                                size="normal"
-                                                                margin="normal"
-                                                                required
-                                                                fullWidth
-                                                                id="email"
-                                                                label="이메일을 입력하세요."
-                                                                name="email"
-                                                                autoComplete="email"
-                                                                autoFocus
-                                                                onChange={settingLogInValueFunction.email}
-                                                                value={logInInfo.email}
-                                                            />
-                                                            <TextField
+                                                            <Col span={12}>
+                                                                <TextField
+                                                                    size="normal"
+                                                                    margin="normal"
+                                                                    required
+                                                                    fullWidth
+                                                                    id="email"
+                                                                    label="이메일을 입력하세요."
+                                                                    name="email"
+                                                                    autoComplete="email"
+                                                                    autoFocus
+                                                                    onChange={settingLogInValueFunction.email}
+                                                                    value={logInInfo.email}
+                                                                />
+                                                                <TextField
 
-                                                                margin="dense"
-                                                                required
-                                                                fullWidth
-                                                                name="password"
-                                                                label="비밀번호를 입력하세요"
-                                                                type="password"
-                                                                id="password"
-                                                                autoComplete="current-password"
-                                                                size="normal"
-                                                                onChange={settingLogInValueFunction.password}
-                                                                value={logInInfo.password}
-                                                            />
+                                                                    margin="dense"
+                                                                    required
+                                                                    fullWidth
+                                                                    name="password"
+                                                                    label="비밀번호를 입력하세요"
+                                                                    type="password"
+                                                                    id="password"
+                                                                    autoComplete="current-password"
+                                                                    size="normal"
+                                                                    onChange={settingLogInValueFunction.password}
+                                                                    value={logInInfo.password}
+                                                                />
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                <Button variant="contained" fullWidth style={{
+                                                                    boxShadow: 'none',
+                                                                    fontSize: '1.5rem',
+                                                                    padding: '1rem 0px',
+                                                                }}
+                                                                    onClick={LoginBtnOnclick}
+                                                                >
+                                                                    로그인
+                                                                </Button>
+                                                            </Col>
+
                                                         </Col>
-                                                        <Col span={12}>
-                                                            <Button variant="contained" fullWidth style={{
-                                                                boxShadow: 'none',
-                                                                fontSize: '1.5rem',
+                                                        <Col span={12} style={{ marginTop: "1.5rem" }}>
+                                                            <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
+
+                                                            <SnsLoginBtn naver>
+                                                                <SnsIconWrapper >
+                                                                    <img src={naverBtn} alt="NAVER" width={"95%"} />
+
+                                                                </SnsIconWrapper>
+                                                                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
+                                                            </SnsLoginBtn>
+                                                            <SnsLoginBtn >
+                                                                <SnsIconWrapper >
+                                                                    <img src={kakaoBtn} alt="KAKAO" width={"98%"} />
+
+                                                                </SnsIconWrapper>
+                                                                <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 로그인</Typo>
+                                                            </SnsLoginBtn>
+                                                        </Col>
+
+                                                        <Col span={12} >
+                                                            <Divider></Divider>
+
+                                                            <Button variant="outlined" fullWidth size="large" style={{
+                                                                fontSize: '1.3rem',
                                                                 padding: '1rem 0px',
-                                                            }}
-                                                                onClick={LoginBtnOnclick}
-                                                            >
-                                                                로그인
-                                                            </Button>
+                                                            }}>비회원으로 구매하기</Button>
                                                         </Col>
+                                                    </Row>
+                                                </Col>
+                                                :
 
-                                                    </Col>
-                                                    <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                        <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
+                                                <Col span={12} style={{ marginTop: "1.5rem" }}>
+                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>회원가입하기</Typo>
+                                                    <Row justify={"space-between"}>
+                                                        <Col span={12} >
+                                                            <Col span={12}>
+                                                                <TextField
+                                                                    size="normal"
+                                                                    margin="normal"
+                                                                    required
+                                                                    fullWidth
+                                                                    id="email"
+                                                                    label="이메일을 입력하세요."
+                                                                    name="email"
+                                                                    autoComplete="email"
+                                                                    onChange={settingSingUpValueFunction.email}
+                                                                    value={signUpInfo.email}
+                                                                />
+                                                                <TextField
 
-                                                        <SnsLoginBtn naver>
-                                                            <SnsIconWrapper >
-                                                                <img src={naverBtn} alt="NAVER" width={"95%"} />
+                                                                    margin="normal"
+                                                                    required
+                                                                    fullWidth
+                                                                    name="password"
+                                                                    label="비밀번호를 입력하세요"
+                                                                    type="password"
+                                                                    id="password"
+                                                                    autoComplete="current-password"
+                                                                    size="normal"
+                                                                    onChange={settingSingUpValueFunction.password}
+                                                                    value={signUpInfo.password}
+                                                                />
 
-                                                            </SnsIconWrapper>
-                                                            <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
-                                                        </SnsLoginBtn>
-                                                        <SnsLoginBtn >
-                                                            <SnsIconWrapper >
-                                                                <img src={kakaoBtn} alt="KAKAO" width={"98%"} />
-
-                                                            </SnsIconWrapper>
-                                                            <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 로그인</Typo>
-                                                        </SnsLoginBtn>
-                                                    </Col>
-
-                                                    <Col span={12} >
-                                                        <Divider></Divider>
-
-                                                        <Button variant="outlined" fullWidth size="large" style={{
-                                                            fontSize: '1.3rem',
-                                                            padding: '1rem 0px',
-                                                        }}>비회원으로 구매하기</Button>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                            :
-
-                                            <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>회원가입하기</Typo>
-                                                <Row justify={"space-between"}>
-                                                    <Col span={12} >
-                                                        <Col span={12}>
-                                                            <TextField
-                                                                size="normal"
-                                                                margin="normal"
-                                                                required
-                                                                fullWidth
-                                                                id="email"
-                                                                label="이메일을 입력하세요."
-                                                                name="email"
-                                                                autoComplete="email"
-                                                                onChange={settingSingUpValueFunction.email}
-                                                                value={signUpInfo.email}
-                                                            />
-                                                            <TextField
-
-                                                                margin="normal"
-                                                                required
-                                                                fullWidth
-                                                                name="password"
-                                                                label="비밀번호를 입력하세요"
-                                                                type="password"
-                                                                id="password"
-                                                                autoComplete="current-password"
-                                                                size="normal"
-                                                                onChange={settingSingUpValueFunction.password}
-                                                                value={signUpInfo.password}
-                                                            />
-
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                <Button variant="contained" fullWidth style={{
+                                                                    boxShadow: 'none',
+                                                                    fontSize: '1.5rem',
+                                                                    padding: '1rem 0px',
+                                                                }}
+                                                                    onClick={SignupBtnOnclick}
+                                                                >
+                                                                    가입신청
+                                                                </Button>
+                                                            </Col>
                                                         </Col>
-                                                        <Col span={12}>
-                                                            <Button variant="contained" fullWidth style={{
-                                                                boxShadow: 'none',
-                                                                fontSize: '1.5rem',
-                                                                padding: '1rem 0px',
-                                                            }}
-                                                                onClick={SignupBtnOnclick}
-                                                            >
-                                                                가입신청
-                                                            </Button>
-                                                        </Col>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                    }
-                                </Row>
+                                                    </Row>
+                                                </Col>
+                                        }
+                                    </Row>
 
 
 
-                            </Box>
-                        </Modal>
-                        <CategoryBox login onClick={doingSignup} >회원가입</CategoryBox>
-                    </LoginBtnBox>
+                                </Box>
+                            </Modal>
+                            <LoginValueBtn onClick={doingSignup} >회원가입</LoginValueBtn>
+                        </LoginBtnBox>
+                    </>
             }
 
 

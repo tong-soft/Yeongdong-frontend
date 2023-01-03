@@ -6,6 +6,7 @@ import HomeRouter from "./HomeRouter"
 import GoodsRouter from "./GoodsRouter"
 import ServicecenterRouter from "./ServicecenterRouter"
 import CollectionsRouter from "./CollectionsRouter"
+import CartRouter from "./CartRouter"
 
 const youngDongRouter = ({ role }) => {
     console.log(role)
@@ -38,6 +39,10 @@ const youngDongRouter = ({ role }) => {
                     />} />
                 <Route exact path="/collections" element={
                     <CollectionsRouter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/cart" element={
+                    <CartRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
             </Routes>
