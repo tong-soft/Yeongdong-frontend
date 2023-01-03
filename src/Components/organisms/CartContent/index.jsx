@@ -113,13 +113,13 @@ const CartContent = ({
                                     <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
                                         <CheckBox checked={isCheckedAll} onChange={checkedAllOnchange} size={"1.7rem"} />
                                         <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>
-                                            전체선택
+                                            전체 선택
                                         </span>
                                     </label>
                                     <div style={{ height: "1rem", borderRight: "1px solid #dddddd", margin: "0 1.5rem" }}></div>
                                     <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
                                         <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>
-                                            선택삭제
+                                            선택 삭제
                                         </span>
                                     </label>
                                 </Col>
