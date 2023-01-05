@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import HomeRouter from "./HomeRouter"
+import LoginRouter from "./LoginRouter"
 import GoodsRouter from "./GoodsRouter"
 import ServicecenterRouter from "./ServicecenterRouter"
 import CollectionsRouter from "./CollectionsRouter"
@@ -15,6 +16,10 @@ const youngDongRouter = ({ role }) => {
             <Routes>
                 <Route exact path="/" element={
                     <HomeRouter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/login" element={
+                    <LoginRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
                 <Route exact path="/goods/:id/:product" element={

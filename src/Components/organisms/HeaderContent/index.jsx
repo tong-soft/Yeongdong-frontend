@@ -18,6 +18,7 @@ import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import { useEffect } from "react"
+import LoginNaver from "../../../mocks/LoginTest/LoginNaver"
 
 
 const IconHeader = styled.div`
@@ -104,8 +105,7 @@ const LoginValueBtn = styled.div`
 
 const SnsLoginBtn = styled.div`
     margin : 5px 0;
-    padding : 1rem;
-
+    height : 4.5rem;
     width: 100%;
     display:flex;
     align-items:center;
@@ -115,12 +115,13 @@ const SnsLoginBtn = styled.div`
     cursor : pointer;
 `
 const SnsIconWrapper = styled.div`
-  display:flex;
+    display:flex;
     align-items:center;
     justify-content:center;
-    width : 2rem;
+    width : 5rem;
+    padding :0 10px;
+    height : 100%;
     border-right:1px solid white;
-    padding : 1rem;
     cursor : pointer;
 
 `
@@ -358,7 +359,12 @@ const HeaderContent = ({ logined, role, }) => {
     }
     //!SECTION
 
-
+    const handleNaverLogin = () => {
+        if (document && document?.querySelector("#naverIdLogin")?.firstChild && window !== undefined) {
+            const loginBtn = document.getElementById("naverIdLogin")?.firstChild;
+            loginBtn.click();
+        }
+    }
 
 
     return (
@@ -455,24 +461,28 @@ const HeaderContent = ({ logined, role, }) => {
                                                             </Col>
 
                                                         </Col>
+                                                        {/* //SECTION - 소셜로그인 */}
                                                         <Col span={12} style={{ marginTop: "1.5rem" }}>
                                                             <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
 
-                                                            <SnsLoginBtn naver>
+                                                            <SnsLoginBtn naver onClick={handleNaverLogin}>
                                                                 <SnsIconWrapper >
-                                                                    <img src={naverBtn} alt="NAVER" width={"95%"} />
+                                                                    <img src={naverBtn} alt="NAVER" width={"80%"} />
 
                                                                 </SnsIconWrapper>
                                                                 <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
                                                             </SnsLoginBtn>
                                                             <SnsLoginBtn >
                                                                 <SnsIconWrapper >
-                                                                    <img src={kakaoBtn} alt="KAKAO" width={"98%"} />
+                                                                    <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
 
                                                                 </SnsIconWrapper>
                                                                 <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 로그인</Typo>
                                                             </SnsLoginBtn>
+                                                            <LoginNaver style={{ display: "none" }}></LoginNaver>
+
                                                         </Col>
+                                                        {/* //!SECTION - 소셜로그인 */}
 
                                                         <Col span={12} >
                                                             <Divider></Divider>
@@ -535,9 +545,6 @@ const HeaderContent = ({ logined, role, }) => {
                                                 </Col>
                                         }
                                     </Row>
-
-
-
                                 </Box>
                             </Modal>
                             <LoginValueBtn onClick={doingSignup} >회원가입</LoginValueBtn>
