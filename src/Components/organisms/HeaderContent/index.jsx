@@ -11,14 +11,14 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import naverBtn from "../../../assets/icons/naverBtn.png"
 import kakaoBtn from "../../../assets/icons/kakaoBtn.png"
-import login_process from "../../../service/utils/login_progress"
-import signup_process from "../../../service/utils/signup_progress"
-import logout_process from "../../../service/utils/logout_progress"
+import login_process from "../../../service/auth/login_progress"
+import signup_process from "../../../service/auth/signup_progress"
+import logout_process from "../../../service/auth/logout_progress"
 import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import { useEffect } from "react"
-import LoginNaver from "../../../mocks/LoginTest/LoginNaver"
+import LoginNaver from "../../../service/auth/naver_login"
 
 
 const IconHeader = styled.div`
@@ -416,8 +416,9 @@ const HeaderContent = ({ logined, role, }) => {
                                         {
                                             isSelectLoginSignup === "login" ?
                                                 <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo>
+                                                    {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo> */}
                                                     <Row justify={"space-between"}>
+                                                        {/* 
                                                         <Col span={12}>
                                                             <Col span={12}>
                                                                 <TextField
@@ -460,7 +461,8 @@ const HeaderContent = ({ logined, role, }) => {
                                                                 </Button>
                                                             </Col>
 
-                                                        </Col>
+                                                        </Col> 
+                                                        */}
                                                         {/* //SECTION - 소셜로그인 */}
                                                         <Col span={12} style={{ marginTop: "1.5rem" }}>
                                                             <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
@@ -497,9 +499,9 @@ const HeaderContent = ({ logined, role, }) => {
                                                 :
 
                                                 <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>회원가입하기</Typo>
+                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 회원가입하기</Typo>
                                                     <Row justify={"space-between"}>
-                                                        <Col span={12} >
+                                                        {/* <Col span={12} >
                                                             <Col span={12}>
                                                                 <TextField
                                                                     size="normal"
@@ -540,7 +542,27 @@ const HeaderContent = ({ logined, role, }) => {
                                                                     가입신청
                                                                 </Button>
                                                             </Col>
+                                                        </Col> */}
+
+                                                        <Col span={12} style={{ marginTop: "1.5rem" }}>
+                                                            <SnsLoginBtn naver onClick={handleNaverLogin}>
+                                                                <SnsIconWrapper >
+                                                                    <img src={naverBtn} alt="NAVER" width={"80%"} />
+
+                                                                </SnsIconWrapper>
+                                                                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 회원가입</Typo>
+                                                            </SnsLoginBtn>
+                                                            <SnsLoginBtn >
+                                                                <SnsIconWrapper >
+                                                                    <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
+
+                                                                </SnsIconWrapper>
+                                                                <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 회원가입</Typo>
+                                                            </SnsLoginBtn>
+                                                            <LoginNaver style={{ display: "none" }}></LoginNaver>
+
                                                         </Col>
+
                                                     </Row>
                                                 </Col>
                                         }

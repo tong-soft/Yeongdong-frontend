@@ -220,6 +220,8 @@ const HomeContent = () => {
         navigate(`/goods/${id}/monk`)
     }
 
+
+
     return (
         <>
             <Carousel autoplay>
@@ -275,10 +277,10 @@ const HomeContent = () => {
                             </Col>
 
                             {
-                                hotItemArr.map((lists) => {
+                                hotItemArr.map((lists, index) => {
                                     return (
 
-                                        <Col span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                        <Col key={index} span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                             <div
                                                 onClick={() => { monkOnClick(lists.id) }}
                                                 key={lists.id}

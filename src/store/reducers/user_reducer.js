@@ -14,7 +14,9 @@ export default (state, action) => {
         ...action.user,
       };
     case ACTION.DELETE_USER:
-      return {};
+      return {
+        role: 'GUEST',
+      };
     default:
       return { ...state };
   }

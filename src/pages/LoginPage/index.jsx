@@ -1,31 +1,50 @@
 import React, { useEffect } from "react";
 import Header from "../../Containers/redux/components/Header"
 import Footer from "../../layout/Footer";
-import { Row, Col, ContentStyle } from "../../layout"
-import LoginNaver from "../../mocks/LoginTest/LoginNaver";
+import { ContentStyle } from "../../layout"
+import post_naver_token from "../../service/api/post/post_naver_token";
+import LoginProcess from "../../service/auth/login_progress";
+import _ from "../../config/env"
 import { useNavigate } from "react-router-dom";
+const LoginPage = () => {
 
-const Goods = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (window.location.href.includes('access_token')) {
-            window.localStorage.setItem('token', window.location.href.split('=')[1].split('&')[0] ?? 'none');
-            navigate('/');
+            const token = window.location.href.split('=')[1].split('&')[0] ?? 'null'
+            console.log(token);
+            if (token !== null) {
+
+                navigate('/')
+                post_naver_token(token).then((res) => {
+                    console.log(res.response);
+                    LoginProcess(res.response.accessToken);
+                }).catch((err) => {
+                    //TODO LoginProcess() remove'
+                    console.log(err);
+                })
+            }
+
+
         };
-    }, [])
+        if (window.location.href.includes('error')) {
+            window.alert("로그인에 실패하였습니다.")
+            window.location.replace(_.HOST_URL + `/youngdong-app`)
+
+        }
+
+
+
+    }, [navigate])
     return (
         <>
             <Header />
             <ContentStyle>
-                <Row>
-                    <Col span={9}>
-                    </Col>
-                </Row>
             </ContentStyle>
             <Footer></Footer>
         </>
     )
 }
 
-export default Goods;
+export default LoginPage;
