@@ -6,7 +6,7 @@ import { notification } from 'antd';
  * @method GET
  */
 const get_my_simple_info = () => {
-  return fetch(`${_.SERVER_URL}/api/account/v1/me/`, {
+  return fetch(`${_.SERVER_URL}/api/account/v1/me/profile`, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('young-dong'),
@@ -22,7 +22,7 @@ const get_my_simple_info = () => {
       let err = await error.then();
       console.log(err);
       notification['error']({
-        message: `전체 goods 가져오기 ❌`,
+        message: `간단정보 받아오기 ❌`,
         description: err.errorName || err.errorCode,
         duration: 2,
       });

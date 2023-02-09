@@ -1,65 +1,234 @@
 import React, { useEffect, useState } from "react";
 import GoodsContent from "../../../Components/organisms/GoodsContent"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
+import get_product_info from "../../../service/api/get/get_product_info"
+import { notification } from 'antd';
+import post_product_questions from "../../../service/api/post/post_product_question";
 
 
-const ContentContainer = ({ role }) => {
+const ContentContainer = ({ role, product }) => {
+
+    /**
+     * @hook useState
+     * @description 상품 정보
+     */
+    const [productInfo, setProductInfo] = useState({
+        id: null,
+        name: null,
+        originalPrice: null,
+        thumbnailImg: null,
+        description: null,
+        amount: null,
+        discount: null,
+        sellingPrice: null,
+        orderCount: 1,
+        orderCost: null,
+
+    })
+
+
+
     const { id } = useParams();
+    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
+        get_product_info(id)
+            .then((res) => {
+                const data = res.response;
+                console.log("🚀 ~ res.response", data);
+                setProductInfo((state) => ({
+                    ...state,
+                    id: data.id,
+                    name: data.name,
+                    originalPrice: data.originalPrice,
+                    thumbnailImg: `img_${id}`,
+                    description: data.description,
+                    amount: data.amount,
+                    sellingPrice: data.sellingPrice,
+                    discount: Math.ceil(100 - (data.sellingPrice / data.originalPrice * 100))
+
+                }))
+
+            })
+            .catch((err) => console.log(err))
+
     }, [id])
+
+
+
+    //SECTION - option 옵션
 
     //NOTE - options Arr
     const productOptions = ["도자기", "미니흔들", "화분", "무드등"]
 
-    //NOTE - user가 선택한 상품(push(productDefaultValue))
+    //NOTE - user가 선택한 옵션(push(productDefaultValue))
     // const [productValue, setProductValue] = useState([])
     const [selectOption, setSelectOption] = useState('')
 
 
-    //TODO 이게 지금 선택한 product
+    //TODO 이게 지금 선택한 product // 받아오기
     const [userProductObj, setUserProductObj] = useState({})
 
     console.log("🚀 ~ userProductObj", userProductObj);
 
     //NOTE - user가 옵션 선택 handleFunc
-    const selectHandleFunc = (e) => {
-        const value = e.target.value
-        setSelectOption(value)
+    const selectHandleFunc = (option) => {
+        setSelectOption(option)
         // setProductValue((state) => ([...state, { option: value, amount: 1 }]))
-        console.log(value)
-        setUserProductObj((state) => ({ ...state, [value]: 1 }))
+        setUserProductObj((state) => ({ ...state, [option]: 1 }))
     }
-    //NOTE - user가 수량 선택 handleFunc
+    //NOTE - user가 옵션 수량 선택 handleFunc
     const amountHandleFunc = (e, option) => {
         const value = e.target.value;
-        console.log(value)
         setUserProductObj((state) => ({ ...state, [option]: value }))
     }
     const amountIconHandleFunc = {
         minus: (option) => {
             setUserProductObj((state) => ({ ...state, [option]: state[option] - 1 }))
-
         },
         plus: (option) => {
             setUserProductObj((state) => ({ ...state, [option]: state[option] + 1 }))
-
         },
     }
 
     const productDeleteHandleFunc = (key) => {
-        const swallowObj = Object.assign({}, userProductObj);
+        const swallowObj = { ...userProductObj };
         delete swallowObj[key];
-        console.log(swallowObj)
         setUserProductObj(swallowObj);
+        setUserProductObj(swallowObj)
+    }
+    //!SECTION - option 옵션
+
+    // SECTION - 일단 갯수 카운트 햄수 
+    //TODO 옵션 사용 유뮤 후 자우기 
+    const orderCountHandler = (e) => {
+        const value = Number(e.target.value);
+        setProductInfo((state) => ({ ...state, orderCount: value, orderCost: value * productInfo.discountCost }))
+    }
+    // !SECTION - 일단 갯수 카운트 햄수 
+
+    //SECTION - .장바구니
+    /** NOTE 장바구니 아이콘 제품 클릭시 열리는 모달
+* @description 장바구니 아이콘 제품 클릭시 열리는 모달
+*/
+    const [isCartAlertVisible, setCartAlertVisible] = useState(false);
+
+    const cartAlertModal = {
+        show: () => setCartAlertVisible(true),
+        close: () => setCartAlertVisible(false)
+    }
+    /**
+    * @description 장바구니 추가  클릭 시
+    * @type {Function} 
+    * @detail productId로 GET -> localStorage에 {cartItem } 
+
+    */
+    const addCartOnClick = () => {
+        //localStorage에 카트상품리스트가 없다면 생성
+        if (localStorage.getItem('cartProductList') === null) {
+            cartAlertModal.show();
+            localStorage.setItem('cartProductList', JSON.stringify([productInfo]));
+            return;
+        } else {
+            const getCartProductList = JSON.parse(localStorage.getItem('cartProductList')); //문자형으로 된 자료를 다시 배열로 바꾸기
+            if (getCartProductList.findIndex(products => products.id === productInfo.id) !== -1) {
+                return notification['warning']({
+                    message: `이미 장바구니에 있는 제품입니다.`,
+                    description: `장바구니를 확인해 주세요`,
+                });
+            }
+            getCartProductList.push(productInfo);
+            console.log("🚀 ~ getCartProductList", getCartProductList);
+            localStorage.setItem('cartProductList', JSON.stringify(getCartProductList));
+            cartAlertModal.show();
+        }
+
+    }
+    //!SECTION - .장바구니
+
+    //SECTION - 제품 문의
+    /**
+    * @description 제품 문의 글쓰기 모달 
+    * @hook useState 
+    */
+    const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
+    const questionModalHandler = {
+        show: () => setIsQuestionModalOpen(true),
+        close: () => setIsQuestionModalOpen(false)
     }
 
 
+    /**
+    * @description 제품 문의 글쓰기 
+    * @type {Function} 
+    * @detail 제품문의 글쓰기 모달 open
+    */
+    const productQuestionOnClick = () => {
+        setProductQuestionData({
+            title: '',
+            content: ''
+        })
+        questionModalHandler.show();
+    }
+
+    /**
+   * @description 제품 문의 data
+   * @hook useState 
+   */
+    const [productQuestionData, setProductQuestionData] = useState({
+        title: '',
+        content: ''
+    })
+
+    const productQuestionFunc = {
+        title: (e) => setProductQuestionData({ ...productQuestionData, title: e.target.value }),
+        content: (e) => setProductQuestionData({ ...productQuestionData, content: e.target.value })
+    }
+
+    /**
+    * @description 제품 문의 저장 
+    * @type {Function}
+    */
+    const productQuestionSaveOnClick = () => {
+        const { title, content } = productQuestionData;
+        if (title === '' || content === '') {
+            return notification['warning']({
+                message: `문의종류와 내용을 입력해주세요`,
+            })
+        }
+        post_product_questions(productInfo.id, productQuestionData)
+            .then((res) => {
+                console.log(res);
+                setProductQuestionData({
+                    title: '',
+                    content: ''
+                })
+            })
+            .catch((err) => console.log(err))
+
+        questionModalHandler.close();
+    }
+    //!SECTION - 제품 문의
+
+
+
+    /**
+     * @description 결제하기 클릭 시
+     * @type {Function} 
+     */
+    const paymentBtnOnClick = () => {
+        console.log("결제하기 클릭")
+        localStorage.setItem('youngdong_order_list', JSON.stringify([productInfo]));
+        navigate('/order/checkout')
+    }
+
+    console.log(product)
 
     return (
         <>
             <GoodsContent
                 role={role}
+                productInfo={productInfo}
                 productOptions={productOptions}
                 userProductObj={userProductObj}
                 selectOption={selectOption}
@@ -67,9 +236,21 @@ const ContentContainer = ({ role }) => {
                 amountHandleFunc={amountHandleFunc}
                 amountIconHandleFunc={amountIconHandleFunc}
                 productDeleteHandleFunc={productDeleteHandleFunc}
+                paymentBtnOnClick={paymentBtnOnClick}
+                orderCountHandler={orderCountHandler}
+                addCartOnClick={addCartOnClick}
+
+                isCartAlertVisible={isCartAlertVisible}
+                cartAlertModal={cartAlertModal}
+                isQuestionModalOpen={isQuestionModalOpen}
+                questionModalHandler={questionModalHandler}
+                productQuestionOnClick={productQuestionOnClick}
+                productQuestionFunc={productQuestionFunc}
+                productQuestionSaveOnClick={productQuestionSaveOnClick}
+                productQuestionData={productQuestionData}
             />
         </>
     )
 }
 
-export default ContentContainer;
+export default React.memo(ContentContainer);

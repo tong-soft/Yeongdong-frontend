@@ -3,7 +3,7 @@ import { Row, Col } from "../../../layout"
 import { useNavigate } from "react-router-dom"
 import { Image, Typo, GoodsImg } from "../../index"
 import styled from "styled-components"
-import mainImage from "../../../assets/images/mainImage.png"
+// import mainImage from "../../../assets/images/mainImage2.png"
 import liveCommerceIcon from "../../../assets/icons/liveCommerceIcon.png"
 import carousel_1 from "../../../assets/images/carousel_1.png"
 import carousel_2 from "../../../assets/images/carousel_2.png"
@@ -11,12 +11,17 @@ import carousel_3 from "../../../assets/images/carousel_3.png"
 import carousel_4 from "../../../assets/images/carousel_4.png"
 import carousel_5 from "../../../assets/images/carousel_5.png"
 
+import HomeMainMonk from "../../../mocks/HomeMainMonk.jpg"
+import HomeMainMonk2 from "../../../mocks/HomeMainMonk2.jpg"
+
+
 
 import monkLists from "../../../mocks/lists"
 
 
 import { Carousel } from 'antd';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+
 
 
 const CarouselWrapper = styled.div`
@@ -217,7 +222,7 @@ const HomeContent = () => {
     }
 
     const monkOnClick = (id) => {
-        navigate(`/goods/${id}/monk`)
+        navigate(`/goods/${id}`)
     }
 
 
@@ -226,17 +231,20 @@ const HomeContent = () => {
         <>
             <Carousel autoplay>
                 <div>
-                    <Image src={mainImage} width={"100%"} ></Image>
+                    <Image src={HomeMainMonk} width={"100%"} ></Image>
                 </div>
+                <div>
+                    <Image src={HomeMainMonk2} width={"100%"} ></Image>
+                </div>
+                {/*
                 <div>
                     <Image src={mainImage} width={"100%"} ></Image>
                 </div>
                 <div>
                     <Image src={mainImage} width={"100%"} ></Image>
                 </div>
-                <div>
-                    <Image src={mainImage} width={"100%"} ></Image>
-                </div>
+                */}
+
             </Carousel>
             <Row justify={"center"}>
                 <Col span={12}>
@@ -288,7 +296,8 @@ const HomeContent = () => {
                                                 style={{
                                                     display: "flex",
                                                     boxSizing: 'border-box',
-                                                    cursor: "pointer"
+                                                    cursor: "pointer",
+                                                    width: '100%'
                                                 }}>
                                                 <Row justify={"center"} align={"center"}>
 
@@ -331,7 +340,9 @@ const HomeContent = () => {
                     <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
                         <Row>
                             <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
-                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"}>영동언니의 시그니처&nbsp;{">"}</Typo>
+                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate('/collections/signature')} >
+                                    영동언니의 시그니처&nbsp;{">"}
+                                </Typo>
                             </Col>
                             {
                                 signatureArr.map((lists) => {

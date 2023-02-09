@@ -13,6 +13,7 @@ export default env === 'development'
       CALLBACK_URL: _.DEV_CALLBACK_URL,
       CLIENT_SECRET: _.CLIENT_SECRET,
       SERVER_URL: _.DEV_SERVER_URL,
+      BASE_URL: _.DEV_BASE_URL,
     }
   : {
       ..._,

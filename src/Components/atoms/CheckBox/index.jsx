@@ -5,7 +5,7 @@ const CheckboxContainer = styled.div`
   display: flex;
   justify-items:center ;
   vertical-align: middle;
-  margin-right: 0.8rem;
+  margin-right :  ${props => props.marginRight || `0.8rem`};
 `
 
 const Icon = styled.svg`
@@ -44,15 +44,15 @@ const StyledCheckbox = styled.div`
   }
 `
 
-const Checkbox = ({ className, size, checked, onChange, ...props }) => (
-    <CheckboxContainer className={className}>
-        <HiddenCheckbox checked={checked} onChange={onChange} {...props} />
-        <StyledCheckbox size={size} checked={checked} >
-            <Icon viewBox="0 0 24 24">
-                <polyline points="20 6 9 17 4 12" />
-            </Icon>
-        </StyledCheckbox>
-    </CheckboxContainer>
+const Checkbox = ({ marginRight, className, size, checked, onChange, ...props }) => (
+  <CheckboxContainer marginRight={marginRight} className={className}>
+    <HiddenCheckbox checked={checked} onChange={onChange} {...props} />
+    <StyledCheckbox size={size} checked={checked} >
+      <Icon viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </Icon>
+    </StyledCheckbox>
+  </CheckboxContainer>
 )
 
 export default Checkbox

@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, Btn, Divider, CheckBox, } from "../../index"
-import counselingExp from "../../../assets/images/counselingExp.png"
-import inquiryIcon from "../../../assets/icons/inquiryIcon.png"
-import announceIcon from "../../../assets/icons/announceIcon.png"
-import { Table, } from 'antd';
-import { useNavigate, useParams } from "react-router-dom"
-
+import { Image, Typo, Btn, CheckBox, } from "../../index"
 import styled from "styled-components"
-import monkLists from "../../../mocks/lists"
 import CloseIcon from '@mui/icons-material/Close';
-import { width } from "@mui/system"
+import monkImg from "../../../assets/images/monkListImg.png"
+
+
 
 const CountIconWrapper = styled.div`
     border : 1px solid rgb(221, 223, 225);
@@ -29,9 +24,10 @@ const CountIcon = styled.div`
     justify-content : center;
     align-items : center;
     cursor : pointer;
-    ${props => props.count === 0 && props.icon === "minus" ? `
+    ${props => props.count === 1 && props.icon === "minus" ? `
     cursor : default;
     color : #dddddd;
+    pointer-events: none;
     `:
         null} 
     ${props => props.icon === "count" ? `
@@ -41,59 +37,20 @@ const CountIcon = styled.div`
 `
 
 const CartContent = ({
-    role,
+    isCheckedAll,
+    checkedAllOnchange,
+    cartData,
+    checkedArr,
+    checkedGoodsOnchange,
+    goodsDeleteIconOnClick,
+    orderCountHandler,
+    orderHandler,
+    totalProductCost,
+    totalPaymentCost,
+    totalDiscountCost,
+    deliveryFee,
+
 }) => {
-    //NOTE - 장바구니 기본 Data
-    const [cartData, setCartData] = useState([])
-
-
-    useEffect(() => {
-        //TODO cartData setting MonkData 
-        setCartData([])
-        for (let i = 0; i < 5; i++) {
-            setCartData((state) => [...state, Object.assign({ cartSelected: false }, monkLists[i])])
-        }
-    }, []);
-
-    //NOTE - 전체선택 
-    const [isCheckedAll, setCheckedAll] = useState(false)
-    const checkedAllOnchange = (e) => {
-        console.log(e.target.checked)
-        if (e.target.checked) {
-            return setCheckedAll(true)
-        }
-        if (!e.target.checked) {
-            return setCheckedAll(false)
-        }
-    }
-
-    //NOTE - 선택 데이터
-    const [checkedArr, setCheckedArr] = useState([]);
-
-    const checkedGoodsOnchange = (e, goodsId) => {
-        console.log(e.target.checked)
-        if (e.target.checked) {
-            console.log("checked true")
-            if (checkedArr.includes(goodsId)) return null;
-
-            setCheckedArr((state) => ([...state,
-                goodsId
-            ]))
-        }
-        if (!e.target.checked) {
-            console.log("나가리")
-            return setCheckedArr((state) =>
-                state.filter(valueId => valueId !== goodsId)
-            )
-        }
-    }
-
-    // NOTE - 장바구니 제거
-    const goodsDeleteIconOnClick = (goodsId) => {
-        setCartData((state) => state.filter(goods => goods.id !== goodsId))
-    }
-
-    console.log(cartData)
 
     return (
         <>
@@ -101,81 +58,164 @@ const CartContent = ({
                 <Row justify={'center'} style={{ marginTop: "2rem" }}>
                     <Col xs={10} sm={10} md={10} lg={9} xl={9} xxl={9.5} span={9.5} align={'center'}>
                         <Row >
+
+
                             <Col span={12} justify={'flex-start'}>
                                 <Typo size={'2rem'} fontFamily={'Jeju'}>장바구니</Typo>
                             </Col>
-                            <Row justify={"space-between"} align={"center"} style={{ marginTop: "3rem" }}>
-                                <Col span={12} align={"center"} style={{ padding: "1.5rem 0 ", borderBottom: "1px solid rgb(51, 51, 51)" }}>
-                                    {/* <CheckBox defaultChecked={isCheckedAll} onChange={checkedAllOnchange}
-                                        options={["전체선택"]} style={{
-                                            fontSize: "1rem",
-                                        }} /> */}
-                                    <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
-                                        <CheckBox checked={isCheckedAll} onChange={checkedAllOnchange} size={"1.7rem"} />
-                                        <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>
-                                            전체선택
-                                        </span>
-                                    </label>
-                                    <div style={{ height: "1rem", borderRight: "1px solid #dddddd", margin: "0 1.5rem" }}></div>
-                                    <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
-                                        <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>
-                                            선택삭제
-                                        </span>
-                                    </label>
-                                </Col>
-                                <Col span={12} style={{ padding: "1.5rem 0 ", borderBottom: "1px solid rgb(51, 51, 51)" }}>
-                                    <Row>
-                                        {
-                                            cartData.map((goods, index) => {
-                                                return (
-                                                    <Col key={index} span={12} style={{ padding: "1rem 0" }} >
-                                                        <Row align={"center"} justify={"space-between"} >
-                                                            <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
-                                                                <CheckBox checked={checkedArr.includes(goods.id)} onChange={(e) => checkedGoodsOnchange(e, goods.id)} size={"1.7rem"} />
-                                                            </label>
-                                                            <Col span={2}>
-                                                                <Image src={goods.img} width={"100%"}></Image>
-                                                            </Col>
-                                                            <Col span={5} style={{ padding: "0 1rem" }} >
-                                                                <Typo>{goods.title}</Typo>
-                                                                <Divider marginBottom={"10px"} marginTop={'10px'}></Divider>
-                                                                <Typo color={"#777777"}>상품옵션</Typo>
-                                                            </Col>
-                                                            <Col xs={3} span={4} justify={"space-between"} align={"center"}>
-                                                                <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6} span={6} justify={"center"}>
-                                                                    <CountIconWrapper>
-                                                                        <CountIcon count={0} icon={"minus"} >-</CountIcon>
-                                                                        <CountIcon count={0} icon={"count"} >0</CountIcon>
-                                                                        <CountIcon count={0} icon={"plus"} >+</CountIcon>
-                                                                    </CountIconWrapper>
-                                                                </Col>
-                                                                <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6} span={6} justify={"center"} style={{
+                            <Col span={12} justify={'flex-start'}>
+                                <Row justify={"space-between"} align={"center"} style={{ marginTop: "3rem" }}>
+                                    <Col span={12} align={"center"} style={{ padding: "1.5rem 0 ", borderBottom: "1px solid rgb(51, 51, 51)" }}>
+                                        <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
+                                            <CheckBox checked={isCheckedAll} onChange={checkedAllOnchange} size={"1.7rem"} />
+                                            <span style={{ fontSize: "1.2rem", fontWeight: "500" }}>
+                                                전체선택
+                                            </span>
+                                        </label>
+                                    </Col>
+                                    <Col span={12} style={{ padding: "1.5rem 0 " }}>
+                                        <Row >
+                                            {
+                                                cartData.map((goods, index) => {
+                                                    return (
+                                                        <Col key={index} span={12} style={{ padding: "1rem 0", }} >
+                                                            <Row align={"center"} justify={"space-between"} >
+                                                                <label style={{ verticalAlign: "middle", cursor: "pointer", display: "flex", alignItems: "center" }}>
+                                                                    <CheckBox checked={checkedArr.includes(goods.id)} onChange={(e) => checkedGoodsOnchange(e, goods.id)} size={"1.7rem"} />
+                                                                </label>
+                                                                <Col span={2}>
 
-                                                                }}
-                                                                >
                                                                     {
-                                                                        goods.discountRate !== 0 ?
-                                                                            <div style={{ display: "flex", flexDirection: "column" }}>
-                                                                                <Typo color={"#b5b5b5"} style={{ textDecorationLine: "line-through" }} >{goods.price}</Typo>
-                                                                                <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{goods.discountPrice}원</Typo>
-                                                                            </div>
-                                                                            :
-                                                                            <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{goods.discountPrice}원</Typo>
-
+                                                                        goods.thumbnailImg ?
+                                                                            <Image src={require(`../../../mocks/${goods.thumbnailImg}.jpg`)} width={"100%"} height={"fit-content"} />
+                                                                            : <Image src={monkImg} width={"100%"}></Image>
                                                                     }
                                                                 </Col>
 
-                                                            </Col>
-                                                            <CloseIcon style={{ color: "#ccc", cursor: "pointer" }} onClick={() => goodsDeleteIconOnClick(goods.id)} />
-                                                        </Row>
+                                                                <Col span={5} style={{ padding: "0 1rem" }} >
+                                                                    <Col span={12}>
+                                                                        <Typo size={"1.2rem"} weight={"bold"}>{goods.name}</Typo>
+                                                                    </Col>
+                                                                    <Col xs={0} span={12} style={{ paddingTop: "0.5rem" }}>
+                                                                        <Typo color={"#777777"}>{goods.description}</Typo>
 
-                                                    </Col>
-                                                )
-                                            })
-                                        }
-                                    </Row>
-                                </Col>
-                            </Row>
+                                                                    </Col>
+                                                                    {/* <Divider marginBottom={"0.5rem"} marginTop={'0.5rem'}></Divider> */}
+                                                                </Col>
+                                                                <Col xs={3} span={4} justify={"space-between"} align={"center"}>
+                                                                    <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6} span={6} justify={"center"}>
+                                                                        <CountIconWrapper>
+                                                                            <CountIcon count={goods.orderCount} icon={"minus"} onClick={() => { orderCountHandler.minus(goods.id, goods.orderCount) }} >-</CountIcon>
+                                                                            <CountIcon icon={"count"} >{goods.orderCount}</CountIcon>
+                                                                            <CountIcon icon={"plus"} onClick={() => { orderCountHandler.plus(goods.id, goods.orderCount) }}>+</CountIcon>
+                                                                        </CountIconWrapper>
+                                                                    </Col>
+                                                                    <Col xs={12} span={0} style={{ marginTop: "1.5rem" }}>
+                                                                    </Col>
+                                                                    <Col xs={12} span={6} justify={"center"}>
+                                                                        <Col span={6} justify={"flex-end"} align={"center"}>
+                                                                            {
+                                                                                goods.originalPrice === goods.sellingPrice ?
+                                                                                    <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{(goods.orderCount * goods.sellingPrice).toLocaleString()}&nbsp;원</Typo>
+                                                                                    :
+                                                                                    <div style={{ display: "flex", alignItems: "flex-end", flexDirection: "column", position: "relative", width: "auto" }}>
+                                                                                        <Typo color={"#b5b5b5"} style={{ textDecorationLine: "line-through", position: "absolute", top: "-1.5rem", left: "0px" }} >{(goods.orderCount * goods.originalPrice).toLocaleString()}</Typo>
+                                                                                        <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{(goods.orderCount * goods.sellingPrice).toLocaleString()}&nbsp;원</Typo>
+                                                                                    </div>
+                                                                            }
+
+                                                                        </Col>
+                                                                    </Col>
+
+                                                                </Col>
+                                                                <CloseIcon style={{ color: "#ccc", cursor: "pointer" }} onClick={() => goodsDeleteIconOnClick(goods.id)} />
+                                                            </Row>
+
+                                                        </Col>
+                                                    )
+                                                })
+                                            }
+
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </Col>
+
+
+                            <Col span={12} style={{ padding: '2rem 0', borderBottom: '1px solid rgb(51, 51, 51)', borderTop: '1px solid rgb(51, 51, 51)' }}>
+                                <Row gutter={[2, 0]} align={'center'}>
+                                    <Col xs={3} span={2} justify={'center'}>
+                                        <Row>
+                                            <Col span={12} justify={'center'} >
+                                                <Typo size={"1.1rem"} weight={"400"} color={"#333333"}>총 상품금액</Typo>
+                                            </Col>
+                                            <Col justify={'center'} span={12}>
+                                                <Typo size={"1.5rem"} weight={"bold"} color={"#333333"}>{totalProductCost.toLocaleString()}&nbsp;원</Typo>
+                                            </Col>
+                                        </Row>
+
+                                    </Col>
+                                    <Col xs={1.5} span={1} justify={'center'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" strokeWidth="2" stroke="#d3d7df" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M5 12l14 0"></path>
+                                        </svg>
+                                    </Col>
+                                    <Col xs={3} span={2} justify={'center'}>
+                                        <Row>
+                                            <Col span={12} justify={'center'} >
+                                                <Typo size={"1.1rem"} weight={"400"} color={"#333333"}>총 할인금액</Typo>
+                                            </Col>
+                                            <Col justify={'center'} span={12}>
+                                                <Typo size={"1.5rem"} weight={"bold"} color={"#333333"}>{totalDiscountCost.toLocaleString()}&nbsp;원</Typo>
+                                            </Col>
+                                        </Row>
+
+                                    </Col>
+                                    <Col xs={1.5} span={1} justify={'center'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" strokeWidth="2" stroke="#d3d7df" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M12 5l0 14m-7 -7l14 0"></path>
+                                        </svg>
+                                    </Col>
+                                    <Col xs={3} span={2} justify={'center'}>
+                                        <Row>
+                                            <Col span={12} justify={'center'} >
+                                                <Typo size={"1.1rem"} weight={"400"} color={"#333333"}>배송비</Typo>
+                                            </Col>
+                                            <Col justify={'center'} span={12}>
+                                                <Typo size={"1.5rem"} weight={"bold"} color={"#333333"}>{deliveryFee.toLocaleString()}&nbsp;원</Typo>
+                                            </Col>
+                                        </Row>
+
+                                    </Col>
+                                    <Col xs={0} span={1} justify={'center'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" strokeWidth="3" stroke="#0d7000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M12 5v14"></path>
+                                        </svg>
+                                    </Col>
+                                    <Col xs={12} span={0} style={{ paddingTop: '2rem' }}>
+                                    </Col>
+                                    <Col xs={12} span={3} justify={'center'}>
+                                        <Row>
+                                            <Col span={12} justify={'center'} >
+                                                <Typo size={"1.3rem"} weight={"bold"} color={"#333333"}>총 결제금액</Typo>
+                                            </Col>
+                                            <Col justify={'center'} span={12}>
+                                                <Typo size={"1.7rem"} weight={"900"} color={"#0d7000"}>{totalPaymentCost.toLocaleString()}&nbsp;원</Typo>
+                                            </Col>
+                                        </Row>
+
+                                    </Col>
+                                </Row>
+                            </Col>
+
+                            <Col span={12} justify={'center'} align={'center'} style={{ padding: "1.5rem 0 0 0 " }}>
+                                <Btn onClick={orderHandler} types={'primary'} value={"구매하기 "} size={"large"} style={{ width: "50%", padding: "1.6rem 0", fontSize: "1.6rem", fontWeight: "bold", }}></Btn>
+                            </Col>
+
+
                         </Row>
                     </Col>
                 </Row>

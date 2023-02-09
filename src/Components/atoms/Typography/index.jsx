@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 
 const Typo = styled.div`
-display : inline-block;
+display : flex;
 transition: all 0.5s ease  ;
 ${props => (props.full) ? 'width : 100%; justify-content : inherit; flex-basis :100%' : null};
 overflow : inherit;
@@ -20,6 +20,7 @@ cursor : ${props => (props.cursor) || 'inherit'};
 padding : ${props => (props.padding)};
 width : ${props => (props.width) || null};
 text-align : ${props => (props.textAlign) || null};
+line-height :1.5;
 `
 
 

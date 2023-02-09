@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react"
 import styled from "styled-components"
 
-export const Text = styled.input.attrs({ type: 'number' })`
+export const Text = styled.input.attrs({ type: 'number', })`
 /* Chrome, Safari, Edge, Opera */
 ::-webkit-outer-spin-button,
 ::-webkit-inner-spin-button {
@@ -17,11 +17,11 @@ export const Text = styled.input.attrs({ type: 'number' })`
 }
 border : none ;
 
-font-size: 1rem;
+font-size: inherit;
 font-weight : bold;
 
 &:focus{
-    /* outline : none; */
+    outline-color : #0d7000;
 }
 
 @media screen and (max-width: 992px){
@@ -38,10 +38,6 @@ ${props => {
             case "large":
                 return `
                 padding : 12px 20px;
-            `
-            case "default":
-                return `
-                padding : 8px 16px;
             `
             default:
                 return `
@@ -82,7 +78,7 @@ const TextBox = ({ width, autofocus, border, radius, size, block, value, onChang
 
     return (
         <>
-            <Text width={width} ref={ref} border={border} align={align} radius={radius} size={size} color={color}
+            <Text onFocus={e => e.target.select()} width={width} ref={ref} border={border} align={align} radius={radius} size={size} color={color}
                 block={block} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} >
             </Text>
         </>

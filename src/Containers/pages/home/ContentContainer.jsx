@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HomeContent from "../../../Components/organisms/HomeContent"
 
-import get_all_goods from "../../../service/api/get/get_all_goods"
+import get_all_goods from "../../../service/api/get/get_product_all_goods"
 
 const ContentContainer = () => {
     useEffect(() => {

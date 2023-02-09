@@ -1,19 +1,21 @@
 import React from "react";
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, Pagination, GoodsImg } from "../../index"
+import { Image, Typo, GoodsImg, GoodsForm } from "../../index"
 import { Carousel } from 'antd';
-import mainImage from "../../../assets/images/mainImage.png"
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import mainImage from "../../../assets/images/mainImage2.png"
+import Pagination from '@mui/material/Pagination';
 
-
-const CollectionsContent = ({ role,
-    listTotalNum,
+const CollectionsContent = ({
+    sort,
     pagingClick,
     pagingNum,
-    lists
+    lists,
+    collectionProductOnClick,
+    totalPageNum,
+
 }) => {
 
-    const goodsList = lists || [{ id: null, img: null, title: "게시글이없습니다.", desc: null, price: null, discountRate: null, discountPrice: null }]
+    const goodsList = lists || [{ id: null, thumbnailImg: null, name: "게시글이없습니다.", description: null, sellingPrice: null, originalPrice: null, }]
 
 
     return (
@@ -40,7 +42,16 @@ const CollectionsContent = ({ role,
                     {/* //SECTION Title */}
 
                     <Col span={12} justify={"center"} align={"center"} style={{ margin: "50px 0" }}>
-                        <Typo size={'2.5rem'} weight={"bold"} color={"rgb(51,51,51)"} > 전체 상품</Typo>
+                        {
+                            sort === undefined ?
+                                <Typo size={'2.5rem'} weight={"bold"} color={"rgb(51,51,51)"} > 전체 상품</Typo>
+                                : null
+                        }
+                        {
+                            sort === `signature` ?
+                                <Typo size={'2.5rem'} weight={"bold"} color={"rgb(51,51,51)"} > 시그니처</Typo>
+                                : null
+                        }
                     </Col>
                     {/* //!SECTION Title */}
                     {/* //SECTION Content */}
@@ -50,43 +61,32 @@ const CollectionsContent = ({ role,
                             {/* //SECTION list */}
 
                             <Col span={12} justify={"center"} align={"center"}>
-                                <Row justify={"center"} align={"flex-start"}>
+                                <Row justify={"flex-start"} align={"flex-start"}>
                                     {
                                         (goodsList) ?
                                             goodsList.map((lists) => {
                                                 return (
-                                                    <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                                        <Row justify={"center"} align={"center"}>
-                                                            <Col span={12} justify={"center"} align={"center"}>
-                                                                <GoodsImg square imgSrc={lists.img} ></GoodsImg>
-                                                            </Col>
-                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                                <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.title}</Typo>
-                                                            </Col>
-
-                                                            {
-                                                                (lists.discountRate !== 0) ?
-                                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                                        <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{lists.discountRate}%</Typo>
-                                                                        <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                                                                        <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
-                                                                    </Col>
-
-                                                                    :
-                                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                                        <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.discountPrice}원</Typo>
-                                                                    </Col>
-                                                            }
-                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                                <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
-                                                            </Col>
-
-                                                        </Row>
-                                                    </Col>
+                                                    <GoodsForm
+                                                        key={lists.id}
+                                                        id={lists.id}
+                                                        thumbnailImg={lists.thumbnailImg}
+                                                        name={lists.name}
+                                                        originalPrice={lists.originalPrice}
+                                                        sellingPrice={lists.sellingPrice}
+                                                        description={lists.description}
+                                                        productOnClick={() => collectionProductOnClick(lists.id)}
+                                                    />
                                                 )
                                             })
                                             :
-                                            <Typo>등록된 상품이 아직 없습니다.</Typo>
+                                            null
+                                    }
+                                    {
+                                        goodsList.length === 0 ?
+                                            <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                                <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                            </Col>
+                                            : null
                                     }
                                 </Row>
 
@@ -94,7 +94,7 @@ const CollectionsContent = ({ role,
                             {/* //!SECTION list */}
                             {/* //SECTION Pagination */}
                             <Col span={12} justify={'center'}>
-                                <Pagination num={Math.ceil(listTotalNum / 6)} onClick={pagingClick} setPageNum={pagingNum}></Pagination>
+                                <Pagination count={totalPageNum} onChange={pagingClick} key={pagingNum} defaultPage={pagingNum} shape="rounded" />
                             </Col>
                         </Row>
 

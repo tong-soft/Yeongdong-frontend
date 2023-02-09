@@ -23,8 +23,8 @@ ${props => {
         switch (props.types) {
             case "primary":
                 return `
-                background-color: rgb(95,0,128);
-                border : none;
+                background-color: #0d7000;
+                border: #0d7000 1px solid;
                 border-radius : 3px;
                 color : #FFFFFF;
                 font-weight : bold;
@@ -32,9 +32,10 @@ ${props => {
             case "text":
                 return `
                 background-color: rgba(255,255,255,0);
-                border: none;
+                border: #0d7000 1px solid;
+                border-radius : 3px;
                 outline : 0;
-                color : #000000;
+                color : #063600;
             `
             default:
                 return `
@@ -57,9 +58,9 @@ ${props => {
     cursor: pointer;
 `
 
-const Button = ({ href, size, types, block, value, onClick, bold, width, }) => (
+const Button = ({ href, size, types, block, value, onClick, bold, width, style }) => (
     <>
-        <ButtonComponent width={width} href={href} size={size} types={types} block={block} value={value} bold={bold} onClick={onClick}>
+        <ButtonComponent style={style} width={width} href={href} size={size} types={types} block={block} value={value} bold={bold} onClick={onClick}>
 
         </ButtonComponent>
     </>

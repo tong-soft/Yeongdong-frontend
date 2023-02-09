@@ -8,9 +8,11 @@ import GoodsRouter from "./GoodsRouter"
 import ServicecenterRouter from "./ServicecenterRouter"
 import CollectionsRouter from "./CollectionsRouter"
 import CartRouter from "./CartRouter"
-
+import MypageRouter from "./MypageRouter"
+import AdminRouter from "./AdminRouter"
+import OrderRouter from "./OrderRouter"
 const youngDongRouter = ({ role }) => {
-    console.log(role)
+    console.log(`📌router/index📌 role : ${role} `)
     return (
         <BrowserRouter basename="youngdong-app">
             <Routes>
@@ -22,7 +24,7 @@ const youngDongRouter = ({ role }) => {
                     <LoginRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
-                <Route exact path="/goods/:id/:product" element={
+                <Route exact path="/goods/:id/" element={
                     <GoodsRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
@@ -50,6 +52,40 @@ const youngDongRouter = ({ role }) => {
                     <CartRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
+                <Route exact path="/mypage/:menu" element={
+                    <MypageRouter security={["ADMIN", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/mypage" element={
+                    <MypageRouter security={["ADMIN", "USER"]}
+                        role={role}
+                    />} />
+
+
+                {/**
+                    * @description 주문관련 path
+                    * @param  {params} checkout - 주문서 
+                    * @param  {params} complete - 주문완료 
+                */}
+                <Route exact path="/order/:params" element={
+                    <OrderRouter security={["ADMIN", "USER", "GUEST"]}
+                        role={role}
+                    />} />
+                <Route exact path="/order/" element={
+                    <OrderRouter security={["ADMIN", "USER", "GUEST"]}
+                        role={role}
+                    />} />
+
+                {/* ADMIN PAGE */}
+                <Route exact path="/admin/:menu" element={
+                    <AdminRouter security={["ADMIN", "GUEST", "USER"]}
+                        role={role}
+                    />} />
+                <Route exact path="/admin" element={
+                    <AdminRouter security={["ADMIN",]}
+                        role={role}
+                    />} />
+
             </Routes>
         </BrowserRouter>
     )

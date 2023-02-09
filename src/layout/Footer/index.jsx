@@ -16,7 +16,7 @@ const FooterStyle = styled.div`
     background-color:#26272b;   
     padding:45px 0 20px;
   color:#737373;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
   margin-Top : 5rem;
 
 `
@@ -30,42 +30,89 @@ const Footer = ({ children }) => {
                         ABOUT
                     </Col>
                     <Col span={12} justify={'center'} align={"center"} style={{ fontSize: "1.5rem" }} >
-                        Scanfcode.com CODE WANTS TO BE SIMPLE is an initiative to help the upcoming programmers with the code.
-                        Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple.
-                        We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.
+                        <Row gutter={[3, 0]}>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    사업자등록번호
+                                </Col>
+                                <Col span={6}>
+                                    5018131330
+                                </Col>
+                            </Col>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    통신판매업신고번호
+                                </Col>
+                                <Col span={6}>
+                                    2023-충북영동-0002 호
+                                </Col>
+                            </Col>
+                        </Row>
+                        <Row gutter={[3, 0]}>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    대표이사
+                                </Col>
+                                <Col span={6}>
+                                    주성희
+                                </Col>
+                            </Col>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    상호명
+                                </Col>
+                                <Col span={6}>
+                                    주식회사 와이엠컴퍼니
+                                </Col>
+                            </Col>
+                        </Row>
+                        <Row gutter={[3, 0]}>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    이메일
+                                </Col>
+                                <Col span={6}>
+                                    arkhe7080@naver.com
+                                </Col>
+                            </Col>
+                            <Col span={6}>
+                                <Col span={6}>
+                                    고객센터
+                                </Col>
+                                <Col span={6}>
+                                    010-6301-5298
+                                </Col>
+                            </Col>
+
+                        </Row>
                     </Col>
                     <Col span={6} >
                         <Row gutter={[5, 5]}>
                             <Col span={12} style={{ color: "#fff", fontSize: "2rem", letterSpace: "2px", textTransform: "uppercase" }}>
-                                CATEGORIES
+                                고객센터
                             </Col>
 
 
                             <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                UI Design
+                                강원도 춘천시 퇴계로 89 강원전문건설회관
                             </Col>
                             <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                React
+                                전화 1588-3819
                             </Col>
                             <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                Android
+                                결제도용신고 1588-3816
                             </Col>
                         </Row>
                     </Col>
                     <Col span={6} >
                         <Row gutter={[5, 5]}>
                             <Col span={12} style={{ color: "#fff", fontSize: "2rem", letterSpace: "2px", textTransform: "uppercase" }}>
-                                QUICK LINKS
+                                전자금융거래 분쟁처리
                             </Col>
                             <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                About Us
+                                전화 1588-3819
                             </Col>
-                            <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                Contact Us
-                            </Col>
-                            <Col span={12} style={{ fontSize: "1.5rem" }} >
-                                Contribute
-                            </Col>
+
                         </Row>
                     </Col>
                     <Col span={12} justify={"flex-start"} style={{ borderTop: "1px solid #979797", fontSize: "1.5rem", margin: "2rem 0" }}>

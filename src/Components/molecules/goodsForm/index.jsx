@@ -1,47 +1,64 @@
 import React from "react";
 import { Row, Col } from "../../../layout"
-import { Image, Typo } from "../../index"
+import { GoodsImg, Image, Typo } from "../../index"
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import monkImg from "../../../assets/images/monkListImg.png"
 
-
-const goodsForm = ({
+const GoodsForm = ({
     id,
-    img,
-    title,
-    discountRate,
-    discountPrice,
-    desc,
+    thumbnailImg,
+    name,
+    originalPrice,
+    sellingPrice,
+    description,
 
+    //FUNCTION
+    productOnClick,
 }) => {
-    <Col key={id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-        <Row justify={"center"} align={"center"}>
-            <Col span={12} justify={"center"} align={"center"}>
-                <Image src={img} width={"100%"}></Image>
-            </Col>
-            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{title}</Typo>
-            </Col>
+    return (
+        <Col key={id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+            <Row justify={"center"} align={"center"}>
+                <div
+                    onClick={() => productOnClick(id)}
+                    style={{ cursor: "pointer" }}>
 
-            {
-                (discountRate !== 0) ?
-                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                        <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{discountRate}%</Typo>
-                        <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                        <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{discountPrice}원</Typo>
+
+                    <Col span={12} justify={"center"} align={"center"}>
+                        {/* <GoodsImg square imgSrc={imgUrl} ></GoodsImg> */}
+                        {/* TODO 이미지 배포하면 수정 */}
+                        <GoodsImg square imgSrc={require(`../../../mocks/${thumbnailImg}.jpg`)}
+                            productId={id}
+                        // basketIconOnClick={() => basketIconOnClick(id)}
+                        ></GoodsImg>
+
+                    </Col>
+                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                        <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{name}</Typo>
                     </Col>
 
-                    :
-                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                        <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{discountPrice}원</Typo>
-                    </Col>
-            }
-            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{desc}</Typo>
-            </Col>
+                    {
+                        (originalPrice !== sellingPrice) ?
+                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.5rem", }}>
+                                <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{Math.ceil(100 - (sellingPrice / originalPrice * 100))}%</Typo>
+                                <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
+                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{sellingPrice.toLocaleString()}&nbsp;원</Typo>
+                            </Col>
 
-        </Row>
-    </Col>
+                            :
+                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.5rem", }}>
+                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{sellingPrice.toLocaleString()}&nbsp;원</Typo>
+                            </Col>
+                    }
+                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.5rem" }}>
+                        <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{description}</Typo>
+                    </Col>
+                </div>
+
+            </Row>
+        </Col>
+    )
+
 
 }
 
-export default goodsForm;
+export default GoodsForm;

@@ -3,24 +3,29 @@ import { Row, Col } from "../../../layout"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import headerIcon from "../../../assets/icons/youngdongHeaderIcon.png"
-import { Image, Typo, Divider } from "../../../Components/"
-import HamburgerIcon from "../../../assets/icons/hamburgerIcon.png"
-import Button from '@mui/material/Button';
+import { Image, Typo, LoginModalForm, TextBox, Btn } from "../../../Components/"
 import Box from '@mui/material/Box';
+
+import HamburgerIcon from "../../../assets/icons/hamburgerIcon.png"
+
 import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import naverBtn from "../../../assets/icons/naverBtn.png"
-import kakaoBtn from "../../../assets/icons/kakaoBtn.png"
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { ReactComponent as SearchIcon } from '../../../assets/svg/searchIcon.svg';
+
+import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
 import login_process from "../../../service/auth/login_progress"
 import signup_process from "../../../service/auth/signup_progress"
 import logout_process from "../../../service/auth/logout_progress"
-import Popper from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
-import Paper from '@mui/material/Paper';
-import { useEffect } from "react"
-import LoginNaver from "../../../service/auth/naver_login"
+// import Popper from '@mui/material/Popper';
+// import Fade from '@mui/material/Fade';
+// import Paper from '@mui/material/Paper';
+// import { useEffect } from "react"
+// import TextField from '@mui/material/TextField';
 
 
+
+//SECTION - styledComponent
 const IconHeader = styled.div`
     display : flex;
     align-items : center;
@@ -29,6 +34,41 @@ const IconHeader = styled.div`
     padding: 2rem;
     box-sizing: border-box;
 `
+
+const SearchWrapper = styled.div`
+    display : flex;
+    align-items: center;
+    justify-content: space-between;
+    width : 80%;
+    height : 3.5rem;
+    padding-left :1rem ;
+    border : 1px solid #0d7000;
+    border-radius: 6px;
+    box-shadow : rgb(247 247 247) 0px 0px 0px 1px inset;
+    font-size : 1.2rem;
+`
+
+
+const IconHeaderButton = styled.div`
+width : auto;
+display : flex;
+align-items: center;
+justify-content: center;
+cursor : pointer;
+font-size: 1.2rem;
+
+`
+const VerticalDivider = styled.div`
+    width: 1px;
+    height: 1rem;
+    border-right: 1px solid rgb(204, 204, 204);
+    margin : 0 1rem;
+    @media (max-width: 860px) {
+        border : none;
+    }
+`
+
+
 const CategoryHeader = styled.div`
     display : flex;
     align-items : center;
@@ -52,28 +92,26 @@ const CategoryBox = styled.div`
     padding-left: 5px;
     color : ${props => props.red ? `#e64937` : `#545454`};
     font-family: "tway" ;
-    
     cursor : pointer;
 `
 const LoginBtnBox = styled.div`
     display: flex;
     align-items:center;
-    font-size:1.1rem;
-    padding-left:5px;
-    height:0;
+    font-size:1rem;
+    padding : 0.5rem 2rem 0.5rem 5px;
+    height: auto;
     /*width:max-content;*/
     right:10px;
-    position:relative;
-    top:2rem;
+    position:static;
     z-index:26;
     display:flex;
     align-items:center;
     justify-content:flex-end;
     padding-right: 2rem;
+    border-bottom : 1px solid rgb(238, 238, 238);
     @media (max-width: 600px) {
         position : static;
         height : auto ;
-        margin : 1.5rem 0 0 0;
         justify-content: space-evenly;
     }
 `
@@ -84,9 +122,9 @@ const LoginValueBtn = styled.div`
     align-items : center;
     justify-content: flex-start;
     font-size : inherit;
-    border-left : ${props => props.red ? `#e64937` : `#545454`} 2px solid;
+    /* border-left : ${props => props.red ? `#e64937` : `#545454`} 2px solid; */
     padding-left: 5px;
-    color : ${props => props.red ? `#e64937` : `#545454`};
+    color : ${props => props.red ? `#e64937` : `#888888`};
     cursor : pointer;
     font-family : "nixgon";
         margin-right : 20px;
@@ -103,45 +141,8 @@ const LoginValueBtn = styled.div`
 `
 
 
-const SnsLoginBtn = styled.div`
-    margin : 5px 0;
-    height : 4.5rem;
-    width: 100%;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    background-color: ${props => props.naver ? `#1EC800` : `#F5E901`};
-    color: ${props => props.naver ? `#fff` : `#000`};
-    cursor : pointer;
-`
-const SnsIconWrapper = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width : 5rem;
-    padding :0 10px;
-    height : 100%;
-    border-right:1px solid white;
-    cursor : pointer;
 
-`
-const SelectLoginSign = styled.div`
-    transition: all 0.5s ease;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family :"nixgon";
-    font-size : 2rem;
-    padding : 1rem 2rem;
-    width : 100%;
-    border-radius : 1rem 1rem 0 0 ;
-    background-color : white;
-    cursor : pointer;
-    ${props => props.isSelect ? {
-        backgroundColor: "#393939",
-        color: 'white',
-    } : null}
-`
+
 const CategoryWrapper = styled.div`
     height: calc(95vh - 20rem);
     overflow-y: auto;
@@ -205,13 +206,19 @@ const CategoryDetailValue = styled.div`
         text-decoration-thickness : 2px;
     }
 `
+//!SECTION
 
 
-const HeaderContent = ({ logined, role, }) => {
 
+const HeaderContent = ({ logined, role, name }) => {
+
+    //NOTE - JS
     const navigate = useNavigate()
 
-    //SECTION modal , UI controls
+
+
+
+    //SECTION modal , UI controls , search
     const [openLoginModal, setOpenLoginModal] = useState(false);
     const handleLoginModalOpen = () => setOpenLoginModal(true);
     const handleLoginModalClose = () => setOpenLoginModal(false);
@@ -228,6 +235,39 @@ const HeaderContent = ({ logined, role, }) => {
         handleLoginModalOpen();
         selectSignup();
     }
+
+    /**
+     * @description 검색 textBox value 
+     * @hook useState
+     */
+    const [searchValue, setSearchValue] = useState('');
+
+    /**
+         * @description 검색value OnChange
+         * @param event
+         */
+    const searchIconOnChange = (e) => {
+        const search = e.target.value;
+        return setSearchValue(search)
+    }
+
+    /**
+        * @description 마이페이지, 장바구니 클릭시 func
+        */
+
+    const IconHeaderBtnOnClick = {
+        myPage: () => {
+            logined ? navigate('/mypage/order') : doingLogin()
+        },
+        cart: () => {
+            navigate('/cart');
+
+        }
+    }
+
+
+
+
 
     //!SECTION
 
@@ -359,26 +399,35 @@ const HeaderContent = ({ logined, role, }) => {
     }
     //!SECTION
 
+    //SECTION - Login
     const handleNaverLogin = () => {
         if (document && document?.querySelector("#naverIdLogin")?.firstChild && window !== undefined) {
             const loginBtn = document.getElementById("naverIdLogin")?.firstChild;
             loginBtn.click();
         }
     }
+    //!SECTION - Login
 
-
+    //SECTION - return JSX
     return (
         <>
 
             {
                 logined ?
+
+                    // SECTION - jsx 장바구니 | 로그인 | 회원가입
                     <LoginBtnBox>
+                        {/* <LoginValueBtn onClick={() => navigate('/cart')} >마이페이지</LoginValueBtn> */}
                         <LoginValueBtn onClick={logOutOnClick}>로그아웃</LoginValueBtn>
+                        {/* TODO 관리자 페이지 삭제 */}
+                        <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
                     </LoginBtnBox>
                     :
                     <>
                         <LoginBtnBox>
-                            <LoginValueBtn onClick={() => navigate('/cart')} >장바구니</LoginValueBtn>
+                            {/* TODO 관리자 페이지 삭제 */}
+                            <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
+
                             <LoginValueBtn onClick={doingLogin}>로그인</LoginValueBtn>
                             <Modal
                                 open={openLoginModal}
@@ -397,193 +446,59 @@ const HeaderContent = ({ logined, role, }) => {
                                     overflow: 'auto',
                                     maxHeight: ' 80%'
                                 }}>
-                                    <Row>
-                                        <Col span={12} style={{ borderBottom: "2px solid #393939" }}>
-                                            <Row>
-                                                <Col span={6}>
-                                                    <SelectLoginSign isSelect={(isSelectLoginSignup === "login" ? true : false)} onClick={selectLogin}>
-                                                        로그인
-                                                    </SelectLoginSign>
-                                                </Col>
-                                                <Col span={6}>
-                                                    <SelectLoginSign isSelect={(isSelectLoginSignup === "signup" ? true : false)} onClick={selectSignup}>
-                                                        회원가입
-                                                    </SelectLoginSign>
-                                                </Col>
-                                            </Row>
-                                        </Col>
+                                    <LoginModalForm isSelectLoginSignup={isSelectLoginSignup} selectLogin={selectLogin} selectSignup={selectSignup} handleNaverLogin={handleNaverLogin} />
 
-                                        {
-                                            isSelectLoginSignup === "login" ?
-                                                <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                    {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo> */}
-                                                    <Row justify={"space-between"}>
-                                                        {/* 
-                                                        <Col span={12}>
-                                                            <Col span={12}>
-                                                                <TextField
-                                                                    size="normal"
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    id="email"
-                                                                    label="이메일을 입력하세요."
-                                                                    name="email"
-                                                                    autoComplete="email"
-                                                                    autoFocus
-                                                                    onChange={settingLogInValueFunction.email}
-                                                                    value={logInInfo.email}
-                                                                />
-                                                                <TextField
-
-                                                                    margin="dense"
-                                                                    required
-                                                                    fullWidth
-                                                                    name="password"
-                                                                    label="비밀번호를 입력하세요"
-                                                                    type="password"
-                                                                    id="password"
-                                                                    autoComplete="current-password"
-                                                                    size="normal"
-                                                                    onChange={settingLogInValueFunction.password}
-                                                                    value={logInInfo.password}
-                                                                />
-                                                            </Col>
-                                                            <Col span={12}>
-                                                                <Button variant="contained" fullWidth style={{
-                                                                    boxShadow: 'none',
-                                                                    fontSize: '1.5rem',
-                                                                    padding: '1rem 0px',
-                                                                }}
-                                                                    onClick={LoginBtnOnclick}
-                                                                >
-                                                                    로그인
-                                                                </Button>
-                                                            </Col>
-
-                                                        </Col> 
-                                                        */}
-                                                        {/* //SECTION - 소셜로그인 */}
-                                                        <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                            <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
-
-                                                            <SnsLoginBtn naver onClick={handleNaverLogin}>
-                                                                <SnsIconWrapper >
-                                                                    <img src={naverBtn} alt="NAVER" width={"80%"} />
-
-                                                                </SnsIconWrapper>
-                                                                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
-                                                            </SnsLoginBtn>
-                                                            <SnsLoginBtn >
-                                                                <SnsIconWrapper >
-                                                                    <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
-
-                                                                </SnsIconWrapper>
-                                                                <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 로그인</Typo>
-                                                            </SnsLoginBtn>
-                                                            <LoginNaver style={{ display: "none" }}></LoginNaver>
-
-                                                        </Col>
-                                                        {/* //!SECTION - 소셜로그인 */}
-
-                                                        <Col span={12} >
-                                                            <Divider></Divider>
-
-                                                            <Button variant="outlined" fullWidth size="large" style={{
-                                                                fontSize: '1.3rem',
-                                                                padding: '1rem 0px',
-                                                            }}>비회원으로 구매하기</Button>
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                                :
-
-                                                <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 회원가입하기</Typo>
-                                                    <Row justify={"space-between"}>
-                                                        {/* <Col span={12} >
-                                                            <Col span={12}>
-                                                                <TextField
-                                                                    size="normal"
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    id="email"
-                                                                    label="이메일을 입력하세요."
-                                                                    name="email"
-                                                                    autoComplete="email"
-                                                                    onChange={settingSingUpValueFunction.email}
-                                                                    value={signUpInfo.email}
-                                                                />
-                                                                <TextField
-
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    name="password"
-                                                                    label="비밀번호를 입력하세요"
-                                                                    type="password"
-                                                                    id="password"
-                                                                    autoComplete="current-password"
-                                                                    size="normal"
-                                                                    onChange={settingSingUpValueFunction.password}
-                                                                    value={signUpInfo.password}
-                                                                />
-
-                                                            </Col>
-                                                            <Col span={12}>
-                                                                <Button variant="contained" fullWidth style={{
-                                                                    boxShadow: 'none',
-                                                                    fontSize: '1.5rem',
-                                                                    padding: '1rem 0px',
-                                                                }}
-                                                                    onClick={SignupBtnOnclick}
-                                                                >
-                                                                    가입신청
-                                                                </Button>
-                                                            </Col>
-                                                        </Col> */}
-
-                                                        <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                                            <SnsLoginBtn naver onClick={handleNaverLogin}>
-                                                                <SnsIconWrapper >
-                                                                    <img src={naverBtn} alt="NAVER" width={"80%"} />
-
-                                                                </SnsIconWrapper>
-                                                                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 회원가입</Typo>
-                                                            </SnsLoginBtn>
-                                                            <SnsLoginBtn >
-                                                                <SnsIconWrapper >
-                                                                    <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
-
-                                                                </SnsIconWrapper>
-                                                                <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 회원가입</Typo>
-                                                            </SnsLoginBtn>
-                                                            <LoginNaver style={{ display: "none" }}></LoginNaver>
-
-                                                        </Col>
-
-                                                    </Row>
-                                                </Col>
-                                        }
-                                    </Row>
                                 </Box>
                             </Modal>
                             <LoginValueBtn onClick={doingSignup} >회원가입</LoginValueBtn>
                         </LoginBtnBox>
                     </>
+                // !SECTION - jsx 장바구니 | 로그인 | 회원가입
+
             }
 
 
 
 
             <IconHeader>
-                <Image src={headerIcon} width={'13rem'} cursor={"pointer"} onClick={() => { navigate("/") }} />
+                <Row align={"center"} justify={"space-between"}>
+                    <Col span={2} align={"center"}>
+                        <Image src={headerIcon} width={'100%'} cursor={"pointer"} onClick={() => { navigate("/") }} />
+                    </Col>
+                    <Col sm={6} span={7} align={"center"} justify={"center"}>
+                        <SearchWrapper>
+                            <TextBox value={searchValue} onChange={searchIconOnChange} placeholder={"검색어를 입력해 주세요"}></TextBox>
+                            {/* <SearchOutlinedIcon style={{ fontSize: "2rem", marginRight: "1rem", color: "#0d7000", cursor: "pointer" }} /> */}
+                            <SearchIcon cursor={"pointer"} color={"#0d7000"} width={"2rem"} height={"2rem"} style={{ marginRight: "1rem" }} ></SearchIcon>
+                        </SearchWrapper>
+                    </Col>
+                    <Col sm={4} span={3} align={"center"} justify={"center"}>
+                        <IconHeaderButton onClick={IconHeaderBtnOnClick.myPage}>
+                            <PersonOutlineIcon style={{ fontSize: "2.5rem", color: "#545454" }}></PersonOutlineIcon>
+                            <Col xs={0} span={12} >
+                                <Typo size={"inherit"} color={"#000000"} >
+                                    {
+                                        name ? name : '마이페이지'
+                                    }
+                                </Typo>
+                            </Col>
+                        </IconHeaderButton>
 
+                        <VerticalDivider></VerticalDivider>
 
+                        <IconHeaderButton onClick={IconHeaderBtnOnClick.cart}>
+                            <CartIcon ></CartIcon>
+                            <Col xs={0} span={12} style={{ marginLeft: "5px" }}>
+                                <Typo size={"inherit"} color={"#000000"} >장바구니</Typo>
+                            </Col>
+                        </IconHeaderButton>
+
+                    </Col>
+                </Row>
             </IconHeader>
-            {/* //NOTE */}
-            <CategoryHeader>
+
+
+            <CategoryHeader >
                 <Row align={"center"} >
                     <Col xs={1} sm={1} md={2} span={2} align={"center"} justify={"flex-start"}  >
                         <div
@@ -661,6 +576,8 @@ const HeaderContent = ({ logined, role, }) => {
         </>
 
     )
+    //!SECTION - return JSX
+
 
 }
 

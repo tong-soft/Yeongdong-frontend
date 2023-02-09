@@ -5,6 +5,7 @@ const mapStateToProps = (state) => {
     return {
         role: state.user_reducer.role,
         logined: state.login_reducer.logined,
+        name: state.user_reducer.name
     };
 }
 

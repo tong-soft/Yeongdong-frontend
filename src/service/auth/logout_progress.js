@@ -1,5 +1,6 @@
 import store from '../../store/store';
 import ACTION from '../../store/actions/action';
+import { notification } from 'antd';
 
 const LogoutProgress = () => {
   console.log('Running logout progress,,,');
@@ -15,34 +16,12 @@ const LogoutProgress = () => {
 
   localStorage.removeItem('young-dong');
 
-  // let naverLogoutPopUp;
-  // var popupWidth = 600;
-  // var popupHeight = 500;
-  // var popupX = Math.ceil((window.screen.width - popupWidth) / 2);
-  // var popupY = Math.ceil((window.screen.height - popupHeight) / 2);
+  notification['success']({
+    message: `로그아웃 성공`,
+    description: '다시 또 만나요!',
 
-  // const openPopUp = () => {
-  //   naverLogoutPopUp = window.open(
-  //     'https://nid.naver.com/nidlogin.logout',
-  //     '_blank',
-  //     'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupX + ', top=' + popupY
-  //   );
-  // };
-
-  // const closePopUp = () => {
-  //   naverLogoutPopUp.close();
-  // };
-
-  // openPopUp();
-  // setTimeout(function () {
-  //  closePopUp();
-  // }, 1000);
-
-  // window.open(
-  //   'https://nid.naver.com/nidlogin.logout',
-  //   '_blank',
-  //   'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupX + ', top=' + popupY
-  // );
+    duration: 2,
+  });
 
   //!SECTION
 };

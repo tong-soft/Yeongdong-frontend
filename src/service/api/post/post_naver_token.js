@@ -1,12 +1,13 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-
+import chalk from 'chalk';
 /**
- * @description 네이버에서 발급받은 토큰 전달
+ * @description 영동언니 로그인
  * @method POST
  * @request @headers naver access token
  */
 const PostNaverToken = (token) => {
+  console.log('naver', token);
   return fetch(`${_.SERVER_URL}/api/account/v1/auth/signin/naver/`, {
     method: 'POST',
     headers: {
@@ -20,17 +21,18 @@ const PostNaverToken = (token) => {
       if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
+      console.log('영동언니 로그인  성공  ✅💚\n', chalk.white.bgBlack.bold('/api/product/v1'));
+
       return data;
     })
     .catch(async (error) => {
-      let err = await error.then();
-      console.log(err);
       notification['error']({
-        message: `전체 goods 가져오기 ❌`,
-        description: err.errorName || err.errorCode,
+        message: `영동언니 로그인 실패`,
+        description: `로그인을 다시 시도해 주세요`,
         duration: 2,
       });
-      console.log('Error from get_all_goods\n' + err.errorCode + '\n' + err.errorName);
+      let err = await error.then();
+      console.log('Error from PostNaverToken\n' + err.error.errorCode + '\n' + err.error.errorName);
       //에러처리
       throw err;
     });
