@@ -177,10 +177,10 @@ const AdminContent = () => {
         close: () => setCustomImgPostForm(false)
     }
     /**
-   @description 로컬에서 선택한 이미지를 업로드하기 
-   @function FileBoxOnclick
-   @btnValue 이미지 업로드
-   @detail  업로드할 사진 선택 -> set formData  -> 미리보기 보여주기  */
+    @description 로컬에서 선택한 이미지를 업로드하기 
+    @function FileBoxOnclick
+    @btnValue 이미지 업로드
+    @detail  업로드할 사진 선택 -> set formData  -> 미리보기 보여주기  */
     const uploadImgOnclick = (e) => {
         const imgFile = e.target.files[0]
         console.log(imgFile)
@@ -189,7 +189,6 @@ const AdminContent = () => {
         reader.readAsDataURL(imgFile);
         reader.onload = () => {
             setAddGoodData((state) => ({ ...state, imgUrl: reader.result }))
-
             if (isCustomImgPostForm === false)
                 return customImgPostForm.show()
 
@@ -223,11 +222,8 @@ const AdminContent = () => {
         infoReader.readAsDataURL(infoImgFile);
         infoReader.onload = () => {
             setAddGoodData((state) => ({ ...state, infoUrl: infoReader.result }))
-
             if (isInfoImgPostForm === false)
                 return infoImgPostForm.show()
-
-
         }
     }
 

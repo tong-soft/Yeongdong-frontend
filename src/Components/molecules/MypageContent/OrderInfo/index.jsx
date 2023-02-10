@@ -1,6 +1,6 @@
 import React, { useState, usEffect } from 'react';
 import { Row, Col, } from "../../../../layout"
-import { Typo, Btn, Divider, Image, QuestionModalForm, TextAreaBox, OrderDetailModalForm } from "../../../index"
+import { Typo, Btn, Divider, Image, QuestionModalForm, TextAreaBox, OrderDetailModalForm, ReviewModalForm } from "../../../index"
 import monkImg from "../../../../assets/images/monkListImg.png"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -32,6 +32,8 @@ const OrderInfo = ({
     questionProduct, isQuestionModalOpen, questionModalHandler, productQuestionData, productQuestionFunc, productQuestionSaveOnClick, productQuestionOnClick,
     deliveryDetailModal, isDeliveryDetail, deliveryDetailValue,
     loading, setLoading,
+    isReviewModal, reviewModalHandler, reviewData, setReviewDataFunc, uploadImgOnclick, FileBoxCloseOnclick,
+
 }) => {
 
 
@@ -127,7 +129,7 @@ const OrderInfo = ({
                                                                 {products.deliveryStatus === "WAITING" ?
                                                                     <Btn onClick={() => productQuestionOnClick(products.productId, products.productName)} types={'text'} width={'100%'} value={'1:1 문의'} style={{ padding: "1rem 0" }} />
                                                                     :
-                                                                    <Btn types={'primary'} width={'100%'} value={'후기작성'} style={{ padding: "1rem 0" }} />
+                                                                    <Btn onClick={() => reviewModalHandler.show(products.orderProductId, products.productName)} types={'primary'} width={'100%'} value={'후기작성'} style={{ padding: "1rem 0" }} />
                                                                 }
                                                             </Col>
                                                         </Row>
@@ -278,7 +280,39 @@ const OrderInfo = ({
                     </Row>
                 </Box>
             </Modal>
-            {/* //SECTION - 배송조회 모� */}
+            {/* //SECTION - 배송조회 모달 */}
+
+            {/* //SECTION - 리뷰 하기 모달 */}
+            <Modal
+                open={isReviewModal}
+                closable={'true'}
+                onClose={reviewModalHandler.close}
+            >
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '70%',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    borderRadius: '5px',
+                    p: 4,
+                    overflow: 'auto',
+                    maxHeight: ' 80%',
+                    padding: "2rem 2rem 1.3rem 2rem",
+                }}>
+                    <ReviewModalForm
+                        reviewData={reviewData}
+                        reviewModalHandler={reviewModalHandler}
+                        setReviewDataFunc={setReviewDataFunc}
+                        uploadImgOnclick={uploadImgOnclick}
+                        FileBoxCloseOnclick={FileBoxCloseOnclick}
+                    />
+                </Box>
+            </Modal>
+            {/* //!SECTION - 리뷰 하기 모달 */}
+
         </>
 
     )

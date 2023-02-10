@@ -8,6 +8,7 @@ import get_my_all_orders from "../../../service/api/get/get_order_my_all_orders"
 import get_order_orders_detail from "../../../service/api/get/get_order_orders_detail";
 import post_product_questions from "../../../service/api/post/post_product_question";
 import get_product_my_questions from "../../../service/api/get/get_product_my_questions";
+import post_order_product_review from "../../../service/api/post/post_order_product_review";
 
 const ContentContainer = ({ role, name, logined, SET_USER }) => {
     const { menu } = useParams();
@@ -310,6 +311,8 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
     }
 
 
+
+
     // SECTION 배송조회
 
     /**
@@ -341,10 +344,10 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
     const [isDeliveryDetail, setIsDeliveryDetail] = useState(false)
 
     /**
-           * @description 배송조회 modal OPEN 시
-           * @type {Function} 
-           * @detail 모달열기 / setIsDeliveryDetail
-           */
+    * @description 배송조회 modal OPEN 시
+    * @type {Function} 
+    * @detail 모달열기 / setIsDeliveryDetail
+    */
     const deliveryDetailModal = {
         show: (deliveryCompany, trackingNumber) => {
             setLoading(true);
@@ -357,7 +360,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
         },
         close: () => {
             setIsDeliveryDetail(false);
-
         }
     }
 
@@ -442,6 +444,119 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
 
 
 
+    /**
+   * @hook useState
+   * @description 후기 작성 내용
+   */
+    const [reviewData, setReviewData] = useState({
+        orderProductId: 0,
+        orderProductName: '',
+        reviewRate: 5,
+        reviewContent: '',
+        reviewImgFile: null,
+        reviewImgUrl: null,
+    })
+
+    console.log("🚀 ~ reviewData", reviewData);
+
+
+    let setReviewDataFunc = {
+        orderProductId: (orderProductId) => setReviewData({ ...reviewData, orderProductId: orderProductId }),
+        orderProductName: (orderTitle) => setReviewData({ ...reviewData, orderProductName: orderTitle }),
+        reviewRate: (value) => setReviewData({ ...reviewData, reviewRate: value }),
+        reviewContent: (e) => setReviewData({ ...reviewData, reviewContent: e.target.value }),
+        reviewImgFile: (imgFile) => setReviewData({ ...reviewData, reviewImgFile: imgFile }),
+        reviewImgUrl: (reviewImgUrl) => setReviewData({ ...reviewData, reviewImgUrl: reviewImgUrl }),
+
+        emptyReviewData: () => setReviewData({
+            orderProductId: 0,
+            orderProductName: '',
+            reviewRate: 5,
+            reviewContent: '',
+            reviewImgFile: null,
+            reviewImgUrl: null,
+        })
+    }
+
+    /**
+  * @hook useState
+  * @description 후기 쓰기 modal
+  */
+    const [isReviewModal, setIsReviewModal] = useState(false)
+
+    /**
+       * @description 후기 쓰기 modal OPEN 시
+       * @type {Function} 
+       * @detail 모달열기 / setIsReviewModal
+       */
+    const reviewModalHandler = {
+        show: function (orderProductId, orderTitle) {
+            setReviewData((state) => ({
+                ...state,
+                orderProductId: orderProductId,
+                orderProductName: orderTitle,
+            }))
+            return setIsReviewModal(true);
+        },
+        close: () => {
+            setReviewDataFunc.emptyReviewData();
+            setIsReviewModal(false);
+
+        },
+        submitBtnOnClick: () => {
+            console.log(reviewData.reviewImgFile);
+            const formData = new FormData();
+            const blobDto = new Blob([JSON.stringify({ content: reviewData.reviewContent })], { type: "application/json" });
+            formData.append('reviewImg', reviewData.reviewImgFile);
+            formData.append('dto', blobDto);
+
+            post_order_product_review(reviewData.orderProductId, formData)
+                .then((res) => {
+                    console.log(res)
+                    setReviewDataFunc.emptyReviewData()
+                })
+                .catch((err) => console.log(err))
+        }
+    }
+
+    /**
+    @description 로컬에서 선택한 이미지를 업로드하기 
+    @function uploadImgOnclick
+    @btnValue 이미지 업로드
+    @detail  업로드할 사진 선택 -> set formData  -> 미리보기 보여주기 
+     */
+    const uploadImgOnclick = (e) => {
+        const imgFile = e.target.files[0]
+        console.log(imgFile)
+        setReviewDataFunc.reviewImgFile(imgFile)
+        let reader = new FileReader();
+        reader.readAsDataURL(imgFile);
+        reader.onload = () => {
+            setReviewDataFunc.reviewImgUrl(reader.result)
+            setReviewData((state) => ({
+                ...state,
+                reviewImgUrl: reader.result,
+                reviewImgFile: imgFile,
+            }))
+        }
+        reader.onerror = (err) => {
+            console.log(err)
+            return notification['error']({
+                message: `업로드 실패`,
+                description: `새로고침 후 다시 실행해 주세요`,
+            });
+        }
+    }
+
+    /**
+    @description 이미지 지우기 
+    @function FileBoxCloseOnclick
+    @detail  reviewData에서 이미지 지우기 
+     */
+    const FileBoxCloseOnclick = () => {
+        setReviewDataFunc.reviewImgFile(null)
+        setReviewDataFunc.reviewImgUrl(null)
+    }
 
 
     // !SECTION 주문/배송정보
@@ -553,6 +668,13 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                 isDeliveryDetail={isDeliveryDetail}
                 deliveryDetailModal={deliveryDetailModal}
                 deliveryDetailValue={deliveryDetailValue}
+
+                reviewModalHandler={reviewModalHandler}
+                isReviewModal={isReviewModal}
+                reviewData={reviewData}
+                setReviewDataFunc={setReviewDataFunc}
+                uploadImgOnclick={uploadImgOnclick}
+                FileBoxCloseOnclick={FileBoxCloseOnclick}
 
                 // SECTION 문의확인
                 productMyQuestions={productMyQuestions}

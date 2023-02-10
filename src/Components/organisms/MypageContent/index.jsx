@@ -53,6 +53,9 @@ const CartContent = ({
     isDeliveryDetail, deliveryDetailModal, deliveryDetailValue, loading, setLoading,
 
     productMyQuestions,
+
+    reviewModalHandler, isReviewModal, reviewData, setReviewDataFunc, uploadImgOnclick, FileBoxCloseOnclick,
+
 }) => {
 
     return (
@@ -165,11 +168,18 @@ const CartContent = ({
                                                 productQuestionOnClick={productQuestionOnClick}
                                                 questionProduct={questionProduct}
 
+
                                                 isDeliveryDetail={isDeliveryDetail}
                                                 deliveryDetailModal={deliveryDetailModal}
                                                 deliveryDetailValue={deliveryDetailValue}
                                                 loading={loading}
                                                 setLoading={setLoading}
+                                                reviewModalHandler={reviewModalHandler}
+                                                isReviewModal={isReviewModal}
+                                                reviewData={reviewData}
+                                                setReviewDataFunc={setReviewDataFunc}
+                                                uploadImgOnclick={uploadImgOnclick}
+                                                FileBoxCloseOnclick={FileBoxCloseOnclick}
                                             />
                                             : null
                                     }
@@ -198,6 +208,12 @@ const CartContent = ({
                                                 deliveryDetailValue={deliveryDetailValue}
                                                 loading={loading}
                                                 setLoading={setLoading}
+                                                reviewModalHandler={reviewModalHandler}
+                                                isReviewModal={isReviewModal}
+                                                reviewData={reviewData}
+                                                setReviewDataFunc={setReviewDataFunc}
+                                                uploadImgOnclick={uploadImgOnclick}
+                                                FileBoxCloseOnclick={FileBoxCloseOnclick}
                                             />
                                             : null
                                     }

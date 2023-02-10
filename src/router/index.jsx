@@ -11,6 +11,8 @@ import CartRouter from "./CartRouter"
 import MypageRouter from "./MypageRouter"
 import AdminRouter from "./AdminRouter"
 import OrderRouter from "./OrderRouter"
+import SearchRouter from "./SearchRouter"
+
 const youngDongRouter = ({ role }) => {
     console.log(`📌router/index📌 role : ${role} `)
     return (
@@ -58,6 +60,11 @@ const youngDongRouter = ({ role }) => {
                     />} />
                 <Route exact path="/mypage" element={
                     <MypageRouter security={["ADMIN", "USER"]}
+                        role={role}
+                    />} />
+
+                <Route exact path="/search" element={
+                    <SearchRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} />
 

@@ -98,6 +98,14 @@ const InquiryCheck = ({
                                         )
                                     })
                                 }
+                                {
+                                    productMyQuestions.length === 0 ? (
+                                        <Col span={12} justify={'center'} style={{ padding: '5rem 0' }}>
+                                            <Typo size={'1.5rem'} color={'#b5b5b5'}>문의내역이 없습니다.</Typo>
+                                        </Col>
+                                    )
+                                        : null
+                                }
                             </Row>
                         </Col>
                         <Col span={12} justify={"center"} style={{ marginTop: "2rem" }}>

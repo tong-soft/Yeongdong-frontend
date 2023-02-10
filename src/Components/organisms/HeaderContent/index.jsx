@@ -17,6 +17,7 @@ import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
 import login_process from "../../../service/auth/login_progress"
 import signup_process from "../../../service/auth/signup_progress"
 import logout_process from "../../../service/auth/logout_progress"
+import get_product_search from "../../../service/api/get/get_product_search"
 // import Popper from '@mui/material/Popper';
 // import Fade from '@mui/material/Fade';
 // import Paper from '@mui/material/Paper';
@@ -218,7 +219,7 @@ const HeaderContent = ({ logined, role, name }) => {
 
 
 
-    //SECTION modal , UI controls , search
+    //SECTION modal , UI controls 
     const [openLoginModal, setOpenLoginModal] = useState(false);
     const handleLoginModalOpen = () => setOpenLoginModal(true);
     const handleLoginModalClose = () => setOpenLoginModal(false);
@@ -234,21 +235,6 @@ const HeaderContent = ({ logined, role, name }) => {
     const doingSignup = () => {
         handleLoginModalOpen();
         selectSignup();
-    }
-
-    /**
-     * @description 검색 textBox value 
-     * @hook useState
-     */
-    const [searchValue, setSearchValue] = useState('');
-
-    /**
-         * @description 검색value OnChange
-         * @param event
-         */
-    const searchIconOnChange = (e) => {
-        const search = e.target.value;
-        return setSearchValue(search)
     }
 
     /**
@@ -408,6 +394,42 @@ const HeaderContent = ({ logined, role, name }) => {
     }
     //!SECTION - Login
 
+
+    //SECTION - search
+    /**
+     * @description 검색 textBox value 
+     * @hook useState
+     */
+    const [searchValue, setSearchValue] = useState('');
+
+    /**
+         * @description 검색value OnChange
+         * @param event
+         */
+    const searchIconOnChange = (e) => {
+        const search = e.target.value;
+        return setSearchValue(search)
+    }
+
+    const onKeyPressSearch = (e) => {
+        if (e.key === 'Enter') {
+            console.log('enter')
+            return navigate(`/search?keyword=${searchValue}`)
+        }
+    }
+
+
+    /**
+         * @description 검색value OnClick
+         */
+    const searchSubmitOnClick = () => {
+        return navigate(`/search?keyword=${searchValue}`)
+    }
+
+    //!SECTION - search
+
+
+
     //SECTION - return JSX
     return (
         <>
@@ -467,9 +489,9 @@ const HeaderContent = ({ logined, role, name }) => {
                     </Col>
                     <Col sm={6} span={7} align={"center"} justify={"center"}>
                         <SearchWrapper>
-                            <TextBox value={searchValue} onChange={searchIconOnChange} placeholder={"검색어를 입력해 주세요"}></TextBox>
+                            <TextBox value={searchValue} onChange={searchIconOnChange} onKeyPress={onKeyPressSearch} placeholder={"검색어를 입력해 주세요"}></TextBox>
                             {/* <SearchOutlinedIcon style={{ fontSize: "2rem", marginRight: "1rem", color: "#0d7000", cursor: "pointer" }} /> */}
-                            <SearchIcon cursor={"pointer"} color={"#0d7000"} width={"2rem"} height={"2rem"} style={{ marginRight: "1rem" }} ></SearchIcon>
+                            <SearchIcon onClick={searchSubmitOnClick} cursor={"pointer"} color={"#0d7000"} width={"2rem"} height={"2rem"} style={{ marginRight: "1rem" }} ></SearchIcon>
                         </SearchWrapper>
                     </Col>
                     <Col sm={4} span={3} align={"center"} justify={"center"}>
