@@ -38,17 +38,17 @@ const post_order_product_review = (orderProductId, reviewFormData) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log(
-        '상품 등록 성공  ✅💚\n',
-        chalk.white.bgBlack.bold('/api/product/v1')
-      );
+      notification['success']({
+        message: `후기 등록 성공`,
+      });
+      console.log('후기 등록 성공 ✅💚\n');
 
       let data = res.json();
       return data;
     })
     .catch(async (error) => {
       notification['error']({
-        message: `상품 등록 실패 ❌`,
+        message: `후기 등록 실패 ❌`,
       });
       let err = await error.then();
 
@@ -58,7 +58,7 @@ const post_order_product_review = (orderProductId, reviewFormData) => {
           description: err.error.code,
         });
       }
-      console.log('상품 등록 실패 ❌\n' + err.error);
+      console.log('후기 등록 실패 ❌\n' + err.error);
       console.log(err.error.code);
       //에러처리
       throw err;

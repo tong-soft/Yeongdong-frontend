@@ -14,7 +14,7 @@ const ContentContainer = ({ role, name, logined }) => {
     const [isHeaderDetailOpen, setIsHeaderDetailOpen] = useState(true)
 
     const navListOnClick = (listsValue) => {
-        if (focusNavList === listsValue) return headerDetailOpenHandler()
+        // if (focusNavList === listsValue) return headerDetailOpenHandler()
         setIsHeaderDetailOpen(true)
         setFocusNavList(listsValue)
 

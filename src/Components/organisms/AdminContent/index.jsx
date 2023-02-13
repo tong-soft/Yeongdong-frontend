@@ -136,16 +136,16 @@ const CartContent = ({
                         <Image onClick={() => { navigate('/') }} cursor={"pointer"} src={youngdongIcon} width={"11rem"} ></Image>
                     </Col>
                     <Col span={7} align={"center"} justify={"space-evenly"}>
-                        <NavList isSelect={(focusNavList === "상품 관리" ? true : false)} onClick={() => navListOnClick("상품 관리")} >
+                        <NavList isSelect={(focusNavList === "상품 관리" ? true : false)} onMouseEnter={() => navListOnClick("상품 관리")} >
                             <Typo size={"1.8rem"}>📦 </Typo>상품 관리
                         </NavList>
-                        <NavList isSelect={(focusNavList === "고객 관리" ? true : false)} onClick={() => navListOnClick("고객 관리")}>
+                        <NavList isSelect={(focusNavList === "고객 관리" ? true : false)} onMouseEnter={() => navListOnClick("고객 관리")}>
                             <Typo size={"1.8rem"}>👤</Typo>고객 관리
                         </NavList>
-                        <NavList isSelect={(focusNavList === "주문 관리" ? true : false)} onClick={() => navListOnClick("주문 관리")}>
+                        <NavList isSelect={(focusNavList === "주문 관리" ? true : false)} onMouseEnter={() => navListOnClick("주문 관리")}>
                             <Typo size={"1.8rem"}>🛍️</Typo>주문 관리
                         </NavList>
-                        <NavList isSelect={(focusNavList === "QnA 관리" ? true : false)} onClick={() => navListOnClick("QnA 관리")}>
+                        <NavList isSelect={(focusNavList === "QnA 관리" ? true : false)} onMouseEnter={() => navListOnClick("QnA 관리")}>
                             <Typo size={"1.8rem"}>🤔</Typo>QnA 관리
                         </NavList>
                     </Col>

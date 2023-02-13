@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Pagination from '@mui/material/Pagination';
 import styled from "styled-components"
 import { LoadingOutlined } from '@ant-design/icons';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -36,7 +36,7 @@ const OrderInfo = ({
 
 }) => {
 
-
+    const navigate = useNavigate();
 
     return (
 
@@ -87,7 +87,8 @@ const OrderInfo = ({
                                                                 <Row align={'center'}>
                                                                     <Col span={2.5}>
                                                                         {/* products.productThumbnailImg */}
-                                                                        <Image src={monkImg} width={'100%'}></Image>
+                                                                        <Image cursor={"pointer"} src={monkImg} width={'100%'} onClick={() => navigate(`/goods/${products.productId}`)
+                                                                        } ></Image>
                                                                     </Col>
                                                                     <Col span={9} style={{ paddingLeft: '1rem', height: '100%' }} align={'stretch'}>
                                                                         <Row style={{ alignContent: "space-evenly" }}>

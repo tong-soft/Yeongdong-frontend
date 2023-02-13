@@ -506,7 +506,7 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
         submitBtnOnClick: () => {
             console.log(reviewData.reviewImgFile);
             const formData = new FormData();
-            const blobDto = new Blob([JSON.stringify({ content: reviewData.reviewContent })], { type: "application/json" });
+            const blobDto = new Blob([JSON.stringify({ content: reviewData.reviewContent, starRating: reviewData.reviewRate })], { type: "application/json" });
             formData.append('reviewImg', reviewData.reviewImgFile);
             formData.append('dto', blobDto);
 
@@ -514,6 +514,8 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                 .then((res) => {
                     console.log(res)
                     setReviewDataFunc.emptyReviewData()
+                    setReviewDataFunc.emptyReviewData();
+                    setIsReviewModal(false);
                 })
                 .catch((err) => console.log(err))
         }
