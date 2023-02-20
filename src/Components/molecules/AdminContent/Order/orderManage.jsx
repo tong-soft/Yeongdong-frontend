@@ -203,44 +203,18 @@ const AdminContent = () => {
             title: '구매자',
             key: 'buyerName',
             dataIndex: 'buyerName',
+            responsive: ['md'],
             render: (_, { buyerName }) => (
                 <Typo size={"1.2rem"} color={"#333333"} >{buyerName}</Typo>
 
             ),
         },
-        // {
-        //     title: '배송상태',
-        //     key: 'deliveryStatus',
-        //     dataIndex: 'deliveryStatus',
-        //     align: 'center',
-        //     render: (_, { orderProducts }) => (
-        //         orderProducts.map((products, index) => {
-        //             if (products.deliveryStatus === "WAITING") {
-        //                 return (
-        //                     <div style={{ padding: "0.5rem 0", alignItems: "center" }}>
-        //                         <Tag color={'volcano'} style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-        //                             배송전
-        //                         </Tag>
-        //                     </div>
 
-        //                 )
-        //             }
-        //             return (
-        //                 <div style={{ padding: "0.5rem 0", alignItems: "center" }}>
-        //                     <Tag color={'green'} style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-        //                         배송완료
-        //                     </Tag>
-        //                 </div>
-
-        //             )
-        //         })
-
-        //     ),
-        // },
         {
             title: '결제금액',
             dataIndex: 'paymentPrice',
             key: 'paymentPrice',
+            responsive: ['md'],
             render: (_, { paymentPrice }) => (
                 <Typo size={"1.2rem"} color={"#333333"} >{paymentPrice.toLocaleString()}&nbsp;원</Typo>
 
@@ -252,6 +226,7 @@ const AdminContent = () => {
             key: 'orderDate',
             dataIndex: 'orderDate',
             align: 'center',
+            responsive: ['md'],
             render: (_, { orderDate }) => (
                 <>
                     <Typo size={"1.2rem"} weight={500} color={"#333333"} >
@@ -508,7 +483,13 @@ const AdminContent = () => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: '65%',
+                        width: {
+                            xs: "88%",
+                            sm: "65%",
+                            md: "65%",
+                            lg: "65%",
+                            xl: "65%",
+                        },
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         borderRadius: '5px',

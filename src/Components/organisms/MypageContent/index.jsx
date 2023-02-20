@@ -76,7 +76,7 @@ const CartContent = ({
                                     {/* //SECTION - 메뉴 */}
                                     <Col span={12}>
                                         <Row style={{ border: "1px solid rgb(242, 242, 242)", backgroundColor: "#fafafb", padding: "3rem 0" }}>
-                                            <Col span={3} justify={'center'}>
+                                            <Col span={4} justify={'center'}>
                                                 <Row justify={'center'} align={'center'}>
                                                     <MenuWrapper selected={selectedMenu === '주문/배송정보'} onClick={() => { handleMenuClick(`주문/배송정보`) }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -88,7 +88,7 @@ const CartContent = ({
 
                                                 </Row>
                                             </Col>
-                                            <Col span={3} justify={'center'}>
+                                            <Col span={4} justify={'center'}>
                                                 <Row>
                                                     <Col span={12} justify={'center'} align={'center'} >
                                                         <MenuWrapper selected={selectedMenu === '주소지수정'} onClick={() => { handleMenuClick(`주소지수정`) }}>
@@ -107,7 +107,7 @@ const CartContent = ({
 
                                                 </Row>
                                             </Col>
-                                            <Col span={3} justify={'center'}>
+                                            {/* <Col span={3} justify={'center'}>
                                                 <Row>
                                                     <Col span={12} justify={'center'} align={'center'} >
                                                         <MenuWrapper selected={selectedMenu === '상품후기'} onClick={() => { handleMenuClick(`상품후기`) }} >
@@ -126,8 +126,8 @@ const CartContent = ({
                                                     </Col>
 
                                                 </Row>
-                                            </Col>
-                                            <Col span={3} justify={'center'}>
+                                            </Col> */}
+                                            <Col span={4} justify={'center'}>
                                                 <Row>
                                                     <Col span={12} justify={'center'} align={'center'} >
                                                         <MenuWrapper selected={selectedMenu === '문의확인'} onClick={() => { handleMenuClick(`문의확인`) }}>

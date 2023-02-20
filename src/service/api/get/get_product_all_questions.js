@@ -34,17 +34,17 @@ const get_product_all_questions = (pageNumber = 0) => {
       console.log(err);
       notification['error']({
         message: `전체 문의 가져오기 실패 ❌`,
-        description: err.errorCode || err.error.status,
-        duration: 2,
       });
       console.log(
         '전체 문의 가져오기 실패 ❌\n' +
-          err.errorCode +
+          err.error.code +
           '\n' +
-          err.errorName +
+          err.error.message +
+          '\n' +
+          err.error.status +
           '\n'
       );
-      if (err.errorCode === 401) {
+      if (err.error.status === 401) {
         return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
       }
       //에러처리

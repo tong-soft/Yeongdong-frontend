@@ -18,6 +18,8 @@ import { ReactComponent as AddCart } from "../../../assets/svg/addCart.svg"
 import styled from "styled-components"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import { Rate } from 'antd';
+import Pagination from '@mui/material/Pagination';
 
 
 const IconBox = styled.div`
@@ -46,16 +48,29 @@ const IconBox = styled.div`
     }
 `
 
+const StarRating = styled.div`
+    width : 100%;
+    border : 1px solid #e1e1e1;
+    border-radius : 12px;
+    padding: 1.5rem 2rem;
+    margin : 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+
 const GoodsContent = ({ role,
     productOptions, selectOption, userProductObj, selectHandleFunc, amountHandleFunc,
     amountIconHandleFunc, productDeleteHandleFunc, paymentBtnOnClick,
     productInfo, orderCountHandler, addCartOnClick, isCartAlertVisible, cartAlertModal,
     isQuestionModalOpen, productQuestionOnClick, questionModalHandler,
     productQuestionFunc, productQuestionSaveOnClick, productQuestionData,
+    productReview, totalReviewPageNum, reviewPagingNum, reviewPagingClick, onClickReviewImg, setProductReview, reviewImgOnCLick,
 
 }) => {
     const navigate = useNavigate();
-    const { id, name, originalPrice, thumbnailImg, description, amount, discount, sellingPrice, orderCount } = productInfo
+    const { id, name, originalPrice, thumbnailImg, description, amount, discount, sellingPrice, orderCount, starRating } = productInfo
 
     console.log("🚀 ~ thumbnailImg", thumbnailImg);
 
@@ -131,9 +146,9 @@ const GoodsContent = ({ role,
                                                     :
                                                     <>
                                                         <Typo size={"1.8rem"} weight={'bold'} color={'#6d6d6d'} style={{ textDecoration: "line-through 1.5px", marginRight: "9px" }} >
-                                                            {originalPrice}원
+                                                            {originalPrice.toLocaleString()}원
                                                         </Typo>
-                                                        <Typo size={"2.5rem"} weight={'bold'} >{sellingPrice}원</Typo>
+                                                        <Typo size={"2.5rem"} weight={'bold'} >{sellingPrice.toLocaleString()}원</Typo>
                                                     </>
                                             }
                                         </Col>
@@ -227,7 +242,7 @@ const GoodsContent = ({ role,
                                 <Col span={12} style={{ marginTop: "0.5rem", borderTop: "1px solid rgb(244, 244, 244)" }} justify={"flex-end"} align={"flex-end"} >
                                     <Typo size={"14px"} fontFamily={"nixgon"} weight={"bold"} padding={"0 12px 0 0 "}>총 상품 금액</Typo>
                                     {/* TODO 가격 계산해서 넣기 */}
-                                    <Typo size={"25px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "33px" }}>{sellingPrice * (orderCount || 1)}</Typo>
+                                    <Typo size={"25px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "33px" }}>{((sellingPrice * orderCount || 1).toLocaleString())}</Typo>
                                     <Typo size={"20px"} weight={"bold"} color={"rgb(51, 51, 51)"} padding={'0 0 0 5px'} >원</Typo>
 
                                     <Typo size={"15px"} weight={"500"} color={"#999999"} padding={"6px 0 0 0 "} full >총 수량 | {orderCount || 1} 개</Typo>
@@ -311,7 +326,7 @@ const GoodsContent = ({ role,
 
                     {/* //SECTION - 제품후기  */}
                     <Col span={12} justify={"center"} align={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd" }}>
-                        <Col span={10} align={"center"}  >
+                        <Col span={10} align={"center"}   >
                             <Row align={"center"} >
                                 <Col span={6} justify={"flex-start"}>
                                     <Image src={reviewTitle} width={"15rem"}></Image>
@@ -322,38 +337,66 @@ const GoodsContent = ({ role,
                                 </Col> */}
                             </Row>
                         </Col>
+
                         <Col span={10} justify={"space-between"} style={{
-                            marginTop: "2rem",
+                            marginTop: "1rem",
                             borderTop: "1px solid rgb(51, 51, 51)"
                         }}>
                             {
-                                <>
-                                    <Row style={{
-                                        padding: "2rem",
-                                        borderBottom: "1px solid rgb(238, 238, 238)"
-                                    }} justify={"center"} align={"center"}>
-                                        <Col span={3}>
-                                            <Typo color={"rgb(153, 153, 153)"}>TEST</Typo>
-                                        </Col>
-                                        <Col span={9}>
-                                            <Typo >
-                                                ....
-                                            </Typo>
-                                        </Col>
-                                    </Row>
+                                productReview.length !== 0 ?
+                                    <StarRating>
+                                        <Typo color={"rgb(111, 111, 111)"} size={'1.3rem'}>만족도</Typo>
+                                        <Rate disabled value={starRating} style={{ fontSize: '1.8rem' }} />
+                                    </StarRating>
+                                    :
+                                    null
+                            }
 
-                                    <Row style={{
-                                        padding: "2rem",
-                                        borderBottom: "1px solid rgb(238, 238, 238)"
-                                    }} justify={"center"} align={"center"}>
-                                        <Col span={3}>
-                                            <Typo color={"rgb(153, 153, 153)"}>TEST</Typo>
-                                        </Col>
-                                        <Col span={9}>
-                                            <Typo >...</Typo>
-                                        </Col>
-                                    </Row>
-                                </>
+                        </Col>
+                        <Col span={10} justify={"space-between"} >
+                            {
+                                productReview.length !== 0 ?
+                                    productReview.map((review, index) => (
+                                        <Row key={index} gutter={[3, 0]} style={{
+                                            padding: "2rem",
+                                            borderBottom: "1px solid rgb(238, 238, 238)"
+                                        }} justify={"center"} align={"flex-start"}>
+                                            <Col xs={12} span={3} >
+                                                <Rate disabled value={review.starRating} style={{ fontSize: "1.5rem", color: "#0d7000" }} />
+                                            </Col>
+                                            <Col xs={12} span={9}>
+                                                <Col xs={12} span={12}>
+                                                    <Typo >
+                                                        {review.content}
+                                                    </Typo>
+                                                </Col>
+                                                <Col xs={8} span={12}>
+                                                    {
+                                                        onClickReviewImg.focus === true && onClickReviewImg.index === index ?
+                                                            <Image src={require(`../../../mocks/${thumbnailImg}.jpg`)} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
+                                                            :
+                                                            <Image src={require(`../../../mocks/${thumbnailImg}.jpg`)} onClick={() => reviewImgOnCLick(index)} width={"20%"} height={"fit-content"} cursor={'pointer'} />
+                                                    }
+                                                </Col>
+                                            </Col>
+                                            <Col span={12} justify={'center'}>
+                                                <Pagination count={totalReviewPageNum} onChange={reviewPagingClick} key={reviewPagingNum} defaultPage={reviewPagingNum} shape="rounded" />
+                                            </Col>
+                                        </Row>
+                                    ))
+
+                                    :
+                                    <>
+                                        <Row gutter={[2, 0]} style={{
+                                            padding: "2rem",
+                                        }} justify={"center"} align={"center"}>
+                                            <Col span={12} justify={'center'}>
+                                                <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'}>
+                                                    작성된 리뷰가 없습니다.
+                                                </Typo>
+                                            </Col>
+                                        </Row>
+                                    </>
                             }
                         </Col>
                     </Col>
@@ -362,8 +405,8 @@ const GoodsContent = ({ role,
 
 
                     {/* //SECTION - 제품문의  */}
-                    <Col span={12} justify={"center"} style={{ padding: "2rem 0" }}>
-                        <Col span={10} justify={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd " }}>
+                    <Col span={12} justify={"center"} style={{ padding: "1rem 0" }}>
+                        <Col span={10} justify={"center"} style={{ padding: "3rem 0", }}>
                             <Col span={12} align={"center"}  >
                                 <Row align={"center"} >
                                     <Col span={6} justify={"flex-start"}>
@@ -442,7 +485,13 @@ const GoodsContent = ({ role,
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            width: '70%',
+                            width: {
+                                xs: "90%",
+                                sm: "80%",
+                                md: "70%",
+                                lg: "70%",
+                                xl: "70%",
+                            },
                             bgcolor: 'background.paper',
                             boxShadow: 24,
                             borderRadius: '5px',

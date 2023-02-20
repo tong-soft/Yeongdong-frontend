@@ -130,6 +130,8 @@ const AdminContent = () => {
             title: '가격',
             dataIndex: 'price',
             key: 'price',
+            responsive: ['md'],
+
             render: (_, { price }) => (
                 <>
                     {
@@ -148,6 +150,7 @@ const AdminContent = () => {
             title: '갯수',
             key: 'totalCount',
             dataIndex: 'totalCount',
+            responsive: ['md'],
             render: (_, { totalCount }) => (
                 <Typo size={"1.2rem"} color={"#333333"} >{totalCount}&nbsp;개</Typo>
 
@@ -157,6 +160,7 @@ const AdminContent = () => {
             title: '카테고리',
             key: 'category',
             dataIndex: 'category',
+            responsive: ['md'],
             render: (_, { category }) => (
                 <Tag color={categoryOptions[category][1]} style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                     {categoryOptions[category][0]}

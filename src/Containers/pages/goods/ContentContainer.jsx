@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import get_product_info from "../../../service/api/get/get_product_info"
 import { notification } from 'antd';
 import post_product_questions from "../../../service/api/post/post_product_question";
-
+import get_product_reviews from "../../../service/api/get/get_product_reviews";
 
 const ContentContainer = ({ role, product }) => {
 
@@ -23,10 +23,54 @@ const ContentContainer = ({ role, product }) => {
         sellingPrice: null,
         orderCount: 1,
         orderCost: null,
-
+        starRating: 0,
     })
 
 
+    // SECTION review
+    /**
+     * @hook useState
+     * @description 상품 후기
+     * @enum {String} content
+     * @enum {ImageUrl} reviewImgUrl
+     * @enum {Number} starRating
+     */
+    const [productReview, setProductReview] = useState([])
+
+    //NOTE 전체 페이지 갯수 
+    const [totalReviewPageNum, setTotalReviewPageNum] = useState(0);
+
+    //NOTE 선택한 리스트 페이지 번호 ( 1페이지 , 2페이지) [pagingNum, setPagingNum]
+    const [reviewPagingNum, setReviewPagingNum] = useState(1);
+    /**
+  * @description paging 클릭 시
+  * @param e - 선택한 page target하기위한 param
+  * @detail id -1 해야댐 (page는 0 부터 시작 )
+  */
+    const reviewPagingClick = (e) => {
+        const pagingId = e.target.innerText;
+        console.log(pagingId)
+        setReviewPagingNum(Number(pagingId))
+    }
+
+    const [onClickReviewImg, setOnClickReviewImg] = useState({
+        focus: false,
+        index: 0,
+    })
+
+    const reviewImgOnCLick = (index) => {
+        if (onClickReviewImg.index === index) {
+            return setOnClickReviewImg((state) => ({
+                ...state,
+                focus: !state.focus,
+            }))
+        }
+        return setOnClickReviewImg({
+            focus: true,
+            index: index,
+        })
+    }
+    // !SECTION review
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -45,14 +89,23 @@ const ContentContainer = ({ role, product }) => {
                     description: data.description,
                     amount: data.amount,
                     sellingPrice: data.sellingPrice,
-                    discount: Math.ceil(100 - (data.sellingPrice / data.originalPrice * 100))
-
+                    discount: Math.ceil(100 - (data.sellingPrice / data.originalPrice * 100)),
+                    starRating: data.starRating,
                 }))
-
+            })
+            .then(() => {
+                get_product_reviews(id, reviewPagingNum)
+                    .then((res) => {
+                        console.log(res.response);
+                        const review = res.response;
+                        const content = review.content;
+                        setProductReview(content);
+                        setTotalReviewPageNum(review.totalPages);
+                    }).catch((err) => console.log(err))
             })
             .catch((err) => console.log(err))
 
-    }, [id])
+    }, [id, reviewPagingNum])
 
 
 
@@ -119,9 +172,8 @@ const ContentContainer = ({ role, product }) => {
     }
     /**
     * @description 장바구니 추가  클릭 시
-    * @type {Function} 
-    * @detail productId로 GET -> localStorage에 {cartItem } 
-
+    * @type {Function}
+    * @detail productId로 GET -> localStorage에 {cartItem} 
     */
     const addCartOnClick = () => {
         //localStorage에 카트상품리스트가 없다면 생성
@@ -248,6 +300,13 @@ const ContentContainer = ({ role, product }) => {
                 productQuestionFunc={productQuestionFunc}
                 productQuestionSaveOnClick={productQuestionSaveOnClick}
                 productQuestionData={productQuestionData}
+
+                productReview={productReview}
+                totalReviewPageNum={totalReviewPageNum}
+                reviewPagingNum={reviewPagingNum}
+                reviewPagingClick={reviewPagingClick}
+                onClickReviewImg={onClickReviewImg}
+                reviewImgOnCLick={reviewImgOnCLick}
             />
         </>
     )

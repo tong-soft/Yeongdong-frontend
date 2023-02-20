@@ -69,7 +69,7 @@ const HeaderDetailWrapper = styled(HeaderWrapper)`
 z-index : 20;
 min-height: 5rem;
 display: flex;
-top:6rem ;
+top:6rem;
 justify-content:center;
  padding:1rem ;
   gap:1rem;
@@ -135,12 +135,9 @@ const CartContent = ({
                     <Col span={2} align={"center"}>
                         <Image onClick={() => { navigate('/') }} cursor={"pointer"} src={youngdongIcon} width={"11rem"} ></Image>
                     </Col>
-                    <Col span={7} align={"center"} justify={"space-evenly"}>
+                    <Col xs={8} span={7} align={"center"} justify={"space-evenly"}>
                         <NavList isSelect={(focusNavList === "상품 관리" ? true : false)} onMouseEnter={() => navListOnClick("상품 관리")} >
                             <Typo size={"1.8rem"}>📦 </Typo>상품 관리
-                        </NavList>
-                        <NavList isSelect={(focusNavList === "고객 관리" ? true : false)} onMouseEnter={() => navListOnClick("고객 관리")}>
-                            <Typo size={"1.8rem"}>👤</Typo>고객 관리
                         </NavList>
                         <NavList isSelect={(focusNavList === "주문 관리" ? true : false)} onMouseEnter={() => navListOnClick("주문 관리")}>
                             <Typo size={"1.8rem"}>🛍️</Typo>주문 관리
@@ -149,7 +146,7 @@ const CartContent = ({
                             <Typo size={"1.8rem"}>🤔</Typo>QnA 관리
                         </NavList>
                     </Col>
-                    <Col span={2}>
+                    <Col xs={0} span={2}>
                         <Typo size={"1.2rem"} ><b>MODE</b> | 관리자 </Typo>
                     </Col>
                 </Row>
@@ -164,26 +161,17 @@ const CartContent = ({
                             <Btn types={"primary"} value={"상품 추가"} onClick={() => (navigate('/admin/addgood'))}></Btn>
                         </> : null
                 }
-                {
-                    focusNavList === "고객 관리" ?
-                        <>
-                            <Btn types={"text"} value={"고객 전체보기"}></Btn>
-                            <Btn types={"text"} value={"..."}></Btn>
-                        </> : null
 
-                }
                 {
                     focusNavList === "주문 관리" ?
                         <>
                             <Btn types={"text"} value={"주문확인하기"} onClick={() => (navigate('/admin/orderManage'))}></Btn>
                         </> : null
-
                 }
                 {
                     focusNavList === "QnA 관리" ?
                         <>
                             <Btn types={"text"} value={"전체 QnA"} onClick={() => navigate('/admin/inquiry')}></Btn>
-
                         </> : null
 
                 }

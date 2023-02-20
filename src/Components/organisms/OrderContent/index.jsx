@@ -117,7 +117,7 @@ const OrderContent = ({
 
                                                                             <div style={{ display: "flex", alignItems: "flex-end", flexDirection: "column", position: "relative", width: "auto" }}>
                                                                                 <Typo color={"#b5b5b5"} style={{ textDecorationLine: "line-through", position: "absolute", top: "-1.5rem", left: "0px" }} >{products.orderCount * products.originalPrice}</Typo>
-                                                                                <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{products.orderCount * products.sellingPrice}&nbsp;원</Typo>
+                                                                                <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{(products.orderCount * products.sellingPrice).toLocaleString()}&nbsp;원</Typo>
                                                                             </div>
                                                                     }
                                                                 </Col>

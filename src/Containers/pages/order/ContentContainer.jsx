@@ -70,7 +70,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
      */
     const [buyerInfo, setBuyerInfo] = useState({
         name: name || '',
-        phoneNumber: phoneNumber.replace(/[^0-9]/g, '') || "",
+        phoneNumber: phoneNumber || "",
         email: email,
     })
 

@@ -18,7 +18,6 @@ const TrackerUrl = styled.iframe.attrs((props) => ({
     src: props.src,
 }))`
     min-height: 40rem;
-    width: 100%;
     border: none;
     margin-bottom: 3rem;
   `;
@@ -173,7 +172,13 @@ const OrderInfo = ({
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: '70%',
+                        width: {
+                            xs: "90%",
+                            sm: "80%",
+                            md: "70%",
+                            lg: "70%",
+                            xl: "70%",
+                        },
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         borderRadius: '5px',
@@ -203,7 +208,13 @@ const OrderInfo = ({
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '70%',
+                    width: {
+                        xs: "90%",
+                        sm: "80%",
+                        md: "70%",
+                        lg: "70%",
+                        xl: "70%",
+                    },
                     bgcolor: 'background.paper',
                     boxShadow: 24,
                     borderRadius: '5px',
@@ -234,7 +245,13 @@ const OrderInfo = ({
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '70%',
+                    width: {
+                        xs: "90%",
+                        sm: "80%",
+                        md: "70%",
+                        lg: "70%",
+                        xl: "70%",
+                    },
                     bgcolor: 'background.paper',
                     boxShadow: 24,
                     borderRadius: '5px',
@@ -294,7 +311,13 @@ const OrderInfo = ({
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '70%',
+                    width: {
+                        xs: "90%",
+                        sm: "80%",
+                        md: "70%",
+                        lg: "70%",
+                        xl: "70%",
+                    },
                     bgcolor: 'background.paper',
                     boxShadow: 24,
                     borderRadius: '5px',

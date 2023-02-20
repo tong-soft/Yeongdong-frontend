@@ -17,23 +17,15 @@ const ContentContainer = ({ role, name, logined }) => {
         // if (focusNavList === listsValue) return headerDetailOpenHandler()
         setIsHeaderDetailOpen(true)
         setFocusNavList(listsValue)
-
     }
 
 
     useEffect(() => {
         console.log(menu)
-
         if (menu === 'addgood') return setFocusNavList("상품 관리")
         if (menu === 'setgood') return setFocusNavList("상품 관리")
-
-        if (menu === '고객 관리') return setFocusNavList('고객 관리')
-
         if (menu === 'orderManage') return setFocusNavList('주문 관리');
-
-
         if (menu === 'inquiry') return setFocusNavList('QnA 관리')
-
     }, [menu])
 
     useEffect(() => {
