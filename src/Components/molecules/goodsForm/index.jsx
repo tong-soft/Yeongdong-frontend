@@ -11,7 +11,7 @@ const GoodsForm = ({
     originalPrice,
     sellingPrice,
     description,
-
+    totalCount,
     //FUNCTION
     productOnClick,
 }) => {
@@ -19,14 +19,16 @@ const GoodsForm = ({
         <Col key={id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
             <Row justify={"center"} align={"center"}>
                 <div
-                    onClick={() => productOnClick(id)}
+                    onClick={() => totalCount !== 0 ? null : productOnClick(id)}
                     style={{ cursor: "pointer" }}>
 
 
                     <Col span={12} justify={"center"} align={"center"}>
                         {/* <GoodsImg square imgSrc={imgUrl} ></GoodsImg> */}
                         {/* TODO 이미지 배포하면 수정 */}
-                        <GoodsImg square imgSrc={require(`../../../mocks/${thumbnailImg}.jpg`)}
+                        <GoodsImg
+                            soldOut={totalCount === 0 ? true : false}
+                            square imgSrc={require(`../../../mocks/${thumbnailImg}.jpg`)}
                             productId={id}
                         // basketIconOnClick={() => basketIconOnClick(id)}
                         ></GoodsImg>

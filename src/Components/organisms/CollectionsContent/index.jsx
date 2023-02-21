@@ -74,6 +74,7 @@ const CollectionsContent = ({
                                                         originalPrice={lists.originalPrice}
                                                         sellingPrice={lists.sellingPrice}
                                                         description={lists.description}
+                                                        totalCount={lists.totalCount}
                                                         productOnClick={() => collectionProductOnClick(lists.id)}
                                                     />
                                                 )

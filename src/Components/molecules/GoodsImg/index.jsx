@@ -22,8 +22,9 @@ position: relative;
     width: 100%;
     height: auto;
     transition: all 0.5s ease-in-out 0s;
-    cursor : pointer;
+
 `
+
 
 const ImgContent = styled.img.attrs((props) => ({
     src: props.src,
@@ -39,6 +40,27 @@ const ImgContent = styled.img.attrs((props) => ({
         transition: all 0.3s ease-in-out 0s;
   }
 
+  //TODO SoldOut
+  ${props => props.soldOut === true ? `
+    filter :  brightness(40%); 
+    `
+        :
+        null
+    }
+
+`
+const SoldOut = styled.strong`
+    position:absolute;
+    top : 50%;
+    left : 0%;
+    width : 100%;
+    height : 2rem;
+    font-size: 1.5rem;
+    color : #ffffff;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const BasketIcon = styled.div`
@@ -55,7 +77,7 @@ const BasketIcon = styled.div`
     z-index: 10;
 `
 
-const GoodsImg = ({ imgSrc, height, productId
+const GoodsImg = ({ imgSrc, height, productId, soldOut
     // basketIconOnClick 
 }) => {
 
@@ -115,22 +137,29 @@ const GoodsImg = ({ imgSrc, height, productId
     }
 
 
-
     return (
         <>
             <ImgWrapper >
                 <ImgContainer>
-                    <ImgContent src={imgSrc} height={height} >
+
+                    <ImgContent src={imgSrc} height={height} soldOut={soldOut} >
                     </ImgContent>
-                    <BasketIcon onClick={(e) => { e.stopPropagation(); basketIconOnClick(); }} >
-                        <ShoppingCartOutlinedIcon style={{
-                            width: '60%',
-                            height: 'auto',
-                            color: "#fff",
-                        }} />
+                    {
+                        soldOut === true ?
+                            <SoldOut>
+                                SOLD OUT
+                            </SoldOut>
+                            :
+                            <BasketIcon onClick={(e) => { e.stopPropagation(); basketIconOnClick(); }} >
+                                <ShoppingCartOutlinedIcon style={{
+                                    width: '60%',
+                                    height: 'auto',
+                                    color: "#fff",
+                                }} />
+                            </BasketIcon>
+                    }
 
 
-                    </BasketIcon>
                 </ImgContainer>
 
             </ImgWrapper>
