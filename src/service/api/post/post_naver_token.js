@@ -18,11 +18,10 @@ const PostNaverToken = (token) => {
     }),
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('영동언니 로그인  성공  ✅💚\n', chalk.white.bgBlack.bold('/api/product/v1'));
-
       return data;
     })
     .catch(async (error) => {
@@ -32,7 +31,12 @@ const PostNaverToken = (token) => {
         duration: 2,
       });
       let err = await error.then();
-      console.log('Error from PostNaverToken\n' + err.error.errorCode + '\n' + err.error.errorName);
+      console.log(
+        'Error from PostNaverToken\n' +
+          err.error.errorCode +
+          '\n' +
+          err.error.errorName
+      );
       //에러처리
       throw err;
     });

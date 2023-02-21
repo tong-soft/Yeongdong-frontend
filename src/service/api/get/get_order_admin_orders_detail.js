@@ -15,7 +15,8 @@ const get_order_admin_orders_detail = (orderId) => {
     },
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
       console.log('관리자주문ID 정보 조회 성공  ✅\n');
@@ -30,8 +31,15 @@ const get_order_admin_orders_detail = (orderId) => {
         description: err.error.message || err.error.status,
         duration: 2,
       });
-      console.log('관리자 주문ID 정보 조회 실패 ❌\n' + err.error.message + '\n' + err.error.status + '\n' + err.error.code);
-      if (err.error.message === 'UNAUTHORIZED') {
+      console.log(
+        '관리자 주문ID 정보 조회 실패 ❌\n' +
+          err.error.message +
+          '\n' +
+          err.error.status +
+          '\n' +
+          err.error.code
+      );
+      if (err.error.status === 401) {
         return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
       }
       //에러처리

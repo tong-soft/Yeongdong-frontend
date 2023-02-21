@@ -19,7 +19,7 @@ const GoodsForm = ({
         <Col key={id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
             <Row justify={"center"} align={"center"}>
                 <div
-                    onClick={() => totalCount !== 0 ? null : productOnClick(id)}
+                    onClick={() => totalCount === 0 ? null : productOnClick(id)}
                     style={{ cursor: "pointer" }}>
 
 

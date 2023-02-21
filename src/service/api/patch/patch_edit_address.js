@@ -17,7 +17,8 @@ const PatchEditAddress = (addressData) => {
     body: JSON.stringify(addressData),
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       console.log('주소 수정 성공  ✅\n');
       notification['success']({
@@ -32,7 +33,7 @@ const PatchEditAddress = (addressData) => {
       });
       let err = await error.then();
       console.log(err);
-      if (err.error.code === 'ACCOUNT_005') {
+      if (err.error.status === 401) {
         notification['error']({
           message: `로그인을 다시해 주세요 ❌`,
           description: err.error.code,

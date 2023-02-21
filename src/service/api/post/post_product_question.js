@@ -43,7 +43,7 @@ const post_product_questions = (productId, productQuestionData) => {
       console.log(
         '문의올리기 실패 ❌\n' + err.path + '\n' + err.status + '\n' + err.error
       );
-      if (err.status === 401) {
+      if (err.error.status === 401) {
         return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
       }
       //에러처리

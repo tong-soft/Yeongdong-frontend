@@ -43,7 +43,7 @@ const get_product_my_questions = (pageNumber = 0) => {
           '\n' +
           err.error.code
       );
-      if (err.error.message === 'UNAUTHORIZED') {
+      if (err.error.status === 401) {
         return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
       }
       //에러처리

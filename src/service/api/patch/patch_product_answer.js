@@ -39,7 +39,7 @@ const Patch_product_answer = (questionId, AnswerContent) => {
         message: `질문 답변 입력 실패 `,
       });
 
-      if (err.error.status === '401') {
+      if (err.error.status === 401) {
         //UNAUTHORIZED
         notification['error']({
           message: `로그인을 다시해 주세요 `,

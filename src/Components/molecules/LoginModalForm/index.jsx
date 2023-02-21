@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Row, Col } from '../../../layout';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import naverBtn from "../../../assets/icons/naverBtn.png"
 import kakaoBtn from "../../../assets/icons/kakaoBtn.png"
 import styled from 'styled-components';

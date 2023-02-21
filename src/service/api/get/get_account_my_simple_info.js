@@ -13,8 +13,11 @@ const get_my_simple_info = () => {
     },
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
+      console.log('간단 정보 가져오기 ✅\n');
+
       let data = res.json();
       return data;
     })
@@ -26,7 +29,14 @@ const get_my_simple_info = () => {
         description: err.errorName || err.errorCode,
         duration: 2,
       });
-      console.log('Error from get_my_simple_info\n' + err.errorCode + '\n' + err.errorName);
+
+      console.log(
+        'Error from get_my_simple_info\n' +
+          err.error.message +
+          err.error.status +
+          '\n' +
+          err.error.code
+      );
       //에러처리
       throw err;
     });

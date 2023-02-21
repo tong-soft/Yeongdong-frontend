@@ -52,7 +52,7 @@ const post_order_product_review = (orderProductId, reviewFormData) => {
       });
       let err = await error.then();
 
-      if (err.error.code === 'ACCOUNT_005') {
+      if (err.error.status === 401) {
         notification['error']({
           message: `로그인을 다시해 주세요 ❌`,
           description: err.error.code,

@@ -51,8 +51,13 @@ const Start = () => {
         .then(() => resolve(true))
         .catch((err) => {
           console.log(err);
+          console.log('start.catch');
           resolve(true);
-          window.location.replace('/youngdong-app');
+          console.log(window.location);
+          if (window.location.pathname !== '/') {
+            return window.location.replace('/');
+          }
+          // return window.location.replace('/');
         });
     } else {
       //로그인 됬을시

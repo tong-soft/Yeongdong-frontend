@@ -14,7 +14,8 @@ const get_my_info = () => {
     },
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       console.log('내 정보 가져오기 ✅\n');
 
@@ -29,10 +30,14 @@ const get_my_info = () => {
         description: err.errorName || err.errorCode,
         duration: 2,
       });
-      console.log('Error from get_my_info\n' + err.error.message + '\n' + err.error.status + '\n' + err.error.code);
-      if (err.error.message === 'UNAUTHORIZED') {
-        return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
-      }
+      console.log(
+        'Error from get_my_info\n' +
+          err.error.message +
+          '\n' +
+          err.error.status +
+          '\n' +
+          err.error.code
+      );
       //에러처리
       throw err;
     });

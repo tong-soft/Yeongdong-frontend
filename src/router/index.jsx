@@ -16,7 +16,7 @@ import SearchRouter from "./SearchRouter"
 const youngDongRouter = ({ role }) => {
     console.log(`📌router/index📌 role : ${role} `)
     return (
-        <BrowserRouter basename="youngdong-app">
+        <BrowserRouter>
             <Routes>
                 <Route exact path="/" element={
                     <HomeRouter security={["ADMIN", "GUEST", "USER"]}

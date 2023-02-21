@@ -39,12 +39,12 @@ const PostProduct = (productId, pageNumber = 0) => {
       });
       console.log(
         '상품ID로 상품 후기 조회 실패 ❌\n' +
-          err.status +
-          err.path +
+          err.error.message +
+          err.error.status +
           '\n' +
-          err.error
+          err.error.code
       );
-      if (err.status === 401) {
+      if (err.error.status === 401) {
         return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
       }
 

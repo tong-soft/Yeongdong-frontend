@@ -17,7 +17,10 @@ import chalk from 'chalk';
  * @property {Image} infoImg
  */
 const PostProduct = (productFormData) => {
-  console.log(chalk.white.bgBlack.bold('productFormData'), productFormData.has('dto'));
+  console.log(
+    chalk.white.bgBlack.bold('productFormData'),
+    productFormData.has('dto')
+  );
   for (let key of productFormData.keys()) {
     console.log(key);
   }
@@ -34,9 +37,13 @@ const PostProduct = (productFormData) => {
     body: productFormData,
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('상품 등록 성공  ✅💚\n', chalk.white.bgBlack.bold('/api/product/v1'));
+      console.log(
+        '상품 등록 성공  ✅💚\n',
+        chalk.white.bgBlack.bold('/api/product/v1')
+      );
 
       let data = res.json();
       return data;
@@ -47,7 +54,7 @@ const PostProduct = (productFormData) => {
       });
       let err = await error.then();
 
-      if (err.error.code === 'ACCOUNT_005') {
+      if (err.error.status === 401) {
         notification['error']({
           message: `로그인을 다시해 주세요 ❌`,
           description: err.error.code,
