@@ -5,10 +5,10 @@ import { notification } from 'antd';
  * @description 카테고리 상품 불러오기
  * @method GET
  * @request @headers youngdong token
- * @param {string} keyword
- *
+ * @param {string} category
+ * @AvailableValues  ROOT, RICE, VEGETABLE, FRUIT, PERSIMMON, NUT, WINE, HONEY, PROCESSED, PASTE, SNACK, ETC
  */
-const get_product_search = (category) => {
+const get_product_category = (category) => {
   return fetch(
     `${_.SERVER_URL}/api/product/v1/products/categorys/${category}`,
     {
@@ -53,4 +53,4 @@ const get_product_search = (category) => {
     });
 };
 
-export default get_product_search;
+export default get_product_category;

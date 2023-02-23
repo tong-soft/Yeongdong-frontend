@@ -4,6 +4,10 @@ FROM node:16.13.2
 # 빌드된 산출물을 실행시키기 위해 필요한 serve 모듈
 RUN npm install -g serve
 
+# yarn 설치
+RUN npm install -g yarn
+
+
 # 작업 공간
 RUN mkdir /app
 WORKDIR /app
@@ -13,13 +17,13 @@ RUN mkdir ./public
 COPY package*.json ./
 
 # install project dependencies leaving out dev dependencies
-RUN npm install
+RUN yarn 
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
 # build
-RUN npm run build
+RUN yarn build
 
 
 # 실행 명령어

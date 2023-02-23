@@ -3,7 +3,7 @@ import CollectionsContent from "../../../Components/organisms/CollectionsContent
 import { useParams, useNavigate } from "react-router-dom"
 import get_all_goods from "../../../service/api/get/get_product_all_goods";
 import get_grade_goods from "../../../service/api/get/get_product_grade_goods";
-
+import get_product_category from "../../../service/api/get/get_product_category";
 const ContentContainer = () => {
     const navigate = useNavigate()
     const { sort } = useParams();
@@ -150,6 +150,7 @@ const ContentContainer = () => {
             ? tag
             : selectedCategory.filter((t) => t !== tag);
         setSelectedCategory(nextSelectedCategory);
+        get_product_category()
     };
     //!SECTION 카테고리
 
