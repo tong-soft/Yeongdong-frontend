@@ -20,6 +20,8 @@ RUN yarn
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
+RUN yarn cache clean
+
 # build
 RUN yarn build
 
