@@ -131,6 +131,19 @@ const ContentContainer = () => {
 
     //SECTION 카테고리
     const categoryData = ['쌀 · 잡곡', '채소', '과일', '감 · 곶감', '와인', '벌꿀', '가공식품', '장류', '떡 · 간식', '견과 · 버섯', '기타'];
+    const categoryObj = {
+        '쌀 · 잡곡': "RICE",
+        '채소': "VEGETABLE",
+        '과일': "FRUIT",
+        '감 · 곶감': "PERSIMMON",
+        '와인': "WINE",
+        '벌꿀': "HONEY",
+        '가공식품': "PROCESSED",
+        '장류': "PASTE",
+        '떡 · 간식': "SNACK",
+        '견과 · 버섯': "NUT",
+        '기타': "ETC",
+    }
     const [selectedCategory, setSelectedCategory] = useState('');
     const handleChangeCategory = (tag, checked) => {
         const nextSelectedCategory = checked

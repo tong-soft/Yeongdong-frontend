@@ -6,10 +6,11 @@ export default {
   DEV_CLIENT_SECRET: 'g3W4fkmFwr',
   DEV_SERVER_URL: 'http://localhost:8080',
   DEV_BASE_URL: '',
+
   HOST_URL: '',
   CLIENT_ID: '',
   CALLBACK_URL: '',
   CLIENT_SECRET: '',
-  SERVER_URL: 'dev-api.ydunnie.com',
+  SERVER_URL: 'https://dev-api.ydunnie.com/',
   BASE_URL: '',
 };
