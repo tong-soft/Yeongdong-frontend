@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "../../../layout"
-import { GoodsImg, Image, Typo } from "../../index"
+import { GoodsImg, Typo } from "../../index"
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import monkImg from "../../../assets/images/monkListImg.png"
 
