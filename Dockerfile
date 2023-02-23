@@ -14,7 +14,6 @@ RUN mkdir ./public
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
-RUN yarn cache clean
 
 
 # install project dependencies leaving out dev dependencies
