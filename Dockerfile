@@ -4,8 +4,6 @@ FROM node:16.13.2
 # 빌드된 산출물을 실행시키기 위해 필요한 serve 모듈
 RUN npm install -g serve
 
-# yarn 설치
-RUN npm install -g yarn
 
 
 # 작업 공간
