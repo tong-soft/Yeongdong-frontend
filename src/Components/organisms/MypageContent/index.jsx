@@ -150,41 +150,7 @@ const CartContent = ({
 
                                     {/* //SECTION - 주문/배송정보 */}
                                     {
-                                        !menu ?
-                                            <OrderInfo
-                                                allOrderData={allOrderData}
-                                                orderDetailModal={orderDetailModal}
-                                                isOrderDetail={isOrderDetail}
-                                                orderDetailData={orderDetailData}
-                                                totalPageNum={totalPageNum}
-                                                pagingClick={pagingClick}
-                                                pagingNum={pagingNum}
-
-                                                isQuestionModalOpen={isQuestionModalOpen}
-                                                questionModalHandler={questionModalHandler}
-                                                productQuestionData={productQuestionData}
-                                                productQuestionFunc={productQuestionFunc}
-                                                productQuestionSaveOnClick={productQuestionSaveOnClick}
-                                                productQuestionOnClick={productQuestionOnClick}
-                                                questionProduct={questionProduct}
-
-
-                                                isDeliveryDetail={isDeliveryDetail}
-                                                deliveryDetailModal={deliveryDetailModal}
-                                                deliveryDetailValue={deliveryDetailValue}
-                                                loading={loading}
-                                                setLoading={setLoading}
-                                                reviewModalHandler={reviewModalHandler}
-                                                isReviewModal={isReviewModal}
-                                                reviewData={reviewData}
-                                                setReviewDataFunc={setReviewDataFunc}
-                                                uploadImgOnclick={uploadImgOnclick}
-                                                FileBoxCloseOnclick={FileBoxCloseOnclick}
-                                            />
-                                            : null
-                                    }
-                                    {
-                                        menu === 'order' ?
+                                        menu === 'order' || !menu ?
                                             <OrderInfo
                                                 allOrderData={allOrderData}
                                                 orderDetailModal={orderDetailModal}

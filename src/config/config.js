@@ -10,6 +10,6 @@ export default {
   CLIENT_ID: '',
   CALLBACK_URL: '',
   CLIENT_SECRET: '',
-  SERVER_URL: '',
+  SERVER_URL: 'dev-api.ydunnie.com',
   BASE_URL: '',
 };

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PostPaymentYoungdong from "../../../service/api/post/post_order_payment_youngdong"
 import PostPaymentVerify from "../../../service/api/post/post_payment_verify"
 import { ReactComponent as KakaoPayIcon } from "../../../assets/svg/kakaoPayIcon.svg"
 import { notification } from 'antd';
 import { useNavigate } from "react-router-dom"
-
-// 
 
 
 const PaymentWrapper = styled.div`

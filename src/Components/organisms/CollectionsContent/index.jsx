@@ -1,9 +1,10 @@
 import React from "react";
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, GoodsImg, GoodsForm } from "../../index"
-import { Carousel } from 'antd';
+import { Image, Typo, GoodsForm } from "../../index"
+import { Carousel, Space, Tag } from 'antd';
 import mainImage from "../../../assets/images/mainImage2.png"
 import Pagination from '@mui/material/Pagination';
+const { CheckableTag } = Tag;
 
 const CollectionsContent = ({
     sort,
@@ -12,7 +13,9 @@ const CollectionsContent = ({
     lists,
     collectionProductOnClick,
     totalPageNum,
-
+    categoryData,
+    selectedCategory,
+    handleChangeCategory,
 }) => {
 
     const goodsList = lists || [{ id: null, thumbnailImg: null, name: "게시글이없습니다.", description: null, sellingPrice: null, originalPrice: null, }]
@@ -39,9 +42,9 @@ const CollectionsContent = ({
 
             <ContentStyle>
                 <Row justify={"center"} align={"center"}>
-                    {/* //SECTION Title */}
 
-                    <Col span={12} justify={"center"} align={"center"} style={{ margin: "50px 0" }}>
+                    {/* //SECTION Title */}
+                    <Col span={12} justify={"center"} align={"center"} style={{ margin: "3rem 0" }}>
                         {
                             sort === undefined ?
                                 <Typo size={'2.5rem'} weight={"bold"} color={"rgb(51,51,51)"} > 전체 상품</Typo>
@@ -54,6 +57,46 @@ const CollectionsContent = ({
                         }
                     </Col>
                     {/* //!SECTION Title */}
+
+                    {/* //SECTION category */}
+                    <Col span={12} justify={"center"} align={"center"} style={{ margin: "1rem 0" }}>
+                        <Row justify={"center"} align={"flex-start"}>
+                            <Col span={1.5} justify={"flex-end"} style={{ paddingTop: "2px" }}>
+                                <Space size={[0, 10]} wrap>
+                                    <span
+                                        style={{
+                                            marginRight: 8,
+                                            fontSize: "1.2rem",
+                                            fontWeight: "bold",
+                                            color: "rgb(51,51,51)",
+                                        }}
+                                    >
+                                        카테고리
+                                    </span>
+                                </Space>
+                            </Col>
+                            <Col span={10}>
+                                <Space size={[0, 4]} wrap>
+
+                                    {categoryData.map((tag) => (
+                                        <CheckableTag
+                                            key={tag}
+                                            checked={selectedCategory.includes(tag)}
+                                            onChange={(checked) => handleChangeCategory(tag, checked)}
+                                            style={{ fontSize: "1rem" }}
+                                        >
+                                            {tag}
+                                        </CheckableTag>
+                                    ))}
+                                </Space>
+                            </Col>
+                        </Row>
+
+
+                    </Col>
+                    {/* //!SECTION category */}
+
+
                     {/* //SECTION Content */}
 
                     <Col span={10} justify={"center"} align={"center"}>

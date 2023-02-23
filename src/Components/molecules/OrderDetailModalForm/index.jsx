@@ -254,7 +254,7 @@ const OrderDetailModalForm = ({
                                     </Col>
                                     <Col span={8}>
                                         <Typo color={'rgb(51, 51, 51)'} weight={'500'} size={'1.3rem'} style={{ wordBreak: 'keep-all' }}>
-                                            {orderDetailData.deliveryRequirement || '없음'}
+                                            {orderDetailData.orderProducts[0].deliveryRequirement || '없음'}
                                         </Typo>
                                     </Col>
                                 </Row>

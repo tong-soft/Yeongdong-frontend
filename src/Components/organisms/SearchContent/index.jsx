@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, GoodsImg, GoodsForm } from "../../index"
+import { Image, Typo, GoodsForm } from "../../index"
 import { Carousel } from 'antd';
 import mainImage from "../../../assets/images/mainImage2.png"
 import Pagination from '@mui/material/Pagination';

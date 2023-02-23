@@ -41,7 +41,7 @@ const ContentContainer = () => {
             description: '',
             originalPrice: '',
             sellingPrice: '',
-            thumbnailImg: `img_34`,
+            thumbnailImg: ``,
         }
     ]);
 
@@ -72,7 +72,7 @@ const ContentContainer = () => {
                             description: value.description,
                             originalPrice: value.originalPrice,
                             sellingPrice: value.sellingPrice,
-                            thumbnailImg: `img_${value.id}`,
+                            thumbnailImg: value.thumbnailImg,
                         }])
                 })
             }).catch((err) => { console.log(err) });

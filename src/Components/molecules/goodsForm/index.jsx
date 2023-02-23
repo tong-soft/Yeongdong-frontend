@@ -28,7 +28,7 @@ const GoodsForm = ({
                         {/* TODO 이미지 배포하면 수정 */}
                         <GoodsImg
                             soldOut={totalCount === 0 ? true : false}
-                            square imgSrc={require(`../../../mocks/${thumbnailImg}.jpg`)}
+                            square imgSrc={monkImg}
                             productId={id}
                         // basketIconOnClick={() => basketIconOnClick(id)}
                         ></GoodsImg>

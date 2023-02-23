@@ -65,7 +65,7 @@ const ContentContainer = () => {
                                 name: products.name,
                                 originalPrice: products.originalPrice,
                                 sellingPrice: products.sellingPrice,
-                                thumbnailImg: `img_${products.id}`,
+                                thumbnailImg: products.thumbnailImg,
                                 totalCount: products.totalCount
 
                             }
@@ -127,10 +127,18 @@ const ContentContainer = () => {
         navigate(`/goods/${productId}`)
     }
 
-
-
-
     //!SECTION sort===undefined -> collection
+
+    //SECTION 카테고리
+    const categoryData = ['쌀 · 잡곡', '채소', '과일', '감 · 곶감', '와인', '벌꿀', '가공식품', '장류', '떡 · 간식', '견과 · 버섯', '기타'];
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const handleChangeCategory = (tag, checked) => {
+        const nextSelectedCategory = checked
+            ? tag
+            : selectedCategory.filter((t) => t !== tag);
+        setSelectedCategory(nextSelectedCategory);
+    };
+    //!SECTION 카테고리
 
 
     return (
@@ -144,7 +152,9 @@ const ContentContainer = () => {
                         totalPageNum={totalPageNum}
                         lists={lists}
                         collectionProductOnClick={collectionProductOnClick}
-
+                        categoryData={categoryData}
+                        selectedCategory={selectedCategory}
+                        handleChangeCategory={handleChangeCategory}
                     />
                     :
                     null

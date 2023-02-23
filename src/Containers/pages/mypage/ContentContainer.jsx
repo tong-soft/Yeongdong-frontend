@@ -39,17 +39,7 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
     console.log("🚀 ~ menu", menu);
 
     useEffect(() => {
-        if (!menu) {
-            setAllOrderData([])
-            get_my_all_orders(pagingNum - 1)
-                .then((res) => {
-                    const response = res.response;
-                    console.log(response);
-                    setAllOrderData(response.content);
-                    setTotalPageNum(response.totalPages)
-                }).catch((err) => console.log(err))
-        }
-        if (menu === 'order') {
+        if (menu === 'order' || !menu) {
             setAllOrderData([])
             get_my_all_orders(pagingNum - 1)
                 .then((res) => {
@@ -57,6 +47,8 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                     console.log(response);
                     // setAllOrderData(response.content);
                     response.content.map((item, index) => {
+
+                        console.log("🚀 ~ item", item);
                         // let setProducts = [].push(
                         //     item.orderProducts.map((orderProduct, index) => {
                         //         return {
@@ -72,7 +64,7 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                                 orderDate: item.orderDate,
                                 orderPrice: item.orderPrice,
                                 orderProducts: item.orderProducts,
-                                orderRequirement: item.orderRequirement,
+                                orderRequirement: item.orderProducts[0].deliveryRequirement,
                                 paymentMethod: item.paymentMethod,
                                 paymentPrice: item.paymentPrice,
                                 paymentStatus: item.paymentStatus,
