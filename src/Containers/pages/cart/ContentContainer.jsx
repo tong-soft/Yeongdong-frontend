@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CartContent from "../../../Components/organisms/CartContent"
-import monkLists from "../../../mocks/lists"
 import { useNavigate } from "react-router-dom"
 import EmptyCartForm from "../../../Components/molecules/EmptyCartForm";
 

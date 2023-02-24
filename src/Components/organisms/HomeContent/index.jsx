@@ -11,8 +11,8 @@ import carousel_3 from "../../../assets/images/carousel_3.png"
 import carousel_4 from "../../../assets/images/carousel_4.png"
 import carousel_5 from "../../../assets/images/carousel_5.png"
 
-import HomeMainMonk from "../../../mocks/HomeMainMonk.jpg"
-import HomeMainMonk2 from "../../../mocks/HomeMainMonk2.jpg"
+import HomeMainMonk from "../../../assets/images/mainImage2.png"
+import HomeMainMonk2 from "../../../assets/images/mainImage2.png"
 
 import monkListImg from "../../../assets/images/monkListImg.png"
 

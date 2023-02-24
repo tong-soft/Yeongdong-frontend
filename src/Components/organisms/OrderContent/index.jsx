@@ -4,14 +4,13 @@ import { Image, Typo, Btn, Divider, CheckBox, TextBox } from "../../index"
 
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import goods from "../../../mocks/lists"
 import Payment from "../../molecules/Payment"
 import DaumPostcode from 'react-daum-postcode';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom"
 
-
+import monkListImg from "../../../assets/images/monkListImg.png"
 
 const SearchWrapper = styled.div`
     display : flex;
@@ -64,7 +63,6 @@ const OrderContent = ({
 
 
 
-    const monkGood = goods[0]
 
     return (
         <>
@@ -89,14 +87,7 @@ const OrderContent = ({
                                                     <Col span={12} key={index} style={{ padding: "0.5rem 0" }}>
                                                         <Row align={'center'} justify={"space-between"}>
                                                             <Col xs={3} span={2}>
-
-
-
-                                                                {
-                                                                    products.thumbnailImg ?
-                                                                        <Image src={require(`../../../mocks/${products.thumbnailImg}.jpg`)} width={"80%"} height={"fit-content"} />
-                                                                        : <Image src={monkGood.img} width={"80%"}></Image>
-                                                                }
+                                                                <Image src={monkListImg} width={"80%"} height={"fit-content"} />
 
                                                             </Col>
                                                             <Col xs={4} span={6} style={{ padding: "0 1rem" }} >

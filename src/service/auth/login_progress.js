@@ -1,6 +1,5 @@
 import store from '../../store/store';
 import ACTION from '../../store/actions/action';
-import MockUser from '../../mocks/user';
 import get_my_simple_info from '../api/get/get_account_my_simple_info';
 import get_my_info from '../api/get/get_account_my_info';
 /**
@@ -45,16 +44,6 @@ const LoginProcess = (accessToken) => {
     );
   });
 
-  store.dispatch(ACTION.LOGIN_ACTION_FUNC());
-
-  store.dispatch(
-    ACTION.SET_USER__ACTION_FUNC({
-      user: {
-        name: MockUser.name,
-        role: MockUser.role,
-      },
-    })
-  );
   store.dispatch(ACTION.LOGIN_ACTION_FUNC());
 };
 

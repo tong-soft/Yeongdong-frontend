@@ -85,11 +85,9 @@ const CartContent = ({
                                                                 </label>
                                                                 <Col span={2}>
 
-                                                                    {
-                                                                        goods.thumbnailImg ?
-                                                                            <Image src={require(`../../../mocks/${goods.thumbnailImg}.jpg`)} width={"100%"} height={"fit-content"} />
-                                                                            : <Image src={monkImg} width={"100%"}></Image>
-                                                                    }
+
+                                                                    <Image src={monkImg} width={"100%"}></Image>
+
                                                                 </Col>
 
                                                                 <Col span={5} style={{ padding: "0 1rem" }} >

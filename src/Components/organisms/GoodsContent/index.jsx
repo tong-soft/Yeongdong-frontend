@@ -109,7 +109,7 @@ const GoodsContent = ({ role,
                             {/* //SECTION - 썸네일 */}
                             <Col xs={9} span={6} >{
                                 thumbnailImg !== null ?
-                                    <Image src={require(`../../../mocks/${thumbnailImg}.jpg`)} width={"100%"} height={"fit-content"} />
+                                    <Image src={monkDetailProduct} width={"100%"} height={"fit-content"} />
                                     : null
                             }
                             </Col>
@@ -373,9 +373,9 @@ const GoodsContent = ({ role,
                                                 <Col xs={8} span={12}>
                                                     {
                                                         onClickReviewImg.focus === true && onClickReviewImg.index === index ?
-                                                            <Image src={require(`../../../mocks/${thumbnailImg}.jpg`)} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
+                                                            <Image src={monkDetailProduct} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
                                                             :
-                                                            <Image src={require(`../../../mocks/${thumbnailImg}.jpg`)} onClick={() => reviewImgOnCLick(index)} width={"20%"} height={"fit-content"} cursor={'pointer'} />
+                                                            <Image src={monkDetailProduct} onClick={() => reviewImgOnCLick(index)} width={"20%"} height={"fit-content"} cursor={'pointer'} />
                                                     }
                                                 </Col>
                                             </Col>
