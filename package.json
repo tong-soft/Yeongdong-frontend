@@ -1,6 +1,7 @@
 {
   "name": "youngdong-app",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -16,6 +17,7 @@
     "antd": "^5.0.4",
     "buffer": "^6.0.3",
     "chalk": "^5.2.0",
+    "dotenv": "^16.0.3",
     "gh-pages": "^4.0.0",
     "jwt-decode": "^3.1.2",
     "qs": "^6.11.0",

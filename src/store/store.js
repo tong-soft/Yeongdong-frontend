@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from 'redux';
-import login_reducer from './reducers/login_reducer';
-import user_reducer from './reducers/user_reducer';
-import order_reducer from './reducers/order_reducer';
+import login_reducer from './reducers/login_reducer.js';
+import user_reducer from './reducers/user_reducer.js';
+import order_reducer from './reducers/order_reducer.js';
 
 export default createStore(
   combineReducers({
