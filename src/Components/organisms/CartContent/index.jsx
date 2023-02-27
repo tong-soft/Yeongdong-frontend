@@ -84,8 +84,6 @@ const CartContent = ({
                                                                     <CheckBox checked={checkedArr.includes(goods.id)} onChange={(e) => checkedGoodsOnchange(e, goods.id)} size={"1.7rem"} />
                                                                 </label>
                                                                 <Col span={2}>
-
-
                                                                     <Image src={monkImg} width={"100%"}></Image>
 
                                                                 </Col>

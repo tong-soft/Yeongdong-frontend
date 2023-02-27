@@ -7,10 +7,10 @@ export default {
   DEV_SERVER_URL: 'http://localhost:8080',
   DEV_BASE_URL: '',
 
-  HOST_URL: '',
-  CLIENT_ID: '',
-  CALLBACK_URL: '',
-  CLIENT_SECRET: '',
+  HOST_URL: 'https://dev-shop.ydunnie.com/',
+  CLIENT_ID: 'DjjA5He4X8yR1w63omsK',
+  CALLBACK_URL: 'https://dev-shop.ydunnie.com/login',
+  CLIENT_SECRET: 'g3W4fkmFwr',
   SERVER_URL: 'https://dev-api.ydunnie.com/',
   BASE_URL: '',
 };
