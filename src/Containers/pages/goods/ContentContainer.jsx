@@ -7,6 +7,8 @@ import post_product_questions from "../../../service/api/post/post_product_quest
 import get_product_reviews from "../../../service/api/get/get_product_reviews";
 
 const ContentContainer = ({ role, product }) => {
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     /**
      * @hook useState
@@ -72,8 +74,6 @@ const ContentContainer = ({ role, product }) => {
     }
     // !SECTION review
 
-    const { id } = useParams();
-    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
         get_product_info(id)
@@ -103,9 +103,12 @@ const ContentContainer = ({ role, product }) => {
                         setTotalReviewPageNum(review.totalPages);
                     }).catch((err) => console.log(err))
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.log(err)
+                return navigate('/')
+            })
 
-    }, [id, reviewPagingNum])
+    }, [id, reviewPagingNum, navigate])
 
 
 
