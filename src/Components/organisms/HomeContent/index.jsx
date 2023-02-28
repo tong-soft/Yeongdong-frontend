@@ -259,7 +259,6 @@ const HomeContent = ({
                     <Row>
                         <Col span={12}>
                             <Image src={liveCommerceIcon} width={"13rem"} />
-
                         </Col>
                         <Col span={12} style={{ width: "100%", padding: "1rem", height: "350px" }}>
                             {/*//NOTE Carousel */}
@@ -287,28 +286,177 @@ const HomeContent = ({
                             <Col span={12} justify={"center"} algin={"center"} style={{ padding: "5rem 0 3rem 0" }}>
                                 <Typo cursor={"pointer"} fontFamily={'nixgon'} size={"2rem"}>인기상품&nbsp;{">"}</Typo>
                             </Col>
+                            {
+                                (hotItemArr.length === 0) ?
+                                    <Col span={12} justify={'center'} style={{ padding: '1rem 0' }}>
+                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>인기 상품이 없습니다.</Typo>
+                                    </Col>
+                                    :
+                                    hotItemArr.map((lists, index) => {
+                                        return (
+                                            <Col key={index} span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                                <div
+                                                    onClick={() => { monkOnClick(lists.id) }}
+                                                    key={lists.id}
+                                                    style={{
+                                                        display: "flex",
+                                                        boxSizing: 'border-box',
+                                                        cursor: "pointer",
+                                                        width: '100%'
+                                                    }}>
+                                                    <Row justify={"center"} align={"center"}>
+                                                        <Col span={12} justify={"center"} align={"center"}>
+                                                            <GoodsImg imgSrc={monkListImg} height={"15rem"} ></GoodsImg>
+                                                        </Col>
+                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem", }}>
+                                                            <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.name}</Typo>
+                                                        </Col>
+                                                        {
+                                                            (lists.sellingPrice === lists.originalPrice) ?
+                                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                    <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                                </Col>
+                                                                :
+                                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                    <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
+                                                                    <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
+                                                                    <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                                </Col>
+                                                        }
+                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                            <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                        )
+                                    })
+                            }
+                        </Row>
+                    </Col>
+                    {/* //!SECTION */}
+
+                    {/* SECTION 시그니처 - signature */}
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row>
+                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
+                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate('/collections/signature')} >
+                                    영동언니의 시그니처&nbsp;{">"}
+                                </Typo>
+                            </Col>
+                            {
+                                signatureArr.length === 0 ?
+                                    <Col span={12} justify={'center'} style={{ padding: '1rem 0' }}>
+                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>시그니처로 등록된 상품이 없습니다.</Typo>
+                                    </Col>
+                                    :
+                                    signatureArr.map((lists) => {
+                                        return (
+                                            <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                                <Row justify={"center"} align={"center"}>
+                                                    <Col span={12} justify={"center"} align={"center"}>
+                                                        <GoodsImg imgSrc={monkListImg} ></GoodsImg>
+                                                    </Col>
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.name}</Typo>
+                                                    </Col>
+                                                    {
+                                                        (lists.sellingPrice === lists.originalPrice) ?
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                            </Col>
+                                                            :
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
+                                                                <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                            </Col>
+                                                    }
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                        )
+                                    })
+                            }
+                        </Row>
+                    </Col>
+                    {/* //!SECTION */}
+
+                    {/* SECTION 신상품 - newItem*/}
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row >
+                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
+                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"}>따끈따끈 신상품&nbsp;{">"}</Typo>
+                            </Col>
 
                             {
-                                hotItemArr.map((lists, index) => {
-                                    return (
-                                        <Col key={index} span={6} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                            <div
-                                                onClick={() => { monkOnClick(lists.id) }}
-                                                key={lists.id}
-                                                style={{
-                                                    display: "flex",
-                                                    boxSizing: 'border-box',
-                                                    cursor: "pointer",
-                                                    width: '100%'
-                                                }}>
+                                newArr.length === 0 ?
+                                    <Col span={12} justify={'center'} style={{ padding: '1rem 0' }}>
+                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>신상품이 없습니다.</Typo>
+                                    </Col>
+                                    :
+                                    newArr.map((lists) => {
+                                        return (
+                                            <Col key={lists.id}
+                                                xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
+                                                justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                                 <Row justify={"center"} align={"center"}>
-
                                                     <Col span={12} justify={"center"} align={"center"}>
-                                                        <GoodsImg imgSrc={monkListImg} height={"15rem"} ></GoodsImg>
-
+                                                        <GoodsImg imgSrc={monkListImg} ></GoodsImg>
                                                     </Col>
-                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem", }}>
-                                                        <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.name}</Typo>
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1.2rem"} weight={"normal"} >{lists.name}</Typo>
+                                                    </Col>
+                                                    {
+                                                        (lists.sellingPrice === lists.originalPrice) ?
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                            </Col>
+                                                            :
+                                                            <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
+                                                                <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
+                                                                <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
+                                                                <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
+                                                            </Col>
+                                                    }
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                        )
+                                    })
+                            }
+                        </Row>
+                    </Col>
+                    {/* //!SECTION */}
+
+                    {/* SECTION 전체상품*/}
+
+                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
+                        <Row  >
+                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
+                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate('/collections')}  >전체상품&nbsp;{">"} </Typo>
+                            </Col>
+                            {
+                                allArr.length === 0 ?
+                                    <Col span={12} justify={'center'} style={{ padding: '1rem 0' }}>
+                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                    </Col>
+                                    :
+                                    allArr.map((lists) => {
+                                        return (
+                                            <Col key={lists.id}
+                                                xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
+                                                justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                                <Row justify={"center"} align={"center"}>
+                                                    <Col span={12} justify={"center"} align={"center"}>
+                                                        <GoodsImg imgSrc={monkListImg} ></GoodsImg>
+                                                    </Col>
+                                                    <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
+                                                        <Typo fontFamily={'Noto Sans KR'} size={"1.2rem"} weight={"normal"} >{lists.name}</Typo>
                                                     </Col>
 
                                                     {
@@ -328,164 +476,17 @@ const HomeContent = ({
                                                         <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
                                                     </Col>
                                                 </Row>
-                                            </div>
-                                        </Col>
-
-
-                                    )
-                                })
+                                            </Col>
+                                        )
+                                    })
                             }
                         </Row>
                     </Col>
                     {/* //!SECTION */}
-
-                    {/* SECTION 시그니처 - signature */}
-                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                        <Row>
-                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
-                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate('/collections/signature')} >
-                                    영동언니의 시그니처&nbsp;{">"}
-                                </Typo>
-                            </Col>
-                            {
-                                signatureArr.map((lists) => {
-                                    return (
-                                        <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                            <Row justify={"center"} align={"center"}>
-                                                <Col span={12} justify={"center"} align={"center"}>
-                                                    <GoodsImg imgSrc={monkListImg} ></GoodsImg>
-                                                </Col>
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1.3rem"} weight={"normal"} >{lists.name}</Typo>
-                                                </Col>
-                                                {
-                                                    (lists.sellingPrice === lists.originalPrice) ?
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-                                                        :
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
-                                                            <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-
-                                                }
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
-                                                </Col>
-
-                                            </Row>
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                    </Col>
-                    {/* //!SECTION */}
-
-                    {/* SECTION 신상품 - newItem*/}
-                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                        <Row >
-                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
-                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"}>따끈따끈 신상품&nbsp;{">"}</Typo>
-                            </Col>
-
-                            {
-                                newArr.map((lists) => {
-                                    return (
-                                        <Col key={lists.id}
-                                            xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
-                                            justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                            <Row justify={"center"} align={"center"}>
-                                                <Col span={12} justify={"center"} align={"center"}>
-                                                    <GoodsImg imgSrc={monkListImg} ></GoodsImg>
-                                                </Col>
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1.2rem"} weight={"normal"} >{lists.name}</Typo>
-                                                </Col>
-
-                                                {
-                                                    (lists.sellingPrice === lists.originalPrice) ?
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-                                                        :
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
-                                                            <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-
-                                                }
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
-                                                </Col>
-
-                                            </Row>
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                    </Col>
-                    {/* //!SECTION */}
-
-                    {/* SECTION 전체상품*/}
-
-                    <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
-                        <Row  >
-                            <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
-                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate('/collections')}  >전체상품&nbsp;{">"} </Typo>
-                            </Col>
-                            {
-                                allArr.map((lists) => {
-                                    return (
-                                        <Col key={lists.id}
-                                            xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
-                                            justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
-                                            <Row justify={"center"} align={"center"}>
-                                                <Col span={12} justify={"center"} align={"center"}>
-                                                    <GoodsImg imgSrc={monkListImg} ></GoodsImg>
-                                                </Col>
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1.2rem"} weight={"normal"} >{lists.name}</Typo>
-                                                </Col>
-
-                                                {
-                                                    (lists.sellingPrice === lists.originalPrice) ?
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-                                                        :
-                                                        <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "0.8rem", }}>
-                                                            <Typo color={"#f03f45"} size={"1.3rem"} fontFamily={'Noto Sans KR'} weight={'700'}>{100 - Math.ceil(lists.sellingPrice / lists.originalPrice * 100)}%</Typo>
-                                                            <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
-                                                            <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
-                                                        </Col>
-
-                                                }
-                                                <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
-                                                    <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
-                                                </Col>
-
-                                            </Row>
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                    </Col>
-                    {/* //!SECTION */}
-
                 </Col>
                 {/* //!SECTION 내용 전체 */}
-
             </Row >
-
-
         </>
-
     )
 
 

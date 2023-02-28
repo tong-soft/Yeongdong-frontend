@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import HomeContent from "../../../Components/organisms/HomeContent"
+import get_product_products_main from "../../../service/api/get/get_product_products_main";
+import get_product_products_main_popularity from "../../../service/api/get/get_product_products_main_popularity";
+import get_product_products_main_special from "../../../service/api/get/get_product_products_main_special";
 
 
 const ContentContainer = () => {
@@ -7,164 +10,40 @@ const ContentContainer = () => {
         window.scrollTo(0, 0);
     }, [])
 
-    const [hotItems, setHotItems] = useState([
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 1,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 2,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 11900,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        }
-    ]);
-    const [sigItems, setSigItems] = useState([
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 3,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 4,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 5,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-    ]);
+    const [hotItems, setHotItems] = useState([]);
+    const [sigItems, setSigItems] = useState([]);
     const [newItems, setNewItems] = useState([]);
-    const [allItems, setAllItems] = useState([
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 6,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 7,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 8,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 9,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 10,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 11,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 12,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        },
-        {
-            category: "NUT",
-            description: "우수한 품질의 무농약 새송이 버섯",
-            grade: "SPECIAL",
-            id: 13,
-            name: "새농이 버섯 2kg 특품 상품",
-            originalPrice: 11900,
-            sellingPrice: 9990,
-            thumbnailImg: "img_34",
-            totalCount: 96,
-        }
+    const [allItems, setAllItems] = useState([]);
 
 
-
-    ]);
 
     useEffect(() => {
         //TODO 통신
-        setNewItems(allItems.slice(0, 4));
-    }, [allItems])
+
+        get_product_products_main()
+            .then((res) => {
+                const allData = res.response;
+                if (allData.length !== 0) {
+                    setAllItems(allData);
+                    setNewItems(allData.slice(0, 4));
+                }
+
+            }).catch((err) => console.log(err));
+
+        get_product_products_main_popularity()
+            .then((res) => {
+                const hotData = res.response;
+                setHotItems(hotData);
+            }).catch((err) => console.log(err));
+
+        get_product_products_main_special()
+            .then((res) => {
+                const sigData = res.response;
+                setSigItems(sigData);
+            }).catch((err) => console.log(err));
+
+    }, [])
+
 
     return (
         <>
