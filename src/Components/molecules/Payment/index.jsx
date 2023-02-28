@@ -5,6 +5,7 @@ import PostPaymentVerify from "../../../service/api/post/post_payment_verify"
 import { ReactComponent as KakaoPayIcon } from "../../../assets/svg/kakaoPayIcon.svg"
 import { notification } from 'antd';
 import { useNavigate } from "react-router-dom"
+import _ from "../../../config/env"
 
 
 const PaymentWrapper = styled.div`
@@ -93,7 +94,7 @@ const Payment = ({ effect, deps, pgTypes,
 
 
                 const { IMP } = window;
-                IMP.init('imp06232811'); // 결제 데이터 정의
+                IMP.init(_.IMPORT_CODE); // 결제 데이터 정의
                 const data = {
                     pg: pgValue || 'kakaopay', // PG사 (필수항목)
                     pay_method: 'card', // 결제수단 (필수항목)
