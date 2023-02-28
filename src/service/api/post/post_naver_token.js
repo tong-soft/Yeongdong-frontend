@@ -1,6 +1,5 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-import chalk from 'chalk';
 /**
  * @description 영동언니 로그인
  * @method POST

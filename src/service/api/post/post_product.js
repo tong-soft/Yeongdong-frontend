@@ -1,6 +1,5 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-import chalk from 'chalk';
 
 /**
  * @description 상품 등록
@@ -17,10 +16,7 @@ import chalk from 'chalk';
  * @property {Image} infoImg
  */
 const PostProduct = (productFormData) => {
-  console.log(
-    chalk.white.bgBlack.bold('productFormData'),
-    productFormData.has('dto')
-  );
+  console.log(productFormData.has('dto'));
   for (let key of productFormData.keys()) {
     console.log(key);
   }
@@ -40,10 +36,7 @@ const PostProduct = (productFormData) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log(
-        '상품 등록 성공  ✅💚\n',
-        chalk.white.bgBlack.bold('/api/product/v1')
-      );
+      console.log('상품 등록 성공  ✅💚\n', '/api/product/v1/products');
 
       let data = res.json();
       return data;

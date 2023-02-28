@@ -3,26 +3,20 @@ import { Row, Col } from "../../../layout"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import headerIcon from "../../../assets/icons/youngdongHeaderIcon.png"
-import { Image, Typo, LoginModalForm, TextBox, Btn } from "../../../Components/"
+import { Image, Typo, LoginModalForm, TextBox } from "../../../Components/"
 import Box from '@mui/material/Box';
 
 import HamburgerIcon from "../../../assets/icons/hamburgerIcon.png"
 
 import Modal from '@mui/material/Modal';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { ReactComponent as SearchIcon } from '../../../assets/svg/searchIcon.svg';
 
 import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
 import login_process from "../../../service/auth/login_progress"
 import signup_process from "../../../service/auth/signup_progress"
 import logout_process from "../../../service/auth/logout_progress"
-import get_product_search from "../../../service/api/get/get_product_search"
-// import Popper from '@mui/material/Popper';
-// import Fade from '@mui/material/Fade';
-// import Paper from '@mui/material/Paper';
-// import { useEffect } from "react"
-// import TextField from '@mui/material/TextField';
+
 
 
 
@@ -441,14 +435,22 @@ const HeaderContent = ({ logined, role, name }) => {
                     <LoginBtnBox>
                         {/* <LoginValueBtn onClick={() => navigate('/cart')} >마이페이지</LoginValueBtn> */}
                         <LoginValueBtn onClick={logOutOnClick}>로그아웃</LoginValueBtn>
-                        {/* TODO 관리자 페이지 삭제 */}
-                        <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
+                        {
+                            role === 'ADMIN' ?
+                                <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
+                                :
+                                null
+                        }
                     </LoginBtnBox>
                     :
                     <>
                         <LoginBtnBox>
-                            {/* TODO 관리자 페이지 삭제 */}
-                            <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
+                            {
+                                role === 'ADMIN' ?
+                                    <LoginValueBtn onClick={() => { navigate("/admin") }}>관리자 페이지</LoginValueBtn>
+                                    :
+                                    null
+                            }
 
                             <LoginValueBtn onClick={doingLogin}>로그인</LoginValueBtn>
                             <Modal

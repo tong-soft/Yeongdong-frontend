@@ -1,6 +1,5 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-import chalk from 'chalk';
 
 /**
  * @description 상품 등록
@@ -12,10 +11,7 @@ import chalk from 'chalk';
  * @property {FormData} reviewImg
  */
 const post_order_product_review = (orderProductId, reviewFormData) => {
-  console.log(
-    chalk.white.bgBlack.bold('productFormData'),
-    reviewFormData.has('dto')
-  );
+  console.log(reviewFormData.has('dto'));
   for (let key of reviewFormData.keys()) {
     console.log(key);
   }

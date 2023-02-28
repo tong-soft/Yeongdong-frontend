@@ -1,6 +1,6 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-import chalk from 'chalk';
+
 /**
  * @description 결제 검증 
  * @method POST
@@ -21,10 +21,11 @@ const PostPaymentVerify = (goodsInfo) => {
     body: JSON.stringify(goodsInfo),
   })
     .then((res) => {
-      if (res.status === 500) throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+      if (res.status === 500)
+        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('결제 검증 성공  ✅💚\n', chalk.white.bgBlack.bold('/api/product/v1'));
+      console.log('결제 검증 성공  ✅💚\n', '/api/product/v1');
 
       return data;
     })
@@ -35,7 +36,13 @@ const PostPaymentVerify = (goodsInfo) => {
         description: err.error.code || err.error.message,
         duration: 2,
       });
-      console.log('결제 검증 실패 ❌\n' + err.error.status + err.error.code + '\n' + err.error.message);
+      console.log(
+        '결제 검증 실패 ❌\n' +
+          err.error.status +
+          err.error.code +
+          '\n' +
+          err.error.message
+      );
       //에러처리
       throw err;
     });

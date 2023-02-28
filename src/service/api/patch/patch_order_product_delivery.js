@@ -1,6 +1,5 @@
 import _ from '../../../config/env';
 import { notification } from 'antd';
-import chalk from 'chalk';
 
 /**
  * @description 상품 등록
