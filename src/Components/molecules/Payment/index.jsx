@@ -139,10 +139,12 @@ const Payment = ({ effect, deps, pgTypes,
                 })
                 console.log("🚀 ~ productIdArr", productIdArr);
                 const localStorageList = JSON.parse(localStorage.getItem("cartProductList"))
-                const setLocalStorageList = localStorageList.filter(list => !productIdArr.includes(list.id))
+                if(Array.isArray(localStorageList) === true){
+                     const setLocalStorageList = localStorageList.filter(list => !productIdArr.includes(list.id))
                 console.log("🚀 ~ setLocalStorageList", setLocalStorageList);
                 localStorage.setItem('cartProductList', JSON.stringify(setLocalStorageList));
-
+                }
+            
                 notification['success']({
                     message: `결제 성공 `,
                 });

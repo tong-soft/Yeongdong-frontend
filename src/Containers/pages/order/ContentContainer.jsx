@@ -174,7 +174,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
         주소: ${data.address},
         우편번호: ${data.zonecode}
     `)
-        setAdrrInfo((state) => ({ ...state, addrAddress: data.jibunAddress }))
+        setAdrrInfo((state) => ({ ...state, addrAddress: data.jibunAddress || data.address }))
         setAdrrInfo((state) => ({ ...state, addrZoneCode: data.zonecode }))
         setAdrrInfo((state) => ({ ...state, roadAddress: data.roadAddress }))
 
