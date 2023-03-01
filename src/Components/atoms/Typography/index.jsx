@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 const Typo = styled.div`
 display : flex;
-transition: all 0.5s ease  ;
 ${props => (props.full) ? 'width : 100%; justify-content : inherit; flex-basis :100%' : null};
 overflow : inherit;
 font-size : ${props => (props.size) || '1rem'};

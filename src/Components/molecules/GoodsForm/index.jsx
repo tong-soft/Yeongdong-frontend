@@ -29,7 +29,6 @@ const GoodsForm = ({
                             soldOut={totalCount === 0 ? true : false}
                             square imgSrc={monkImg}
                             productId={id}
-                        // basketIconOnClick={() => basketIconOnClick(id)}
                         ></GoodsImg>
 
                     </Col>

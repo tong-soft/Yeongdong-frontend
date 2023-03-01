@@ -31,7 +31,7 @@ const get_my_info = () => {
         duration: 2,
       });
       console.log(
-        'Error from get_my_info\n' +
+        '내 정보 가져오기 ❌\n' +
           err.error.message +
           '\n' +
           err.error.status +

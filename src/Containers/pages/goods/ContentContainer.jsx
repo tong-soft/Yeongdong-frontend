@@ -18,14 +18,18 @@ const ContentContainer = ({ role, product }) => {
         id: null,
         name: null,
         originalPrice: null,
-        thumbnailImg: null,
+        thumbnailImgUrl: null,
         description: null,
+        descriptionImgUrl: null,
         amount: null,
         discount: null,
         sellingPrice: null,
         orderCount: 1,
         orderCost: null,
         starRating: 0,
+        category: null,
+        grade: null,
+        totalCount: 1,
     })
 
 
@@ -85,12 +89,16 @@ const ContentContainer = ({ role, product }) => {
                     id: data.id,
                     name: data.name,
                     originalPrice: data.originalPrice,
-                    thumbnailImg: `img_${id}`,
+                    thumbnailImgUrl: data.thumbnailImgUrl,
                     description: data.description,
+                    descriptionImgUrl: data.descriptionImgUrl,
                     amount: data.amount,
                     sellingPrice: data.sellingPrice,
                     discount: Math.ceil(100 - (data.sellingPrice / data.originalPrice * 100)),
                     starRating: data.starRating,
+                    category: data.category,
+                    grade: data.grade,
+                    totalCount: data.totalCount,
                 }))
             })
             .then(() => {

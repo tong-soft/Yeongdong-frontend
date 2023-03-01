@@ -3,7 +3,6 @@ import { Row, Col, ContentStyle } from "../../../layout"
 import { Image, Typo, Btn, CheckBox, } from "../../index"
 import styled from "styled-components"
 import CloseIcon from '@mui/icons-material/Close';
-import monkImg from "../../../assets/images/monkListImg.png"
 
 
 
@@ -49,7 +48,7 @@ const CartContent = ({
     totalPaymentCost,
     totalDiscountCost,
     deliveryFee,
-
+    role,
 }) => {
 
     return (
@@ -84,17 +83,14 @@ const CartContent = ({
                                                                     <CheckBox checked={checkedArr.includes(goods.id)} onChange={(e) => checkedGoodsOnchange(e, goods.id)} size={"1.7rem"} />
                                                                 </label>
                                                                 <Col span={2}>
-                                                                    <Image src={monkImg} width={"100%"}></Image>
-
+                                                                    <Image src={goods.thumbnailImgUrl} width={"100%"}></Image>
                                                                 </Col>
-
                                                                 <Col span={5} style={{ padding: "0 1rem" }} >
                                                                     <Col span={12}>
                                                                         <Typo size={"1.2rem"} weight={"bold"}>{goods.name}</Typo>
                                                                     </Col>
                                                                     <Col xs={0} span={12} style={{ paddingTop: "0.5rem" }}>
                                                                         <Typo color={"#777777"}>{goods.description}</Typo>
-
                                                                     </Col>
                                                                     {/* <Divider marginBottom={"0.5rem"} marginTop={'0.5rem'}></Divider> */}
                                                                 </Col>
@@ -119,19 +115,15 @@ const CartContent = ({
                                                                                         <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >{(goods.orderCount * goods.sellingPrice).toLocaleString()}&nbsp;원</Typo>
                                                                                     </div>
                                                                             }
-
                                                                         </Col>
                                                                     </Col>
-
                                                                 </Col>
                                                                 <CloseIcon style={{ color: "#ccc", cursor: "pointer" }} onClick={() => goodsDeleteIconOnClick(goods.id)} />
                                                             </Row>
-
                                                         </Col>
                                                     )
                                                 })
                                             }
-
                                         </Row>
                                     </Col>
                                 </Row>
@@ -208,10 +200,13 @@ const CartContent = ({
                             </Col>
 
                             <Col span={12} justify={'center'} align={'center'} style={{ padding: "1.5rem 0 0 0 " }}>
-                                <Btn onClick={orderHandler} types={'primary'} value={"구매하기 "} size={"large"} style={{ width: "50%", padding: "1.6rem 0", fontSize: "1.6rem", fontWeight: "bold", }}></Btn>
+                                {
+                                    role === 'GUEST' ?
+                                        <Btn onClick={orderHandler} types={'primary'} value={"구매하기 "} size={"large"} style={{ width: "50%", padding: "1.6rem 0", fontSize: "1.6rem", fontWeight: "bold", }}></Btn>
+                                        :
+                                        <Btn onClick={orderHandler} types={'primary'} value={"구매하기 "} size={"large"} style={{ width: "50%", padding: "1.6rem 0", fontSize: "1.6rem", fontWeight: "bold", }}></Btn>
+                                }
                             </Col>
-
-
                         </Row>
                     </Col>
                 </Row>

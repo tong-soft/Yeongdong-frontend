@@ -1,6 +1,6 @@
 import React from "react"
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, NumberField, Btn, Divider, TextBox, TextAreaBox, QuestionModalForm } from "../../index"
+import { Image, Typo, NumberField, Btn, Divider, QuestionModalForm } from "../../index"
 import { useNavigate } from "react-router-dom"
 import monkDetailProduct from "../../../assets/images/monkDetailProduct.png"
 import MenuItem from '@mui/material/MenuItem';
@@ -8,7 +8,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import detailView from "../../../assets/images/detailView.png"
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useTheme } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -70,9 +69,10 @@ const GoodsContent = ({ role,
 
 }) => {
     const navigate = useNavigate();
-    const { id, name, originalPrice, thumbnailImg, description, amount, discount, sellingPrice, orderCount, starRating } = productInfo
+    const { category, description, descriptionImgUrl, grade, id, discount, orderCount,
+        name, originalPrice, sellingPrice, starRating, thumbnailImgUrl, totalCount,
+    } = productInfo
 
-    console.log("🚀 ~ thumbnailImg", thumbnailImg);
 
     const productKeys = Object.keys({ ...userProductObj });
     console.log(productKeys)
@@ -108,9 +108,7 @@ const GoodsContent = ({ role,
                         <Row gutter={[5, 10]} align={"stretch"} justify={"center"}>
                             {/* //SECTION - 썸네일 */}
                             <Col xs={9} span={6} >{
-                                thumbnailImg !== null ?
-                                    <Image src={monkDetailProduct} width={"100%"} height={"fit-content"} />
-                                    : null
+                                <Image src={thumbnailImgUrl} width={"100%"} height={"fit-content"} />
                             }
                             </Col>
                             {/* //!SECTION */}
@@ -315,7 +313,7 @@ const GoodsContent = ({ role,
 
                     {/* //SECTION - 상세정보  */}
                     <Col span={12} justify={"center"} style={{ padding: "2rem 0" }}>
-                        <Image src={detailView} width={"70%"} fit={"contain"} ></Image>
+                        <Image src={descriptionImgUrl} width={"80%"} fit={"contain"} ></Image>
                     </Col>
                     {/* //!SECTION */}
 

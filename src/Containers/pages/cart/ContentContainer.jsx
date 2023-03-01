@@ -29,13 +29,12 @@ const ContentContainer = ({ role, deliveryFee,
     const [cartDataId, setCartDataId] = useState([])
 
     /**
-         * @hook useState
-         * @param {totalProductCost} 총 상품금액 
-         * @param {totalPaymentCost} 결제금액
-         * @param {totalDiscountCost} 할인금액
-
-         * @property {Number}  
-         */
+     * @hook useState
+     * @param {totalProductCost} 총 상품금액 
+     * @param {totalPaymentCost} 결제금액
+     * @param {totalDiscountCost} 할인금액
+     * @property {Number}  
+     */
     const [totalProductCost, setTotalProductCost] = useState(0);
     const [totalPaymentCost, setTotalPaymentCost] = useState(deliveryFee);
     const [totalDiscountCost, setTotalDiscountCost] = useState(0);
@@ -206,6 +205,7 @@ const ContentContainer = ({ role, deliveryFee,
                         totalPaymentCost={totalPaymentCost}
                         totalDiscountCost={totalDiscountCost}
                         deliveryFee={deliveryFee}
+                        role={role}
                     />
             }
         </>

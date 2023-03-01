@@ -1,8 +1,9 @@
 import store from '../store/store';
 import ACTION from '../store/actions/action';
-import TOKEN from '../util/Token/';
+import TOKEN from '../util/Token';
 import get_my_simple_info from '../service/api/get/get_account_my_simple_info';
 import get_my_info from '../service/api/get/get_account_my_info';
+import { notification } from 'antd';
 
 const Start = () => {
   return new Promise((resolve, reject) => {
@@ -52,15 +53,31 @@ const Start = () => {
         .catch((err) => {
           console.log(err);
           console.log('start.catch');
-          resolve(true);
           console.log(window.location);
-          if (window.location.pathname !== '/') {
+          notification['error']({
+            message: `로그인 실패`,
+            description: err.errorName || err.errorCode,
+            duration: 2,
+          });
+          const pageLocation = window.location.pathname.split('/');
+
+          if (window.location.pathname === '/') {
+            return resolve(true);
+          }
+          if (
+            pageLocation.includes(
+              'goods',
+              'servicecenter',
+              'collections',
+              'search'
+            )
+          ) {
             return window.location.replace('/');
           }
-          // return window.location.replace('/');
         });
     } else {
       //로그인 됬을시
+
       resolve(true);
     }
   });
