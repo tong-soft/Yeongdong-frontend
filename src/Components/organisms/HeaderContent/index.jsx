@@ -593,13 +593,12 @@ const HeaderContent = ({ logined, role, name }) => {
 
                     </Col>
                     <Col xs={10} sm={10} md={9} lg={9} xl={9} xxl={8} span={8} justify={"space-evenly"}>
-                        <CategoryBox>라이브커머스</CategoryBox>
-                        <CategoryBox>인기상품</CategoryBox>
-                        <CategoryBox>지역특산물</CategoryBox>
+                        <CategoryBox >라이브커머스</CategoryBox>
+                        <CategoryBox onClick={() => navigate("/collections")}>전체상품</CategoryBox>
+                        <CategoryBox onClick={() => navigate("/collections/signature")} >시그시처</CategoryBox>
                         <CategoryBox>큐레이션</CategoryBox>
                         <CategoryBox red onClick={() => navigate("/servicecenter")}>고객센터</CategoryBox>
                     </Col>
-
                 </Row>
             </CategoryHeader>
 

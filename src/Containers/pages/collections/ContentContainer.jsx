@@ -182,6 +182,9 @@ const ContentContainer = () => {
                         lists={lists}
                         collectionProductOnClick={collectionProductOnClick}
                         totalPageNum={totalPageNum}
+                        categoryData={categoryData}
+                        selectedCategory={selectedCategory}
+                        handleChangeCategory={handleChangeCategory}
                     />
                     :
                     null

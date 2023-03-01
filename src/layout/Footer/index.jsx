@@ -95,15 +95,15 @@ const Footer = ({ children }) => {
                     <Col span={6} >
                         <Row gutter={[5, 10]}>
                             <Col span={12} style={{ color: "#fff", fontSize: "1.5rem", letterSpace: "2px", textTransform: "uppercase" }}>
-                                고객센터
+                                사업장 소재지
                             </Col>
 
 
                             <Col span={12} style={{ fontSize: "1rem" }} >
-                                강원도 춘천시 퇴계로 89 강원전문건설회관
+                                충청북도 영동군 영동읍 중앙로1길 13 (무림상회) 1층
                             </Col>
                             <Col span={12} style={{ fontSize: "1rem" }} >
-                                전화 1588-3819
+                                우편번호 29145
                             </Col>
                             <Col span={12} style={{ fontSize: "1rem" }} >
                                 결제도용신고 1588-3816
