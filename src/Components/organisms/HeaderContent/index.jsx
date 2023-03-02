@@ -135,9 +135,6 @@ const LoginValueBtn = styled.div`
     }
 `
 
-
-
-
 const CategoryWrapper = styled.div`
     height: calc(95vh - 20rem);
     overflow-y: auto;

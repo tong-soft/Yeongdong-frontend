@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import React from "react"
 import styled from "styled-components"
 
 const ImageStyle = styled.img.attrs((props) => ({
@@ -24,5 +24,5 @@ const Image = ({ margin, src, width, circle, height, cursor, border, onClick, pa
     </>
 )
 
-export default memo(Image)
+export default Image;
 

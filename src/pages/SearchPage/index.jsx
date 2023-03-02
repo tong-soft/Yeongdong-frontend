@@ -1,6 +1,6 @@
 import React from "react";
 import ContentContainer from "../../Containers/pages/search/ContentContainer";
-import Header from "../../Containers/redux/components/Header"
+import Header from "../../layout/Header"
 import Footer from "../../layout/Footer";
 
 const Search = () => {
