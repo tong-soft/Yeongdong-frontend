@@ -4,7 +4,7 @@ import TOKEN from '../util/Token';
 import get_my_simple_info from '../service/api/get/get_account_my_simple_info';
 import get_my_info from '../service/api/get/get_account_my_info';
 import { notification } from 'antd';
-
+import _ from '../config/env';
 const Start = () => {
   return new Promise((resolve, reject) => {
     if (!localStorage.getItem('young-dong')) return resolve(true);
@@ -72,7 +72,8 @@ const Start = () => {
               'search'
             )
           ) {
-            return window.location.replace('/');
+            resolve(true);
+            return window.location.replace(_.HOST_URL + '/' + _.BASE_URL);
           }
         });
     } else {
