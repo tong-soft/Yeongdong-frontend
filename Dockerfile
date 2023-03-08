@@ -4,20 +4,28 @@ FROM node:19.2.0
 # 빌드된 산출물을 실행시키기 위해 필요한 serve 모듈
 RUN yarn global add serve
 
-
+ 
 
 # 작업 공간
 RUN mkdir /app
 WORKDIR /app
+RUN mkdir ./public
 
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+
+
+# install project dependencies leaving out dev dependencies
+RUN yarn 
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
 
 
 # build
 RUN yarn build
 
-# 빌드된 산출물 도커 이미지로 복사
-RUN mkdir ./build
-COPY ./build ./build
 
 
 # 실행 명령어
