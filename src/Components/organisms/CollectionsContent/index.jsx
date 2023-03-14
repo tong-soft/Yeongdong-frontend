@@ -16,6 +16,7 @@ const CollectionsContent = ({
     categoryData,
     selectedCategory,
     handleChangeCategory,
+    categoryList,
 }) => {
 
     const goodsList = lists || [{ id: null, thumbnailImg: null, name: "게시글이없습니다.", description: null, sellingPrice: null, originalPrice: null, }]
@@ -59,8 +60,8 @@ const CollectionsContent = ({
                     {/* //!SECTION Title */}
 
                     {/* //SECTION category */}
-                    <Col span={12} justify={"center"} align={"center"} style={{ margin: "1rem 0" }}>
-                        <Row justify={"center"} align={"flex-start"}>
+                    <Col span={12} justify={"center"} align={"center"} style={{ margin: "1rem 0 2rem 0" }}>
+                        <Row justify={"center"} align={"center"}>
                             <Col span={1.5} justify={"flex-end"} style={{ paddingTop: "2px" }}>
                                 <Space size={[0, 10]} wrap>
                                     <span
@@ -104,35 +105,68 @@ const CollectionsContent = ({
                             {/* //SECTION list */}
 
                             <Col span={12} justify={"center"} align={"center"}>
-                                <Row justify={"flex-start"} align={"flex-start"}>
-                                    {
-                                        (goodsList) ?
-                                            goodsList.map((lists) => {
-                                                return (
-                                                    <GoodsForm
-                                                        key={lists.id}
-                                                        id={lists.id}
-                                                        thumbnailImg={lists.thumbnailImg}
-                                                        name={lists.name}
-                                                        originalPrice={lists.originalPrice}
-                                                        sellingPrice={lists.sellingPrice}
-                                                        description={lists.description}
-                                                        totalCount={lists.totalCount}
-                                                        productOnClick={() => collectionProductOnClick(lists.id)}
-                                                    />
-                                                )
-                                            })
-                                            :
-                                            null
-                                    }
-                                    {
-                                        goodsList.length === 0 ?
-                                            <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
-                                                <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
-                                            </Col>
-                                            : null
-                                    }
-                                </Row>
+                                {
+                                    selectedCategory ?
+                                        <Row justify={"flex-start"} align={"flex-start"}>
+                                            {
+                                                (categoryList) ?
+                                                    categoryList.map((lists) => {
+                                                        return (
+                                                            <GoodsForm
+                                                                key={lists.id}
+                                                                id={lists.id}
+                                                                thumbnailImg={lists.thumbnailImg}
+                                                                name={lists.name}
+                                                                originalPrice={lists.originalPrice}
+                                                                sellingPrice={lists.sellingPrice}
+                                                                description={lists.description}
+                                                                totalCount={lists.totalCount}
+                                                                productOnClick={() => collectionProductOnClick(lists.id)}
+                                                            />
+                                                        )
+                                                    })
+                                                    :
+                                                    null
+                                            }
+                                            {
+                                                categoryList.length === 0 ?
+                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                                    </Col>
+                                                    : null
+                                            }
+                                        </Row>
+                                        :
+                                        <Row justify={"flex-start"} align={"flex-start"}>
+                                            {
+                                                (goodsList) ?
+                                                    goodsList.map((lists) => {
+                                                        return (
+                                                            <GoodsForm
+                                                                key={lists.id}
+                                                                id={lists.id}
+                                                                thumbnailImg={lists.thumbnailImg}
+                                                                name={lists.name}
+                                                                originalPrice={lists.originalPrice}
+                                                                sellingPrice={lists.sellingPrice}
+                                                                description={lists.description}
+                                                                totalCount={lists.totalCount}
+                                                                productOnClick={() => collectionProductOnClick(lists.id)}
+                                                            />
+                                                        )
+                                                    })
+                                                    :
+                                                    null
+                                            }
+                                            {
+                                                goodsList.length === 0 ?
+                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                                    </Col>
+                                                    : null
+                                            }
+                                        </Row>
+                                }
 
                             </Col>
                             {/* //!SECTION list */}

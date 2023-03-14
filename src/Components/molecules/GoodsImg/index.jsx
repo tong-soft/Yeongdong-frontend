@@ -141,7 +141,6 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
         <>
             <ImgWrapper >
                 <ImgContainer>
-
                     <ImgContent src={imgSrc} height={height} soldOut={soldOut} >
                     </ImgContent>
                     {
@@ -158,11 +157,9 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
                                 }} />
                             </BasketIcon>
                     }
-
-
                 </ImgContainer>
-
             </ImgWrapper>
+
             <Modal
                 open={isCartAlertVisible}
                 onClose={(e) => { e.stopPropagation(); cartAlertModal.close(); }}

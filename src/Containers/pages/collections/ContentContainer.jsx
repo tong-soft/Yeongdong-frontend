@@ -32,7 +32,7 @@ const ContentContainer = () => {
         description: '',
         originalPrice: '',
         sellingPrice: '',
-        thumbnailImg: `img_34`,
+        thumbnailImg: ``,
     }]);
 
     console.log("🚀 ~ lists", lists);
@@ -97,7 +97,7 @@ const ContentContainer = () => {
         }
 
     }, [sort, pagingNum])
-    console.log(pagingNum)
+    console.log(`페이지 번호 : ${pagingNum}`)
 
     /**
    * @description paging 클릭 시
@@ -130,6 +130,8 @@ const ContentContainer = () => {
     //!SECTION sort===undefined -> collection
 
     //SECTION 카테고리
+    const [categoryList, setCategoryList] = useState([]);
+
     const categoryData = ['쌀 · 잡곡', '채소', '과일', '감 · 곶감', '와인', '벌꿀', '가공식품', '장류', '떡 · 간식', '견과 · 버섯', '기타'];
     const categoryObj = {
         '쌀 · 잡곡': "RICE",
@@ -146,11 +148,21 @@ const ContentContainer = () => {
     }
     const [selectedCategory, setSelectedCategory] = useState('');
     const handleChangeCategory = (tag, checked) => {
+        if (tag === selectedCategory) {
+            setSelectedCategory('');
+            return setCategoryList([]);
+        }
         const nextSelectedCategory = checked
             ? tag
-            : selectedCategory.filter((t) => t !== tag);
+            : selectedCategory.filter((t) => {
+                return t !== tag;
+            });
         setSelectedCategory(nextSelectedCategory);
-        get_product_category()
+        setCategoryList(
+            [...lists].filter((item) => {
+                return item.category === categoryObj[tag]
+            })
+        )
     };
     //!SECTION 카테고리
 
@@ -169,6 +181,7 @@ const ContentContainer = () => {
                         categoryData={categoryData}
                         selectedCategory={selectedCategory}
                         handleChangeCategory={handleChangeCategory}
+                        categoryList={categoryList}
                     />
                     :
                     null
@@ -185,6 +198,7 @@ const ContentContainer = () => {
                         categoryData={categoryData}
                         selectedCategory={selectedCategory}
                         handleChangeCategory={handleChangeCategory}
+                        categoryList={categoryList}
                     />
                     :
                     null

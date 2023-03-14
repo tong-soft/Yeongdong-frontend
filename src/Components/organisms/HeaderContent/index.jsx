@@ -580,7 +580,6 @@ const HeaderContent = ({ logined, role, name }) => {
 
                                                 </CategoryDetailContent>
                                             </>
-
                                             : null
                                     }
                                 </CategoryWrapper>
@@ -593,7 +592,7 @@ const HeaderContent = ({ logined, role, name }) => {
                         <CategoryBox >라이브커머스</CategoryBox>
                         <CategoryBox onClick={() => navigate("/collections")}>전체상품</CategoryBox>
                         <CategoryBox onClick={() => navigate("/collections/signature")} >시그시처</CategoryBox>
-                        <CategoryBox>큐레이션</CategoryBox>
+                        <CategoryBox>회사소개</CategoryBox>
                         <CategoryBox red onClick={() => navigate("/servicecenter")}>고객센터</CategoryBox>
                     </Col>
                 </Row>

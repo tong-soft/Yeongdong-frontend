@@ -351,10 +351,9 @@ const HomeContent = ({
                                     signatureArr.map((lists) => {
                                         return (
 
-                                            <Col span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
+                                            <Col key={lists.id} span={4} justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                                 <div
                                                     onClick={() => { goodOnClick(lists.id) }}
-                                                    key={lists.id}
                                                     style={{
                                                         display: "flex",
                                                         boxSizing: 'border-box',
