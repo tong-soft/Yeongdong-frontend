@@ -98,7 +98,6 @@ const Payment = ({ effect, deps, pgTypes,
                 const data = {
                     pg: pgValue || 'kakaopay', // PG사 (필수항목)
                     pay_method: 'card', // 결제수단 (필수항목)
-                    // merchant_uid: `mid_${new Date().getTime()}`,
                     merchant_uid: `mid_${res.response.merchantUid}` || null, // 주문번호 (필수항목)
                     name: res.response.name || "결제 테스트", // 주문명 (필수항목)
                     amount: Number(res.response.amount), // 금액 (필수항목)
@@ -139,12 +138,12 @@ const Payment = ({ effect, deps, pgTypes,
                 })
                 console.log("🚀 ~ productIdArr", productIdArr);
                 const localStorageList = JSON.parse(localStorage.getItem("cartProductList"))
-                if(Array.isArray(localStorageList) === true){
-                     const setLocalStorageList = localStorageList.filter(list => !productIdArr.includes(list.id))
-                console.log("🚀 ~ setLocalStorageList", setLocalStorageList);
-                localStorage.setItem('cartProductList', JSON.stringify(setLocalStorageList));
+                if (Array.isArray(localStorageList) === true) {
+                    const setLocalStorageList = localStorageList.filter(list => !productIdArr.includes(list.id))
+                    console.log("🚀 ~ setLocalStorageList", setLocalStorageList);
+                    localStorage.setItem('cartProductList', JSON.stringify(setLocalStorageList));
                 }
-            
+
                 notification['success']({
                     message: `결제 성공 `,
                 });

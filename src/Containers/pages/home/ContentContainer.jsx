@@ -27,7 +27,6 @@ const ContentContainer = () => {
                     setAllItems(allData);
                     setNewItems(allData.slice(0, 4));
                 }
-
             }).catch((err) => console.log(err));
 
         get_product_products_main_popularity()

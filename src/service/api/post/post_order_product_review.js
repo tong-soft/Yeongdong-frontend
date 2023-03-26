@@ -2,7 +2,7 @@ import _ from '../../../config/env';
 import { notification } from 'antd';
 
 /**
- * @description 상품 등록
+ * @description 리뷰 작성
  * @method POST
  * @request @headers youngdong token
  * @param {FormData}
@@ -11,11 +11,6 @@ import { notification } from 'antd';
  * @property {FormData} reviewImg
  */
 const post_order_product_review = (orderProductId, reviewFormData) => {
-  console.log(reviewFormData.has('dto'));
-  for (let key of reviewFormData.keys()) {
-    console.log(key);
-  }
-
   /* value 확인하기 */
   for (let value of reviewFormData.values()) {
     console.log(value);
@@ -37,7 +32,6 @@ const post_order_product_review = (orderProductId, reviewFormData) => {
       notification['success']({
         message: `후기 등록 성공`,
       });
-      console.log('후기 등록 성공 ✅💚\n');
 
       let data = res.json();
       return data;

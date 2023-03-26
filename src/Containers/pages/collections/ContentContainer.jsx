@@ -3,13 +3,26 @@ import CollectionsContent from "../../../Components/organisms/CollectionsContent
 import { useParams, useNavigate } from "react-router-dom"
 import get_all_goods from "../../../service/api/get/get_product_all_goods";
 import get_grade_goods from "../../../service/api/get/get_product_grade_goods";
-import get_product_category from "../../../service/api/get/get_product_category";
+import qs from 'qs';
+
+
 const ContentContainer = () => {
     const navigate = useNavigate()
     const { sort } = useParams();
+    const query = qs.parse(window.location.search, {
+        ignoreQueryPrefix: true
+    });
+    const keywordValue = query.keyword; // 쿼리의 파싱결과값은 문자열입니다.
+
     useEffect(() => {
         window.scrollTo(0, 0);
+
     }, [sort])
+
+    useEffect(() => {
+        console.log(keywordValue)
+        setSelectedCategory(keywordValue || '')
+    }, [keywordValue])
 
     //SECTION pagination
     //NOTE 전체 페이지 갯수 
@@ -26,16 +39,9 @@ const ContentContainer = () => {
      * @enum {Number} sellingPrice 
      * @enum {src} thumbnailImg 
      */
-    const [lists, setLists] = useState([{
-        id: '',
-        name: '',
-        description: '',
-        originalPrice: '',
-        sellingPrice: '',
-        thumbnailImg: ``,
-    }]);
+    const [lists, setLists] = useState([]);
 
-    console.log("🚀 ~ lists", lists);
+    console.log("🚀 ~ lists:", lists);
 
     /**
      * @hook useEffect
@@ -51,7 +57,7 @@ const ContentContainer = () => {
                 .then((res) => {
                     setLists([]);
                     const data = res.response;
-
+                    console.log('/api/product/v1/products')
                     console.log(data)
                     // setLists(data.content)
                     data.content.map((products) => {
@@ -67,7 +73,6 @@ const ContentContainer = () => {
                                 sellingPrice: products.sellingPrice,
                                 thumbnailImg: products.thumbnailImg,
                                 totalCount: products.totalCount
-
                             }
                         ])
                     })
@@ -81,15 +86,26 @@ const ContentContainer = () => {
             get_grade_goods('SPECIAL')
                 .then((res) => {
                     const data = res.response;
-
                     console.log(data)
-                    setLists(data.content)
+                    setLists([]);
+
+                    data.content.map((products) => {
+                        return setLists((state) => [
+                            ...state,
+                            {
+                                id: products.id,
+                                category: products.category,
+                                description: products.description,
+                                grade: products.grade,
+                                name: products.name,
+                                originalPrice: products.originalPrice,
+                                sellingPrice: products.sellingPrice,
+                                thumbnailImg: products.thumbnailImg,
+                                totalCount: products.totalCount
+                            }
+                        ])
+                    })
                     setTotalPageNum(data.totalPages)
-                    const pageNumber = []; // pagNation 배열 
-                    for (let i = 1; i <= data.totalPages; i++) {
-                        console.log(pageNumber)
-                        pageNumber.push(i);
-                    }
                 })
                 .catch((error) => console.log(error));
 
@@ -97,7 +113,6 @@ const ContentContainer = () => {
         }
 
     }, [sort, pagingNum])
-    console.log(`페이지 번호 : ${pagingNum}`)
 
     /**
    * @description paging 클릭 시
@@ -106,7 +121,6 @@ const ContentContainer = () => {
    */
     const pagingClick = (e) => {
         const pagingId = e.target.innerText;
-        console.log(pagingId)
         setPagingNum(Number(pagingId))
     }
 
@@ -132,6 +146,7 @@ const ContentContainer = () => {
     //SECTION 카테고리
     const [categoryList, setCategoryList] = useState([]);
 
+
     const categoryData = ['쌀 · 잡곡', '채소', '과일', '감 · 곶감', '와인', '벌꿀', '가공식품', '장류', '떡 · 간식', '견과 · 버섯', '기타'];
     const categoryObj = {
         '쌀 · 잡곡': "RICE",
@@ -150,8 +165,12 @@ const ContentContainer = () => {
     const handleChangeCategory = (tag, checked) => {
         if (tag === selectedCategory) {
             setSelectedCategory('');
-            return setCategoryList([]);
+            setCategoryList([]);
+            return navigate(`/collections`)
+
         }
+        navigate(`/collections?keyword=${tag}`)
+
         const nextSelectedCategory = checked
             ? tag
             : selectedCategory.filter((t) => {

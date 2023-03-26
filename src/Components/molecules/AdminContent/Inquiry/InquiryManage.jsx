@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from "react"
-import { Row, Col, ContentStyle } from "../../../../layout"
-import { TextAreaBox, Typo, Btn, FileBox, Divider, TextBox } from "../../../index"
+import React, { useEffect, useState } from "react"
+import { Row, Col } from "../../../../layout"
+import { TextAreaBox, Typo, Btn, Divider } from "../../../index"
 import styled from "styled-components";
 import get_product_all_questions from "../../../../service/api/get/get_product_all_questions";
 import Patch_product_answer from "../../../../service/api/patch/patch_product_answer";
@@ -53,6 +53,7 @@ const InquiryManage = () => {
             .then((res) => {
                 setProductAllQuestions([])
                 const response = res.response;
+                console.log('/api/product/v1/products/questions')
                 console.log(response)
                 setTotalPageNum(response.totalPages)
                 response.content.map((item) => {
@@ -69,7 +70,6 @@ const InquiryManage = () => {
                         }
                     ])
                 })
-
             })
             .catch((err) => console.log(err))
 
@@ -97,7 +97,6 @@ const InquiryManage = () => {
      * @description 답변 작성
      */
     const makeAnswerOnClick = (id) => {
-        console.log(id)
         setAnswerContent({
             questionId: null,
             content: '',
@@ -120,7 +119,6 @@ const InquiryManage = () => {
     const submitAnswerOnClick = () => {
         Patch_product_answer(answerContent.questionId, answerContent.content)
             .then((res) => {
-                console.log(res)
                 setAnswerContent({
                     questionId: null,
                     content: '',
@@ -161,123 +159,121 @@ const InquiryManage = () => {
                 {/* //!SECTION 제목 */}
                 <Col span={12}>
                     {
-                        productAllQuestions.map((question, index) => {
-                            return (
-                                <Row key={index} style={{ margin: "2rem 0" }}>
-                                    <Col span={12} align={'center'} style={{ padding: "0.5rem 0 0.5rem 1rem" }} >
-                                        <Typo size={"1rem"} weight={"700"} color={"#9c9c9c"} style={{ paddingRight: '0.5rem' }} >
-                                            작성자
-                                        </Typo>
-                                        <Typo size={"1.1rem"} weight={"700"} color={"#333333"} >
-                                            {question.writerName}
-                                        </Typo>
-                                    </Col>
-                                    <Col span={12} >
-                                        <Row align={'center'} style={{
-                                            padding: '2rem',
-                                            border: '1px solid rgb(215 215 215)',
-                                            borderRadius: '10px',
-                                            // backgroundColor: 'rgb(240, 240, 240)',
-                                        }}>
-                                            <Col span={12} align={'flex-end'} justify={'space-between'}>
-                                                <div style={{ marginTop: "1.5rem", display: "flex", alignItems: "flex-end", flexDirection: "column", position: "relative", width: "auto" }}>
-                                                    <Typo color={"#9c9c9c"} style={{ position: "absolute", top: "-1.5rem", left: "0px", width: "7rem" }} >상품명</Typo>
-                                                    <Typo size={"1.1rem"} weight={"700"} color={"#333333"} >
-                                                        {question.productTitle || '유미카츠 떡볶카츠 밀키트'}
-                                                    </Typo>
-                                                </div>
-                                                {
-                                                    question.answerContent !== null ?
-                                                        <Typo color={'#0d7000'} size={"1.5rem"} weight={"bold"}>답변 완료</Typo>
-                                                        :
-                                                        answerContent.questionId === question.id ?
-                                                            <Btn types={"text"} value={'닫기'} onClick={() => makeAnswerOnClick(question.id)} ></Btn>
-
+                        productAllQuestions.length === 0 ?
+                            <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 질문이 없습니다.</Typo>
+                            </Col>
+                            :
+                            productAllQuestions.map((question, index) => {
+                                return (
+                                    <Row key={index} style={{ margin: "2rem 0" }}>
+                                        <Col span={12} align={'center'} style={{ padding: "0.5rem 0 0.5rem 1rem" }} >
+                                            <Typo size={"1rem"} weight={"700"} color={"#9c9c9c"} style={{ paddingRight: '0.5rem' }} >
+                                                작성자
+                                            </Typo>
+                                            <Typo size={"1.1rem"} weight={"700"} color={"#333333"} >
+                                                {question.writerName}
+                                            </Typo>
+                                        </Col>
+                                        <Col span={12} >
+                                            <Row align={'center'} style={{
+                                                padding: '2rem',
+                                                border: '1px solid rgb(215 215 215)',
+                                                borderRadius: '10px',
+                                                // backgroundColor: 'rgb(240, 240, 240)',
+                                            }}>
+                                                <Col span={12} align={'flex-end'} justify={'space-between'}>
+                                                    <div style={{ marginTop: "1.5rem", display: "flex", alignItems: "flex-end", flexDirection: "column", position: "relative", width: "auto" }}>
+                                                        <Typo color={"#9c9c9c"} style={{ position: "absolute", top: "-1.5rem", left: "0px", width: "7rem" }} >상품명</Typo>
+                                                        <Typo size={"1.1rem"} weight={"700"} color={"#333333"} >
+                                                            {question.productTitle || '유미카츠 떡볶카츠 밀키트'}
+                                                        </Typo>
+                                                    </div>
+                                                    {
+                                                        question.answerContent !== null ?
+                                                            <Typo color={'#0d7000'} size={"1.5rem"} weight={"bold"}>답변 완료</Typo>
                                                             :
-                                                            <Btn types={"primary"} value={'답변하기'} onClick={() => makeAnswerOnClick(question.id)} ></Btn>
-
-                                                }
-                                            </Col>
-                                            <Divider marginBottom={'1.5rem'} marginTop={'0.5rem'} color={'#a5a5a5'}></Divider>
-                                            <Col span={12} >
-                                                <Row>
-                                                    <Col span={2} >
-                                                        <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >
-                                                            [{question.title}]
-                                                        </Typo>
-                                                    </Col>
-                                                    <Col span={10} justify={'center'}>
-                                                        <Typo size={"1.2rem"} weight={"500"} color={"#333333"} >
-                                                            {question.questionContent}
-                                                        </Typo>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                            {
-                                                answerContent.questionId === question.id ?
-                                                    <>
-                                                        <Row gutter={[5, 0]} style={{ padding: "2rem 0 1rem 0 " }} >
-                                                            <Col span={2} >
-                                                                <Typo size={"1.2rem"} weight={"500"} color={"#333333"} >
-                                                                    답변작성
-                                                                </Typo>
-                                                            </Col>
-                                                            <Col span={10} justify={'center'}>
-
-                                                                <TextAreaWrapper>
-                                                                    <TextAreaBox
-                                                                        value={answerContent.content}
-                                                                        onChange={(e) => editAnswerContent.content(e)}
-                                                                        placeholder={"내용을 입력해 주세요"}
-                                                                        style={{ width: '100%', lineHeight: "1.7rem", fontSize: '1.2rem' }}
-                                                                    >
-                                                                    </TextAreaBox>
-                                                                </TextAreaWrapper>
-                                                            </Col>
-                                                            <Col span={12} justify={'flex-end'} style={{ paddingTop: '1rem' }}>
-                                                                <Btn types={"primary"} value={'답변제출하기'} onClick={submitAnswerOnClick} ></Btn>
-                                                            </Col>
-                                                        </Row>
-
-                                                    </>
-                                                    :
-                                                    null
-                                            }
-
-                                            {
-                                                question.answerContent !== null ?
+                                                            answerContent.questionId === question.id ?
+                                                                <Btn types={"text"} value={'닫기'} onClick={() => makeAnswerOnClick(question.id)} ></Btn>
+                                                                :
+                                                                <Btn types={"primary"} value={'답변하기'} onClick={() => makeAnswerOnClick(question.id)} ></Btn>
+                                                    }
+                                                </Col>
+                                                <Divider marginBottom={'1.5rem'} marginTop={'0.5rem'} color={'#a5a5a5'}></Divider>
+                                                <Col span={12} >
                                                     <Row>
-                                                        <Divider marginBottom={'2rem'} marginTop={'2rem'} />
                                                         <Col span={2} >
                                                             <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >
-                                                                작성된 답변
+                                                                [{question.title}]
                                                             </Typo>
                                                         </Col>
                                                         <Col span={10} justify={'center'}>
-                                                            <Typo size={"1.2rem"} color={"#333333"} >
-                                                                {question.answerContent}
+                                                            <Typo size={"1.2rem"} weight={"500"} color={"#333333"} >
+                                                                {question.questionContent}
                                                             </Typo>
                                                         </Col>
                                                     </Row>
-                                                    :
-                                                    null
-                                            }
-                                        </Row>
-                                    </Col>
-                                </Row>
-                            )
-                        })
+                                                </Col>
+                                                {
+                                                    answerContent.questionId === question.id ?
+                                                        <>
+                                                            <Row gutter={[5, 0]} style={{ padding: "2rem 0 1rem 0 " }} >
+                                                                <Col span={2} >
+                                                                    <Typo size={"1.2rem"} weight={"500"} color={"#333333"} >
+                                                                        답변작성
+                                                                    </Typo>
+                                                                </Col>
+                                                                <Col span={10} justify={'center'}>
+                                                                    <TextAreaWrapper>
+                                                                        <TextAreaBox
+                                                                            value={answerContent.content}
+                                                                            onChange={(e) => editAnswerContent.content(e)}
+                                                                            placeholder={"내용을 입력해 주세요"}
+                                                                            style={{ width: '100%', lineHeight: "1.7rem", fontSize: '1.2rem' }}
+                                                                        >
+                                                                        </TextAreaBox>
+                                                                    </TextAreaWrapper>
+                                                                </Col>
+                                                                <Col span={12} justify={'flex-end'} style={{ paddingTop: '1rem' }}>
+                                                                    <Btn types={"primary"} value={'답변제출하기'} onClick={submitAnswerOnClick} ></Btn>
+                                                                </Col>
+                                                            </Row>
+                                                        </>
+                                                        :
+                                                        null
+                                                }
+
+                                                {
+                                                    question.answerContent !== null ?
+                                                        <Row>
+                                                            <Divider marginBottom={'2rem'} marginTop={'2rem'} />
+                                                            <Col span={2} >
+                                                                <Typo size={"1.2rem"} weight={"700"} color={"#333333"} >
+                                                                    작성된 답변
+                                                                </Typo>
+                                                            </Col>
+                                                            <Col span={10} justify={'center'}>
+                                                                <Typo size={"1.2rem"} color={"#333333"} >
+                                                                    {question.answerContent}
+                                                                </Typo>
+                                                            </Col>
+                                                        </Row>
+                                                        :
+                                                        null
+                                                }
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                )
+                            })
                     }
                 </Col>
                 <Col span={12} justify={"center"} style={{ margin: "1rem 0 3rem 0" }}>
                     <Pagination count={totalPageNum} onChange={pagingClick} key={pagingNum} defaultPage={pagingNum} shape="rounded" />
                 </Col>
             </Row>
-
-
         </>
     )
-
 }
 
 export default InquiryManage;

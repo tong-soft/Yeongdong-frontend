@@ -24,7 +24,6 @@ const get_product_category = (category) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('카테고리 상품 불러오기 성공  ✅\n');
 
       return data;
     })

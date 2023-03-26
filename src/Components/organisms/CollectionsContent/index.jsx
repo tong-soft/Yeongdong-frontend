@@ -19,7 +19,6 @@ const CollectionsContent = ({
     categoryList,
 }) => {
 
-    const goodsList = lists || [{ id: null, thumbnailImg: null, name: "게시글이없습니다.", description: null, sellingPrice: null, originalPrice: null, }]
 
 
     return (
@@ -109,7 +108,11 @@ const CollectionsContent = ({
                                     selectedCategory ?
                                         <Row justify={"flex-start"} align={"flex-start"}>
                                             {
-                                                (categoryList) ?
+                                                categoryList.length === 0 ?
+                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                                    </Col>
+                                                    :
                                                     categoryList.map((lists) => {
                                                         return (
                                                             <GoodsForm
@@ -125,22 +128,16 @@ const CollectionsContent = ({
                                                             />
                                                         )
                                                     })
-                                                    :
-                                                    null
-                                            }
-                                            {
-                                                categoryList.length === 0 ?
-                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
-                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
-                                                    </Col>
-                                                    : null
                                             }
                                         </Row>
                                         :
                                         <Row justify={"flex-start"} align={"flex-start"}>
                                             {
-                                                (goodsList) ?
-                                                    goodsList.map((lists) => {
+                                                lists.length === 0 ?
+                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
+                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
+                                                    </Col>
+                                                    : lists.map((lists) => {
                                                         return (
                                                             <GoodsForm
                                                                 key={lists.id}
@@ -155,21 +152,13 @@ const CollectionsContent = ({
                                                             />
                                                         )
                                                     })
-                                                    :
-                                                    null
-                                            }
-                                            {
-                                                goodsList.length === 0 ?
-                                                    <Col span={12} justify={'center'} style={{ padding: '50px 0' }}>
-                                                        <Typo size={'1.5rem'} color={'#b5b5b5'}>등록된 상품이 없습니다.</Typo>
-                                                    </Col>
-                                                    : null
                                             }
                                         </Row>
                                 }
-
                             </Col>
                             {/* //!SECTION list */}
+
+
                             {/* //SECTION Pagination */}
                             <Col span={12} justify={'center'}>
                                 <Pagination count={totalPageNum} onChange={pagingClick} key={pagingNum} defaultPage={pagingNum} shape="rounded" />

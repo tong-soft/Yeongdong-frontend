@@ -2,7 +2,7 @@ import React from "react"
 import { Row, Col, ContentStyle } from "../../../layout"
 import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
 import { useNavigate } from "react-router-dom"
-import { Image, Typo, LoginModalForm, TextBox, Btn } from "../../../Components/"
+import { Typo, Btn } from "../../../Components/"
 
 
 

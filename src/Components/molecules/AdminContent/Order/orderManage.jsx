@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef, useCallback } from "react"
-import { Row, Col, ContentStyle } from "../../../../layout"
-import { Image, Typo, Btn, FileBox, Divider, TextBox } from "../../../index"
+import React, { useEffect, useState } from "react"
+import { Row, Col } from "../../../../layout"
+import { Image, Typo, Btn, Divider, TextBox } from "../../../index"
 import styled from "styled-components";
-import { Table, Tag, notification, Tooltip } from 'antd';
+import { Table, Tag } from 'antd';
 import get_order_admin_all_orders from "../../../../service/api/get/get_order_admin_all_orders";
-import monkImg from "../../../../assets/images/monkListImg.png"
 import patch_order_product_delivery from "../../../../service/api/patch/patch_order_product_delivery";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -60,6 +59,7 @@ const AdminContent = () => {
         get_order_admin_all_orders(paginationCurrent - 1)
             .then((res) => {
                 const data = res.response;
+                console.log('/api/order/v1/admin/orders')
                 console.log(data)
                 setPaginationInfo((state) => ({ ...state, pageSize: data.size }))
                 setPaginationInfo((state) => ({ ...state, total: data.totalElements }))
@@ -166,7 +166,6 @@ const AdminContent = () => {
 
 
 
-    console.log("🚀 ~ productData", productData);
 
 
 
@@ -296,8 +295,7 @@ const AdminContent = () => {
                                                                     <Col xs={7} span={8} >
                                                                         <Row align={'center'}>
                                                                             <Col span={2.5}>
-                                                                                {/* products.productThumbnailImg */}
-                                                                                <Image src={monkImg} width={'100%'}></Image>
+                                                                                <Image src={products.productThumbnailImg} width={'100%'}></Image>
                                                                             </Col>
                                                                             <Col span={9} style={{ paddingLeft: '1rem', height: '100%' }} align={'stretch'}>
                                                                                 <Row style={{ alignContent: "space-evenly" }}>
@@ -454,12 +452,9 @@ const AdminContent = () => {
                                                 </Col>
                                             </Col>
                                         </Row>
-
-
                                     ),
                                     onExpand: (_, record) => {
                                         if (_ === true) {
-
                                         }
                                     },
                                     expandRowByClick: true,

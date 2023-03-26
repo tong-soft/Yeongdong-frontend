@@ -6,11 +6,11 @@ import { notification } from 'antd';
  * @method GET
  * @request @headers youngdong token
  * @param {number} pageNumber
- *
+ *😀
  */
 const get_order_my_all_orders = (pageNumber = 0) => {
   return fetch(
-    `${_.SERVER_URL}/api/order/v1/buyer/orders/?page=${Number(pageNumber)}`,
+    `${_.SERVER_URL}/api/order/v1/buyer/orders/?page=${pageNumber}`,
     {
       method: 'GET',
       headers: {
@@ -24,7 +24,6 @@ const get_order_my_all_orders = (pageNumber = 0) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('주문내역 가져오기 성공  ✅\n');
 
       return data;
     })

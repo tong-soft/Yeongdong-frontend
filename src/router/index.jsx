@@ -42,10 +42,6 @@ const youngDongRouter = ({ role }) => {
                     <ServicecenterRouter security={["ADMIN", "GUEST", "USER"]}
                         role={role}
                     />} >
-                    {/* <Route path=":service" element={
-                        <ServicecenterRouter security={["ADMIN", "GUEST", "USER"]}
-                            role={role} />}
-                    /> */}
                 </Route>
                 <Route exact path="/collections/:sort" element={
                     <CollectionsRouter security={["ADMIN", "GUEST", "USER"]}
@@ -97,7 +93,6 @@ const youngDongRouter = ({ role }) => {
                     <AdminRouter security={["ADMIN",]}
                         role={role}
                     />} />
-
             </Routes>
         </BrowserRouter>
     )

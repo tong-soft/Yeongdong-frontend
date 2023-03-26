@@ -1,12 +1,10 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, Btn, Divider, } from "../../index"
+import { Typo } from "../../index"
 import styled from "styled-components"
 import EditAddress from "../../molecules/MypageContent/EditAddress";
 import OrderInfo from "../../molecules/MypageContent/OrderInfo";
 import InquiryCheck from "../../molecules/MypageContent/InquiryCheck"
-import monkImg from "../../../assets/images/monkListImg.png"
 
 
 
@@ -25,7 +23,7 @@ const MenuWrapper = styled.div`
     color:#a3a4a7;
     cursor: pointer;
     ${props => props.selected ? `
-         font-weight: 900;
+        font-weight: 900;
         color : #0d7000;
     `: null}
     &:hover{
@@ -107,26 +105,6 @@ const CartContent = ({
 
                                                 </Row>
                                             </Col>
-                                            {/* <Col span={3} justify={'center'}>
-                                                <Row>
-                                                    <Col span={12} justify={'center'} align={'center'} >
-                                                        <MenuWrapper selected={selectedMenu === '상품후기'} onClick={() => { handleMenuClick(`상품후기`) }} >
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                <path d="M19 10h-14"></path>
-                                                                <path d="M5 6h14"></path>
-                                                                <path d="M14 14h-9"></path>
-                                                                <path d="M5 18h6"></path>
-                                                                <path d="M18 15v6"></path>
-                                                                <path d="M15 18h6"></path>
-                                                            </svg>
-                                                            상품후기
-                                                        </MenuWrapper>
-
-                                                    </Col>
-
-                                                </Row>
-                                            </Col> */}
                                             <Col span={4} justify={'center'}>
                                                 <Row>
                                                     <Col span={12} justify={'center'} align={'center'} >
@@ -143,7 +121,6 @@ const CartContent = ({
                                                     </Col>
                                                 </Row>
                                             </Col>
-
                                         </Row>
                                     </Col>
                                     {/* //!SECTION - 메뉴 */}

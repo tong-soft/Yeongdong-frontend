@@ -2,7 +2,6 @@ import React from "react"
 import { Row, Col, ContentStyle } from "../../../layout"
 import { Image, Typo, NumberField, Btn, Divider, QuestionModalForm } from "../../index"
 import { useNavigate } from "react-router-dom"
-import monkDetailProduct from "../../../assets/images/monkDetailProduct.png"
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -65,12 +64,12 @@ const GoodsContent = ({ role,
     productInfo, orderCountHandler, addCartOnClick, isCartAlertVisible, cartAlertModal,
     isQuestionModalOpen, productQuestionOnClick, questionModalHandler,
     productQuestionFunc, productQuestionSaveOnClick, productQuestionData,
-    productReview, totalReviewPageNum, reviewPagingNum, reviewPagingClick, onClickReviewImg, setProductReview, reviewImgOnCLick,
+    productReview, totalReviewPageNum, reviewPagingNum, reviewPagingClick, onClickReviewImg, reviewImgOnCLick,
 
 }) => {
     const navigate = useNavigate();
-    const { category, description, descriptionImgUrl, grade, id, discount, orderCount,
-        name, originalPrice, sellingPrice, starRating, thumbnailImgUrl, totalCount,
+    const { descriptionImgUrl, discount, orderCount,
+        name, originalPrice, sellingPrice, starRating, thumbnailImgUrl,
     } = productInfo
 
 
@@ -107,12 +106,10 @@ const GoodsContent = ({ role,
                     <Col span={12} >
                         <Row gutter={[5, 10]} align={"stretch"} justify={"center"}>
                             {/* //SECTION - 썸네일 */}
-                            <Col xs={9} span={6} >{
-                                <Image src={thumbnailImgUrl} width={"100%"} height={"fit-content"} />
-                            }
+                            <Col xs={9} span={6} justify={"center"}>
+                                <Image src={thumbnailImgUrl} width={"90%"} height={"fit-content"} />
                             </Col>
                             {/* //!SECTION */}
-
                             <Col xs={9} span={6} justify={"center"}>
                                 {/* //SECTION - 제목*/}
                                 <Col span={12} >
@@ -120,7 +117,6 @@ const GoodsContent = ({ role,
                                         {name}
                                     </Typo>
                                 </Col>
-
                                 {/* //!SECTION */}
 
                                 {/* //SECTION - 할인 , 가격 */}
@@ -135,7 +131,6 @@ const GoodsContent = ({ role,
                                                         {discount}%
                                                     </Typo>
                                             }
-
                                         </Col>
                                         <Col span={9} justify={"flex-end"} align={"baseline"}>
                                             {
@@ -158,7 +153,6 @@ const GoodsContent = ({ role,
                                 <Col span={12}>
                                     <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="normal">
                                         <Select
-
                                             displayEmpty
                                             value={selectOption}
                                             // onChange={selectHandleFunc}
@@ -166,7 +160,6 @@ const GoodsContent = ({ role,
                                             input={<OutlinedInput />}
                                             MenuProps={MenuProps}
                                             inputProps={{ 'aria-label': 'Without label' }}
-
                                         >
                                             <MenuItem disabled value="">
                                                 <em>옵션</em>
@@ -219,15 +212,6 @@ const GoodsContent = ({ role,
                                 </Col>
                                 {/* //!SECTION  선택 된 옵션 표시 */}
 
-
-                                {/* //SECTION 택배비 안내 */}
-                                <Col span={12} style={{ paddingTop: "0px" }}>
-                                    <Typo size={"1.2rem"} fontFamily={"nixgon"}>택배배송 | 3000원</Typo>
-                                    <Typo size={"1.2rem"} fontFamily={"nixgon"} color={"#db291f"}>(주문시 결제)</Typo>
-                                </Col>
-                                {/* //!SECTION */}
-
-
                                 {/* SECTION 주문 개수 //TODO 옵션 사용 유뮤 후 자우기 */}
                                 <Col span={12} align={'center'}>
                                     <Typo>갯수 입력 하 세 욘 </Typo>
@@ -242,7 +226,6 @@ const GoodsContent = ({ role,
                                     {/* TODO 가격 계산해서 넣기 */}
                                     <Typo size={"25px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "33px" }}>{((sellingPrice * orderCount || 1).toLocaleString())}</Typo>
                                     <Typo size={"20px"} weight={"bold"} color={"rgb(51, 51, 51)"} padding={'0 0 0 5px'} >원</Typo>
-
                                     <Typo size={"15px"} weight={"500"} color={"#999999"} padding={"6px 0 0 0 "} full >총 수량 | {orderCount || 1} 개</Typo>
                                 </Col>
                                 {/* //!SECTION 총 상품 금액 */}
@@ -317,8 +300,6 @@ const GoodsContent = ({ role,
                     </Col>
                     {/* //!SECTION */}
 
-
-
                     {/* ------------------------------------------------------------------------------------------------------------------------ */}
 
 
@@ -328,11 +309,7 @@ const GoodsContent = ({ role,
                             <Row align={"center"} >
                                 <Col span={6} justify={"flex-start"}>
                                     <Image src={reviewTitle} width={"15rem"}></Image>
-
                                 </Col>
-                                {/* <Col span={6} justify={"flex-end"}>
-                                    <Btn size={"large"} width={"10rem"} types={"primary"} value={"글쓰기"} ></Btn>
-                                </Col> */}
                             </Row>
                         </Col>
 
@@ -362,27 +339,18 @@ const GoodsContent = ({ role,
                                             <Col xs={12} span={3} >
                                                 <Rate disabled value={review.starRating} style={{ fontSize: "1.5rem", color: "#0d7000" }} />
                                             </Col>
-                                            <Col xs={12} span={9}>
-                                                <Col xs={12} span={12}>
+                                            <Col xs={12} span={9} justify={'space-between'}>
+                                                <Col xs={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 8 : 4} span={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 6 : 2}>
+                                                    <Image src={review.reviewImgUrl} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
+                                                </Col>
+                                                <Col xs={12} span={9.5}>
                                                     <Typo >
                                                         {review.content}
                                                     </Typo>
                                                 </Col>
-                                                <Col xs={8} span={12}>
-                                                    {
-                                                        onClickReviewImg.focus === true && onClickReviewImg.index === index ?
-                                                            <Image src={monkDetailProduct} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
-                                                            :
-                                                            <Image src={monkDetailProduct} onClick={() => reviewImgOnCLick(index)} width={"20%"} height={"fit-content"} cursor={'pointer'} />
-                                                    }
-                                                </Col>
-                                            </Col>
-                                            <Col span={12} justify={'center'}>
-                                                <Pagination count={totalReviewPageNum} onChange={reviewPagingClick} key={reviewPagingNum} defaultPage={reviewPagingNum} shape="rounded" />
                                             </Col>
                                         </Row>
                                     ))
-
                                     :
                                     <>
                                         <Row gutter={[2, 0]} style={{
@@ -396,6 +364,9 @@ const GoodsContent = ({ role,
                                         </Row>
                                     </>
                             }
+                            <Col span={12} justify={'center'}>
+                                <Pagination count={totalReviewPageNum} onChange={reviewPagingClick} key={reviewPagingNum} defaultPage={reviewPagingNum} shape="rounded" />
+                            </Col>
                         </Col>
                     </Col>
                     {/* //!SECTION */}
@@ -409,15 +380,8 @@ const GoodsContent = ({ role,
                                 <Row align={"center"} >
                                     <Col span={6} justify={"flex-start"}>
                                         <Image src={inquiryTitle} width={"15rem"}></Image>
-
                                     </Col>
                                     <Col span={6} justify={"flex-end"}>
-                                        {/* {
-                                            role === "GUEST" ?
-                                                null :
-                                                <Btn size={"large"} width={"100%"} types={"primary"} value={"문의 하기"} onClick={productQuestionOnClick} style={{ fontSize: "1.5rem" }} ></Btn>
-                                        } */}
-
                                     </Col>
                                 </Row>
                             </Col>
@@ -462,7 +426,6 @@ const GoodsContent = ({ role,
                                     }
 
                                 </Row>
-
                             </Col>
                         </Col>
                     </Col>

@@ -27,9 +27,8 @@ const Patch_product_answer = (questionId, AnswerContent) => {
       notification['success']({
         message: `질문 답변 입력 완료`,
       });
-      console.log('질문 답변 입력 완료  ✅\n');
-
       let data = res.json();
+
       return data;
     })
     .catch(async (error) => {

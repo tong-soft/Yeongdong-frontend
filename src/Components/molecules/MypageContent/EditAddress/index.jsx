@@ -142,14 +142,12 @@ const editAddress = ({
                         (!myInfo.jibunAddress) ?
                             <>
                                 <Divider color={'rgb(51,51,51)'} marginBottom={'0'} marginTop={'0'} borderWidth={'2px'} />
-
                                 <Row gutter={[5, 0]}>
                                     <Col xs={12} sm={12} span={12} style={{ padding: '2rem 0' }}>
                                         <Typo size={'1.3rem'} >주소지를 추가해 주세요.</Typo>
                                     </Col>
                                 </Row>
                                 <Divider color={'rgb(51,51,51)'} marginBottom={'0'} marginTop={'0'} borderWidth={'2px'} />
-
                             </>
                             :
                             null

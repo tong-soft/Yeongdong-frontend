@@ -85,7 +85,6 @@ const HomeContent = ({
                 </Col>
                 <Col span={8} style={{ borderTop: "3px solid #ededed", padding: "1rem 0" }}>
                     <Row>
-
                         <Col span={3}>
                             <Btn value={"공지사항"} size={"large"} width={"80%"} onClick={() => navigate("/servicecenter")} />
                             <div style={{ marginTop: "1rem", width: "100%" }}></div>
@@ -126,17 +125,13 @@ const HomeContent = ({
                                                 position: ["bottomCenter"],
                                             }}
                                             dataSource={announceSource}
-                                        />}
-
+                                        />
+                                }
                             </Col>
                         </Col>
-
                     </Row>
                 </Col>
-
-
             </Row >
-
         </ContentStyle>
     )
 

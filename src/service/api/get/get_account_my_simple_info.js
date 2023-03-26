@@ -5,7 +5,7 @@ import { notification } from 'antd';
  * @description 간단한 내 정보 가져오기
  * @method GET
  */
-const get_my_simple_info = () => {
+const get_account_my_simple_info = () => {
   return fetch(`${_.SERVER_URL}/api/account/v1/me/profile`, {
     method: 'GET',
     headers: {
@@ -16,7 +16,6 @@ const get_my_simple_info = () => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('간단 정보 가져오기 ✅\n');
       let data = res.json();
       return data;
     })
@@ -41,4 +40,4 @@ const get_my_simple_info = () => {
     });
 };
 
-export default get_my_simple_info;
+export default get_account_my_simple_info;

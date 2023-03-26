@@ -40,9 +40,7 @@ const SearchContent = ({
                     {/* //SECTION Title */}
 
                     <Col span={12} justify={"center"} align={"center"} style={{ margin: "50px 0" }}>
-
                         <Typo size={'2.5rem'} weight={"bold"} color={"rgb(51,51,51)"} ><p style={{ color: "#0d7000" }} >'{keywordValue}'&nbsp;</p> 검색 결과</Typo>
-
                     </Col>
                     {/* //!SECTION Title */}
                     {/* //SECTION Content */}

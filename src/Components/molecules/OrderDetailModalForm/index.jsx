@@ -10,12 +10,6 @@ const OrderDetailModalForm = ({
     orderDetailData,
 }) => {
 
-    console.log("🚀 ~ orderDetailModal", orderDetailModal);
-
-    console.log("🚀 ~ orderDetailData", orderDetailData);
-
-
-
     return (
         <Row gutter={[10, 0]} >
             <Col span={12} justify={'space-between'} align={'center'}>
@@ -42,9 +36,9 @@ const OrderDetailModalForm = ({
                                     /&nbsp;
                                 </Typo>
                                 {
-                                    orderDetailData.orderProducts.map((products, index) => {
+                                    orderDetailData.orderProducts.map((products) => {
                                         return (
-                                            <Typo color={'rgb(51, 51, 51)'} weight={'bold'} size={'1.3rem'} style={{ wordBreak: 'keep-all', alignItems: "flex-end" }} key={index}>
+                                            <Typo color={'rgb(51, 51, 51)'} weight={'bold'} size={'1.3rem'} style={{ wordBreak: 'keep-all', alignItems: "flex-end" }} key={products.productId}>
                                                 {products.productName} /&nbsp;
                                             </Typo>
 
@@ -133,21 +127,6 @@ const OrderDetailModalForm = ({
                                     </Col>
                                 </Row>
                             </Col>
-                            {/* <Col span={12} >
-                                <Row>
-                                    <Col span={4}>
-                                        <Typo color={'rgb(102, 102, 102)'} weight={'500'} size={'1.3rem'} style={{ wordBreak: 'keep-all' }}>
-                                            배송비
-                                        </Typo>
-                                    </Col>
-                                    <Col span={8} align={'center'}>
-                                        <Typo color={'rgb(51, 51, 51)'} weight={'500'} size={'1.3rem'} style={{ wordBreak: 'keep-all', alignItems: "flex-end" }}>
-                                            {orderDetailData.deliveryPrice.toLocaleString()} 원
-                                        </Typo>
-
-                                    </Col>
-                                </Row>
-                            </Col> */}
                             <Col span={12} >
                                 <Row>
                                     <Col span={4}>

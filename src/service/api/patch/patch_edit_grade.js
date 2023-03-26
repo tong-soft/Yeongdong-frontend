@@ -24,7 +24,6 @@ const PatchEditGrade = (grade, productId) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('시그니처 수정 성공  ✅\n');
       let data = res.json();
       return data;
     })

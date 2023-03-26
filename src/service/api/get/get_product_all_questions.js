@@ -5,13 +5,12 @@ import { notification } from 'antd';
  * @description 전체 문의 가져오기
  * @method GET
  * @request @headers youngdong token
- *
+ * @auth admin
+ * 😀
  */
 const get_product_all_questions = (pageNumber = 0) => {
   return fetch(
-    `${_.SERVER_URL}/api/product/v1/products/questions/?page=${Number(
-      pageNumber
-    )}`,
+    `${_.SERVER_URL}/api/product/v1/products/questions/?page=${pageNumber}`,
     {
       method: 'GET',
       headers: {
@@ -25,7 +24,6 @@ const get_product_all_questions = (pageNumber = 0) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('전체 문의 가져오기 성공  ✅\n');
 
       return data;
     })

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, } from "../../../../layout"
-import { Typo, Btn, Divider, Image, TextAreaBox } from "../../../index"
+import { Typo, Divider } from "../../../index"
 import Pagination from '@mui/material/Pagination';
 
 
@@ -91,7 +91,6 @@ const InquiryCheck = ({
                                                             </Row>
                                                             :
                                                             null
-
                                                     }
                                                 </Row>
                                             </Col>

@@ -4,7 +4,7 @@ import get_my_info from "../../../service/api/get/get_account_my_info";
 import { notification } from "antd"
 import { useNavigate, useParams } from "react-router-dom"
 import patch_edit_address from "../../../service/api/patch/patch_edit_address"
-import get_my_all_orders from "../../../service/api/get/get_order_my_all_orders";
+import get_all_orders from "../../../service/api/get/get_order_my_all_orders";
 import get_order_orders_detail from "../../../service/api/get/get_order_orders_detail";
 import post_product_questions from "../../../service/api/post/post_product_question";
 import get_product_my_questions from "../../../service/api/get/get_product_my_questions";
@@ -23,51 +23,36 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
     //NOTE 선택한 리스트 페이지 번호 ( 1페이지 , 2페이지) [pagingNum, setPagingNum]
     const [pagingNum, setPagingNum] = useState(1);
     /**
-  * @description paging 클릭 시
-  * @param e - 선택한 page target하기위한 param
-  * @detail id -1 해야댐 (page는 0 부터 시작 )
-  */
+    * @description paging 클릭 시
+    * @param e - 선택한 page target하기위한 param
+    * @detail id -1 해야댐 (page는 0 부터 시작 )
+    */
     const pagingClick = (e) => {
         const pagingId = e.target.innerText;
-        console.log(pagingId)
         setPagingNum(Number(pagingId))
     }
     //!SECTION - 주문/배송정보 pagination
 
 
 
-    console.log("🚀 ~ menu", menu);
 
     useEffect(() => {
         if (menu === 'order' || !menu) {
             setAllOrderData([])
-            get_my_all_orders(pagingNum - 1)
+            get_all_orders(pagingNum - 1)
                 .then((res) => {
                     const response = res.response;
-                    console.log(response);
-                    // setAllOrderData(response.content);
-                    response.content.map((item, index) => {
-
-                        console.log("🚀 ~ item", item);
-                        // let setProducts = [].push(
-                        //     item.orderProducts.map((orderProduct, index) => {
-                        //         return {
-                        //             deliveryCompany
-                        //         }
-                        // }))
+                    response.content.map((item) => {
                         return setAllOrderData((state) => [
                             ...state,
                             {
                                 buyerName: item.buyerName,
-                                deliveryPrice: item.deliveryPrice,
                                 id: item.id,
                                 orderDate: item.orderDate,
-                                orderPrice: item.orderPrice,
                                 orderProducts: item.orderProducts,
                                 orderRequirement: item.orderProducts[0].deliveryRequirement,
-                                paymentMethod: item.paymentMethod,
-                                paymentPrice: item.paymentPrice,
                                 paymentStatus: item.paymentStatus,
+
                             }])
                     }
                     )
@@ -80,7 +65,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
             get_my_info()
                 .then((res) => {
                     const data = res.response;
-                    console.log(data)
                     setMyInfo((state) => ({
                         ...state,
                         jibunAddress: data.jibunAddress,
@@ -99,9 +83,8 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                 .then((res) => {
                     setProductMyQuestions([])
                     const response = res.response;
-                    console.log(response)
-                    setTotalPageNum(response.totalPages)
-                    response.content.map((item, index) => {
+                    setTotalPageNum(response.totalPages);
+                    response.content.map((item) => {
                         return setProductMyQuestions((state) => [
                             ...state,
                             {
@@ -131,28 +114,7 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
    */
     const [productMyQuestions, setProductMyQuestions] = useState([]);
 
-    console.log("🚀 ~ productMyQuestions", productMyQuestions);
-
-    /**
-    * @hook useState
-    * @description 답변열기
-    */
-    const [isQuestionAnswered, setIsQuestionAnswered] = useState({
-        isOpen: false,
-        questionId: null,
-    });
-    const questionAnswerdHandle = {
-        questionOnClick: (productId) => {
-            setIsQuestionAnswered({
-                isOpen: !isQuestionAnswered.isOpen,
-                questionId: productId,
-            })
-        }
-    }
-
     // !SECTION - 문의 확인
-
-
 
 
 
@@ -234,7 +196,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
         recipientName: ''
     }]);
 
-    console.log("🚀 ~ allOrderData", allOrderData);
 
 
     /**
@@ -289,16 +250,14 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
             get_order_orders_detail(orderId)
                 .then((res) => {
                     const response = res.response;
-                    console.log(response);
+                    console.log('/api/order/v1/buyer/orders/')
+                    console.log(response)
                     setOrderDetailData(response);
                     setIsOrderDetail(true);
-
                 })
-            console.log(orderId)
         },
         close: () => {
             setIsOrderDetail(false);
-
         }
     }
 
@@ -421,8 +380,7 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
             })
         }
         post_product_questions(questionProduct.productId, productQuestionData)
-            .then((res) => {
-                console.log(res);
+            .then(() => {
                 setProductQuestionData({
                     title: '',
                     content: ''
@@ -448,8 +406,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
         reviewImgFile: null,
         reviewImgUrl: null,
     })
-
-    console.log("🚀 ~ reviewData", reviewData);
 
 
     let setReviewDataFunc = {
@@ -496,7 +452,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
 
         },
         submitBtnOnClick: () => {
-            console.log(reviewData.reviewImgFile);
             const formData = new FormData();
             const blobDto = new Blob([JSON.stringify({ content: reviewData.reviewContent, starRating: reviewData.reviewRate })], { type: "application/json" });
             formData.append('reviewImg', reviewData.reviewImgFile);
@@ -521,7 +476,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
      */
     const uploadImgOnclick = (e) => {
         const imgFile = e.target.files[0]
-        console.log(imgFile)
         setReviewDataFunc.reviewImgFile(imgFile)
         let reader = new FileReader();
         reader.readAsDataURL(imgFile);
@@ -569,7 +523,6 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
 
     const openKakaoMapOnClick = () => {
         setMyInfo((state) => ({ ...state, detailAddress: null }))
-
         setIsOpenKakaoMap(!isOpenKakaoMap)
     }
     const saveAddressOnClick = () => {
@@ -596,17 +549,10 @@ const ContentContainer = ({ role, name, logined, SET_USER }) => {
                 })
                 setIsOpenKakaoMap(false)
                 setEditDetailAddress(false)
-
-                console.log(res)
             }).catch((err) => err)
     }
 
     const selectAddressHandle = (data) => {
-        console.log(data)
-        console.log(`
-        주소: ${data.address},
-        우편번호: ${data.zonecode}
-    `)
         setEditDetailAddress(true)
         setMyInfo((state) => ({ ...state, jibunAddress: data.jibunAddress }))
         setMyInfo((state) => ({ ...state, zipCode: data.zonecode }))

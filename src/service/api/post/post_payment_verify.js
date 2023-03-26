@@ -11,7 +11,6 @@ import { notification } from 'antd';
 }
  */
 const PostPaymentVerify = (goodsInfo) => {
-  console.log(`PostPaymentVerify`, goodsInfo);
   return fetch(`${_.SERVER_URL}/api/order/v1/payment/verification`, {
     method: 'POST',
     headers: {
@@ -25,8 +24,6 @@ const PostPaymentVerify = (goodsInfo) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('결제 검증 성공  ✅💚\n', '/api/product/v1');
-
       return data;
     })
     .catch(async (error) => {

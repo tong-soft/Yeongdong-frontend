@@ -24,7 +24,6 @@ const post_product_questions = (productId, productQuestionData) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('문의올리기 성공  ✅\n');
       notification['success']({
         message: `문의올리기 성공 `,
         description: '마이페이지에서 확인할 수 있습니다.',

@@ -17,8 +17,6 @@ const get_my_info = () => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('내 정보 가져오기 ✅\n');
-
       let data = res.json();
       return data;
     })

@@ -4,10 +4,7 @@ import Login from "../pages/LoginPage"
 const LoginRouter = () => {
 
     return (
-        <>
-            <Login />
-        </>
-
+        <Login />
     )
 }
 

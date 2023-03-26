@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SearchContent from "../../../Components/organisms/SearchContent"
 import { useNavigate } from "react-router-dom"
-import get_all_goods from "../../../service/api/get/get_product_all_goods";
 import get_product_search from "../../../service/api/get/get_product_search";
 import qs from 'qs';
 
 const ContentContainer = () => {
     const navigate = useNavigate();
-    console.log(window.location)
     const query = qs.parse(window.location.search, {
         ignoreQueryPrefix: true
     });
     const keywordValue = query.keyword; // 쿼리의 파싱결과값은 문자열입니다.
-    console.log(keywordValue)
 
 
     useEffect(() => {
@@ -45,14 +42,6 @@ const ContentContainer = () => {
         }
     ]);
 
-    console.log("🚀 ~ lists", lists);
-
-
-    // get_product_search(searchValue)
-    //     .then((res) => {
-    //         const data = res.response;
-    //         console.log(res)
-    //     }).catch((err) => { console.log(err) });
 
     useEffect(() => {
         setLists([]);

@@ -12,7 +12,7 @@ const get_product_search = (keyword, pageNumber = 0) => {
   return fetch(
     `${_.SERVER_URL}/api/product/v1/products/search/?keyword=${String(
       keyword
-    )}&page=${Number(pageNumber)}`,
+    )}&page=${pageNumber}`,
     {
       method: 'GET',
       headers: {
@@ -26,7 +26,6 @@ const get_product_search = (keyword, pageNumber = 0) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('검색 상품 목록 조회 성공  ✅\n');
 
       return data;
     })

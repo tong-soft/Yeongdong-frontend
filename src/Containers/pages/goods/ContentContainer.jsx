@@ -55,7 +55,6 @@ const ContentContainer = ({ role, product }) => {
   */
     const reviewPagingClick = (e) => {
         const pagingId = e.target.innerText;
-        console.log(pagingId)
         setReviewPagingNum(Number(pagingId))
     }
 
@@ -83,9 +82,8 @@ const ContentContainer = ({ role, product }) => {
         get_product_info(id)
             .then((res) => {
                 const data = res.response;
-                console.log("🚀 ~ res.response", data);
-                setProductInfo((state) => ({
-                    ...state,
+                console.log(data)
+                setProductInfo({
                     id: data.id,
                     name: data.name,
                     originalPrice: data.originalPrice,
@@ -99,13 +97,14 @@ const ContentContainer = ({ role, product }) => {
                     category: data.category,
                     grade: data.grade,
                     totalCount: data.totalCount,
-                }))
+                    orderCount: 1,
+                })
             })
             .then(() => {
-                get_product_reviews(id, reviewPagingNum)
+                get_product_reviews(id, reviewPagingNum - 1)
                     .then((res) => {
-                        console.log(res.response);
                         const review = res.response;
+                        console.log(review)
                         const content = review.content;
                         setProductReview(content);
                         setTotalReviewPageNum(review.totalPages);
@@ -133,7 +132,6 @@ const ContentContainer = ({ role, product }) => {
     //TODO 이게 지금 선택한 product // 받아오기
     const [userProductObj, setUserProductObj] = useState({})
 
-    console.log("🚀 ~ userProductObj", userProductObj);
 
     //NOTE - user가 옵션 선택 handleFunc
     const selectHandleFunc = (option) => {
@@ -201,7 +199,6 @@ const ContentContainer = ({ role, product }) => {
                 });
             }
             getCartProductList.push(productInfo);
-            console.log("🚀 ~ getCartProductList", getCartProductList);
             localStorage.setItem('cartProductList', JSON.stringify(getCartProductList));
             cartAlertModal.show();
         }
@@ -261,14 +258,12 @@ const ContentContainer = ({ role, product }) => {
         }
         post_product_questions(productInfo.id, productQuestionData)
             .then((res) => {
-                console.log(res);
                 setProductQuestionData({
                     title: '',
                     content: ''
                 })
             })
             .catch((err) => console.log(err))
-
         questionModalHandler.close();
     }
     //!SECTION - 제품 문의
@@ -280,12 +275,10 @@ const ContentContainer = ({ role, product }) => {
      * @type {Function} 
      */
     const paymentBtnOnClick = () => {
-        console.log("결제하기 클릭")
         localStorage.setItem('youngdong_order_list', JSON.stringify([productInfo]));
         navigate('/order/checkout')
     }
 
-    console.log(product)
 
     return (
         <>

@@ -5,6 +5,7 @@ import { notification } from 'antd';
  * @description 메인화면 인기상품 가져오기
  * @method GET
  * @request @headers youngdong token
+ * 😀
  */
 const get_product_products_main_popularity = () => {
   return fetch(`${_.SERVER_URL}/api/product/v1/products/main/popularity`, {
@@ -19,7 +20,6 @@ const get_product_products_main_popularity = () => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('메인화면 인기상품 가져오기 성공  ✅\n');
 
       return data;
     })

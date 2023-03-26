@@ -22,7 +22,6 @@ position: relative;
     width: 100%;
     height: auto;
     transition: all 0.5s ease-in-out 0s;
-
 `
 
 
@@ -47,7 +46,6 @@ const ImgContent = styled.img.attrs((props) => ({
         :
         null
     }
-
 `
 const SoldOut = styled.strong`
     position:absolute;
@@ -101,7 +99,6 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
      * @description productId로 GET -> localStorage에 {cartItem } 
      */
     const basketIconOnClick = () => {
-        console.log("장바구니 추가");
         get_product_info(productId)
             .then((res) => {
                 const data = Object.assign(
@@ -111,7 +108,6 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
                         discountCost: res.response.cost * (100 - res.response.discount) * 0.01
                     },
                     res.response);
-                console.log(data);
 
                 //localStorage에 카트상품리스트가 없다면 생성
                 if (localStorage.getItem('cartProductList') === null) {
@@ -127,13 +123,10 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
                         });
                     }
                     getCartProductList.push(data);
-                    console.log("🚀 ~ getCartProductList", getCartProductList);
                     localStorage.setItem('cartProductList', JSON.stringify(getCartProductList));
                     cartAlertModal.show();
                 }
-
             })
-
     }
 
 
@@ -207,7 +200,6 @@ const GoodsImg = ({ imgSrc, height, productId, soldOut
                                 onClick={(e) => { e.stopPropagation(); navigate('/cart') }}>
                                 확인
                             </Typo>
-
                         </Col>
                     </Row>
                 </Box>

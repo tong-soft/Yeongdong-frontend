@@ -5,6 +5,7 @@ import { notification } from 'antd';
  * @description 주문ID 정보 조회
  * @method GET
  * @request @headers youngdong token
+ * 😀
  */
 const get_order_orders_detail = (orderId) => {
   return fetch(`${_.SERVER_URL}/api/order/v1/buyer/orders/${orderId}`, {
@@ -19,7 +20,6 @@ const get_order_orders_detail = (orderId) => {
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
       let data = res.json();
-      console.log('주문ID 정보 조회 성공  ✅\n');
 
       return data;
     })

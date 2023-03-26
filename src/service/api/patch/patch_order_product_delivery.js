@@ -2,8 +2,8 @@ import _ from '../../../config/env';
 import { notification } from 'antd';
 
 /**
- * @description 상품 등록
- * @method POST
+ * @description 관리자가 해당 주문 제품에 대한 배송 정보 입력
+ * @method PATCH
  * @request @headers youngdong token
  * @param {FormData}
  * @property {object} deliveryInfo
@@ -11,7 +11,6 @@ import { notification } from 'antd';
  * @property {string} deliveryInfo.trackingNumber
  */
 const PatchOrderProductDelivery = (orderProductId, deliveryInfo) => {
-  console.log('🚀 ~ deliveryInfo', deliveryInfo);
   return fetch(
     `${_.SERVER_URL}/api/order/v1/admin/order/product/${orderProductId}/delivery`,
     {
@@ -30,11 +29,6 @@ const PatchOrderProductDelivery = (orderProductId, deliveryInfo) => {
       notification['success']({
         message: `배송정보 입력 완료`,
       });
-      console.log(
-        '배송정보 입력 완료  ✅\n',
-        `/api/order/v1/admin/order/product/${orderProductId}/delivery`
-      );
-
       let data = res.json();
       return data;
     })

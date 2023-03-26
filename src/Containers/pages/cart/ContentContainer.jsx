@@ -76,7 +76,6 @@ const ContentContainer = ({ role, deliveryFee,
     //NOTE - 전체선택 
     const [isCheckedAll, setCheckedAll] = useState(true)
     const checkedAllOnchange = (e) => {
-        console.log(e.target.checked)
         if (e.target.checked) {
             setCheckedArr([...cartDataId])
             return setCheckedAll(true)
@@ -91,9 +90,7 @@ const ContentContainer = ({ role, deliveryFee,
     let checkedArrLength = checkedArr.length;
 
     const checkedGoodsOnchange = (e, goodsId) => {
-        console.log(e.target.checked)
         if (e.target.checked) {
-            console.log("checked true")
             if (checkedArr.includes(goodsId)) return null;
             checkedArrLength += 1;
             setCheckedArr((state) => ([...state,
@@ -103,7 +100,6 @@ const ContentContainer = ({ role, deliveryFee,
             if (checkedArrLength === cartDataId.length) return setCheckedAll(true)
         }
         if (!e.target.checked) {
-            console.log("나가리")
             checkedArrLength -= 1;
 
             setCheckedArr((state) =>
@@ -132,20 +128,16 @@ const ContentContainer = ({ role, deliveryFee,
      */
     let orderCountHandler = {
         plus: (productId, orderCount) => {
-            console.log("주문 수량 증가")
             const cartDataIndex = cartData.findIndex(products => products.id === productId)
             const copiedCartData = [...cartData];
             copiedCartData[cartDataIndex].orderCount = orderCount + 1
-            console.log("🚀 ~ copiedCartData", copiedCartData);
 
             setCartData(copiedCartData)
         },
         minus: (productId, orderCount) => {
-            console.log("주문 수량 감소")
             const cartDataIndex = cartData.findIndex(products => products.id === productId)
             const copiedCartData = [...cartData];
             copiedCartData[cartDataIndex].orderCount = orderCount - 1
-            console.log("🚀 ~ copiedCartData", copiedCartData);
 
             setCartData(copiedCartData)
         }
@@ -180,7 +172,6 @@ const ContentContainer = ({ role, deliveryFee,
         navigate('/order/checkout')
     }
 
-    console.log(cartData)
 
     return (
         <>
@@ -190,8 +181,6 @@ const ContentContainer = ({ role, deliveryFee,
                         <EmptyCartForm />
                     </>
                     :
-
-
                     <CartContent
                         isCheckedAll={isCheckedAll}
                         checkedAllOnchange={checkedAllOnchange}

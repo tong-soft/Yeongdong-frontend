@@ -3,10 +3,7 @@ import Home from "../pages/HomePage"
 const HomeRouter = () => {
 
     return (
-        <>
-            <Home />
-        </>
-
+        <Home />
     )
 }
 

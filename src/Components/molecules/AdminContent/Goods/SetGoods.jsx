@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef, useCallback } from "react"
-import { Row, Col, ContentStyle } from "../../../../layout"
-import { Image, Typo, Btn, Divider, FileBox, NumberField, TextBox } from "../../../index"
-import styled from "styled-components";
-import { Space, Table, Tag, notification, Tooltip } from 'antd';
+import React, { useEffect, useState } from "react"
+import { Row, Col } from "../../../../layout"
+import { Typo, Btn } from "../../../index"
+import { Space, Table, Tag, notification } from 'antd';
 import get_all_goods from "../../../../service/api/get/get_product_all_goods";
 import PatchEditGrade from "../../../../service/api/patch/patch_edit_grade";
 
@@ -13,7 +12,7 @@ const AdminContent = () => {
 
     //SECTION pagination
     const [paginationInfo, setPaginationInfo] = useState({
-        pageSize: 10,
+        pageSize: 15,
         total: 200,
     })
     const [paginationCurrent, setPaginationCurrent] = useState(1)
@@ -35,7 +34,7 @@ const AdminContent = () => {
             .then((res) => {
                 const data = res.response;
                 console.log(data)
-                setPaginationInfo((state) => ({ ...state, pageSize: data.pageable.pageSize }))
+                setPaginationInfo((state) => ({ ...state, pageSize: data.size }))
                 setPaginationInfo((state) => ({ ...state, total: data.totalElements }))
                 data.content.map((data) => {
                     return setProductData((state) => (

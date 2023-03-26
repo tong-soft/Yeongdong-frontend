@@ -16,15 +16,6 @@ import { notification } from 'antd';
  * @property {Image} infoImg
  */
 const PostProduct = (productFormData) => {
-  console.log(productFormData.has('dto'));
-  for (let key of productFormData.keys()) {
-    console.log(key);
-  }
-
-  /* value 확인하기 */
-  for (let value of productFormData.values()) {
-    console.log(value);
-  }
   return fetch(`${_.SERVER_URL}/api/product/v1/products`, {
     method: 'POST',
     headers: {
@@ -36,7 +27,6 @@ const PostProduct = (productFormData) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('상품 등록 성공  ✅💚\n', '/api/product/v1/products');
 
       let data = res.json();
       return data;

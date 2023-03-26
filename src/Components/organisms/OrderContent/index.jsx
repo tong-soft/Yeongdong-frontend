@@ -313,7 +313,6 @@ const OrderContent = ({
                                                                 <Typo size={"1.5rem"} weight={"bold"} color={"#333333"}>{totalProductCost.toLocaleString()}&nbsp;원</Typo>
                                                             </Col>
                                                         </Row>
-
                                                     </Col>
                                                     {
                                                         totalDiscountCost === 0 ?
@@ -331,7 +330,6 @@ const OrderContent = ({
                                                                         <Typo padding={'0 0 0 2px'} size={"1.5rem"} weight={"bold"} color={"#333333"}>{totalDiscountCost.toLocaleString()}&nbsp;원</Typo>
                                                                     </Col>
                                                                 </Row>
-
                                                             </Col>
                                                     }
 
@@ -359,21 +357,14 @@ const OrderContent = ({
                                                                 <Typo size={"1.7rem"} weight={"bold"} color={"#333333"}>총 결제금액</Typo>
                                                             </Col>
                                                             <Col justify={'flex-end'} span={6}>
-
                                                                 <Typo size={"2rem"} weight={"900"} color={"#0d7000"}>{Number(totalPaymentCost).toLocaleString()}&nbsp;원</Typo>
                                                             </Col>
                                                         </Row>
-
                                                     </Col>
                                                 </Row>
                                             </Col>
-
                                         </Col>
-
-
                                     </Row>
-
-
                                 </Col>
                                 {/* //!SECTION 최종 결제 금액 */}
 

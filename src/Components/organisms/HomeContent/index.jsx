@@ -224,8 +224,6 @@ const HomeContent = ({
         navigate(`/goods/${id}`)
     }
 
-
-
     return (
         <>
             <Carousel autoplay>
@@ -386,9 +384,7 @@ const HomeContent = ({
                                                         </Col>
                                                     </Row>
                                                 </div>
-
                                             </Col>
-
                                         )
                                     })
                             }
@@ -414,7 +410,6 @@ const HomeContent = ({
 
                                             <Col
                                                 key={lists.id}
-
                                                 xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
                                                 justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
                                                 <div
@@ -475,7 +470,6 @@ const HomeContent = ({
                                     :
                                     allArr.map((lists) => {
                                         return (
-
                                             <Col key={lists.id}
                                                 xs={6} sm={3} md={3} lg={3} xl={3} xxl={3} span={3}
                                                 justify={"center"} align={"center"} style={{ padding: "1.5rem 1rem" }} >
@@ -509,16 +503,13 @@ const HomeContent = ({
                                                                     <ArrowDownwardIcon style={{ color: "#f03f45", fontSize: "1.5rem", marginRight: "6px" }}></ArrowDownwardIcon>
                                                                     <Typo color={"#333333"} size={"1.3rem"} weight={"800"} >{lists.sellingPrice}원</Typo>
                                                                 </Col>
-
                                                         }
                                                         <Col span={12} justify={"flex-start"} align={"center"} style={{ marginTop: "1rem" }}>
                                                             <Typo fontFamily={'Noto Sans KR'} size={"1rem"} color={"#999999"} >{lists.desc}</Typo>
                                                         </Col>
                                                     </Row>
                                                 </div>
-
                                             </Col>
-
                                         )
                                     })
                             }

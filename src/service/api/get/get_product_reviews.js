@@ -7,11 +7,9 @@ import { notification } from 'antd';
  * @request @headers youngdong token
  * @param {string} productId
  */
-const PostProduct = (productId, pageNumber = 0) => {
+const get_product_reviews = (productId, pageNumber = 0) => {
   return fetch(
-    `${
-      _.SERVER_URL
-    }/api/product/v1/products/${productId}/reviews/?page=${Number(pageNumber)}`,
+    `${_.SERVER_URL}/api/product/v1/products/${productId}/reviews/?page=${pageNumber}`,
     {
       method: 'GET',
       headers: {
@@ -23,10 +21,6 @@ const PostProduct = (productId, pageNumber = 0) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log(
-        '상품ID로 상품 후기 조회 성공  💚\n',
-        `api/product/v1/products/${productId}`
-      );
 
       let data = res.json();
       return data;
@@ -53,4 +47,4 @@ const PostProduct = (productId, pageNumber = 0) => {
     });
 };
 
-export default PostProduct;
+export default get_product_reviews;

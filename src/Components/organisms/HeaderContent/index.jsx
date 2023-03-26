@@ -13,8 +13,6 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { ReactComponent as SearchIcon } from '../../../assets/svg/searchIcon.svg';
 
 import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
-import login_process from "../../../service/auth/login_progress"
-import signup_process from "../../../service/auth/signup_progress"
 import logout_process from "../../../service/auth/logout_progress"
 
 
@@ -169,35 +167,6 @@ width : 100%;
     }
 `
 
-const CategoryDetailContent = styled.div`
-    position: relative;
-    z-index: 21;
-    min-width : 249px;
-    border-bottom : 1px solid #dddddd;
-    background-color: #f7f7f7;
-    animation: 0s linear 0s 1 normal;
-`
-
-const CategoryDetailValue = styled.div`
-    width : 100%;
-    display : flex;
-    align-items : center;
-    justify-content : flex-start;
-    font-family : "Jeju";
-    font-size : 1.2rem;
-    color : #333333;
-    padding : 15px 0px 15px 24px;
-    box-sizing: border-box;
-    &:hover{
-        background-color:#e9e9e9;
-        color : #028000;
-        font-weight:bold;
-        text-decoration: underline;
-        text-underline-position: under;
-        text-decoration-color: #028000;
-        text-decoration-thickness : 2px;
-    }
-`
 //!SECTION
 
 
@@ -242,77 +211,18 @@ const HeaderContent = ({ logined, role, name }) => {
         }
     }
 
-
-
-
-
     //!SECTION
 
     //SECTION 회원가입 정보
-    const [signUpInfo, setSignUpInfo] = useState({
-        email: "",
-        password: "",
-    });
-    const [logInInfo, setLoginInfo] = useState({
-        email: "",
-        password: "",
-    });
-    let settingSingUpValueFunction = {
-        email: (e) => {
-            const email = e.target.value;
-            return setSignUpInfo((state) => ({ ...state, email: email }));
-        },
-        password: (e) => {
-            const password = e.target.value;
-            return setSignUpInfo((state) => ({ ...state, password: password }));
-        },
-        name: (e) => {
-            const password = e.target.value;
-            return setSignUpInfo((state) => ({ ...state, password: password }));
-        }
-    };
-
-    let settingLogInValueFunction = {
-        email: (e) => {
-            const email = e.target.value;
-            return setLoginInfo((state) => ({ ...state, email: email }));
-        },
-
-        password: (e) => {
-            const password = e.target.value;
-            return setLoginInfo((state) => ({ ...state, password: password }))
-        },
-    };
-
-    const LoginBtnOnclick = () => {
-        login_process(logInInfo)
-
-        handleLoginModalClose();
-        setLoginInfo({
-            email: "",
-            password: "",
-        });
-    };
-    const SignupBtnOnclick = () => {
-        signup_process(signUpInfo)
-
-
-        handleLoginModalClose();
-        setSignUpInfo({
-            email: "",
-            password: "",
-        });
-
-    };
-
-
-
 
     const logOutOnClick = () => {
         logout_process()
         navigate('/')
     }
+
     //!SECTION
+
+
 
     //SECTION 카테고리
 
@@ -357,23 +267,27 @@ const HeaderContent = ({ logined, role, name }) => {
 
     const valueMouseEnterHandler = (event, value) => {
         setCategoryEnter(true);
-
         setCategoryValue(value)
 
-        console.log(categoryValueDetailMonk[value])
-
-        setCategoryValueDetail(categoryValueDetailMonk[value])
-        categoryValueDetailMonk[value].length === 0 ?
-            setIsCategoryDetail(false)
-            :
-            setIsCategoryDetail(true);
+        // setCategoryValueDetail(categoryValueDetailMonk[value])
+        // categoryValueDetailMonk[value].length === 0 ?
+        //     setIsCategoryDetail(false)
+        //     :
+        //     setIsCategoryDetail(true);
 
     }
 
 
     const valueMouseLeaveHandler = () => {
-        console.log('mouseLeaveHandler')
     }
+
+    const categoryValueOnClick = (e, value) => {
+        console.log(value)
+        navigate(`/collections?keyword=${value}`)
+        return e.stopPropagation()
+
+    }
+
     //!SECTION
 
     //SECTION - Login
@@ -404,7 +318,6 @@ const HeaderContent = ({ logined, role, name }) => {
 
     const onKeyPressSearch = (e) => {
         if (e.key === 'Enter') {
-            console.log('enter')
             return navigate(`/search?keyword=${searchValue}`)
         }
     }
@@ -551,21 +464,22 @@ const HeaderContent = ({ logined, role, name }) => {
                                         <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
                                             <Col span={12}>
                                                 {
-                                                    categoryValueMonk.length > 0 ?
-                                                        categoryValueMonk.map((item, index) =>
-                                                            <CategoryValue key={index} onMouseEnter={(event) => valueMouseEnterHandler(event, item)} onMouseLeave={valueMouseLeaveHandler}>{item}</CategoryValue>
-
-                                                        )
-                                                        :
-                                                        null
+                                                    categoryValueMonk.map((item, index) =>
+                                                        <CategoryValue key={index}
+                                                            onClick={(e) => categoryValueOnClick(e, item)}
+                                                            onMouseEnter={(event) => valueMouseEnterHandler(event, item)} onMouseLeave={valueMouseLeaveHandler}
+                                                        >
+                                                            {item}
+                                                        </CategoryValue>
+                                                    )
                                                 }
                                             </Col>
                                         </Row>
                                     </CategoryContent>
-                                    {
+                                    {/* {
                                         isCategoryDetail === true ?
                                             <>
-                                                <CategoryDetailContent>
+                                               <CategoryDetailContent>
                                                     <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
                                                         <Col span={12}>
                                                             {
@@ -578,10 +492,10 @@ const HeaderContent = ({ logined, role, name }) => {
                                                         </Col>
                                                     </Row>
 
-                                                </CategoryDetailContent>
+                                                </CategoryDetailContent> 
                                             </>
                                             : null
-                                    }
+                                    } */}
                                 </CategoryWrapper>
                                 :
                                 null

@@ -7,7 +7,6 @@ import { notification } from 'antd';
  * @request @headers youngdong token
  */
 const PatchEditAddress = (addressData) => {
-  console.log(addressData);
   return fetch(`${_.SERVER_URL}/api/account/v1/me/info/address`, {
     method: 'PATCH',
     headers: {
@@ -20,7 +19,6 @@ const PatchEditAddress = (addressData) => {
       if (res.status === 500)
         throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
       if (!res.ok) throw res.json();
-      console.log('주소 수정 성공  ✅\n');
       notification['success']({
         message: `주소 수정  성공 `,
       });

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from "react"
-import { Row, Col, ContentStyle } from "../../../../layout"
+import React, { useState, useRef, useCallback } from "react"
+import { Row, Col } from "../../../../layout"
 import { Image, Typo, Btn, Divider, FileBox, NumberField, TextBox } from "../../../index"
 import styled from "styled-components";
 import { PlusOutlined } from '@ant-design/icons';

@@ -1,7 +1,6 @@
-import React, { useState, usEffect } from 'react';
+import React from 'react';
 import { Row, Col, } from "../../../../layout"
-import { Typo, Btn, Divider, Image, QuestionModalForm, TextAreaBox, OrderDetailModalForm, ReviewModalForm } from "../../../index"
-import monkImg from "../../../../assets/images/monkListImg.png"
+import { Typo, Btn, Divider, Image, QuestionModalForm, OrderDetailModalForm, ReviewModalForm } from "../../../index"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
@@ -86,7 +85,7 @@ const OrderInfo = ({
                                                                 <Row align={'center'}>
                                                                     <Col span={2.5}>
                                                                         {/* products.productThumbnailImg */}
-                                                                        <Image cursor={"pointer"} src={monkImg} width={'100%'} onClick={() => navigate(`/goods/${products.productId}`)
+                                                                        <Image cursor={"pointer"} src={products.productThumbnailImg} width={'100%'} onClick={() => navigate(`/goods/${products.productId}`)
                                                                         } ></Image>
                                                                     </Col>
                                                                     <Col span={9} style={{ paddingLeft: '1rem', height: '100%' }} align={'stretch'}>

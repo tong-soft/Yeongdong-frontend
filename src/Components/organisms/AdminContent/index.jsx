@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Row, Col, ContentStyle } from "../../../layout"
-import { Image, Typo, Btn, Divider, CheckBox, } from "../../index"
+import { Image, Typo, Btn } from "../../index"
 import youngdongIcon from "../../../assets/icons/youngdongHeaderIcon.png"
 import styled from "styled-components"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AdminDesc from "../../molecules/AdminContent/AdminDesc"
 import AddGoods from "../../molecules/AdminContent/Goods/AddGoods"
@@ -86,33 +86,6 @@ right : 0;
 position : absolute;
 padding:1rem ;
 cursor : pointer;
-`
-
-const ContentColorWrapper = styled.div`
-        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    box-shadow: none;
-    background-image: none;
-    border-radius: 4px;
-    border: none ;
-    border: 1px solid ${props => props.bgColor || `rgba(190, 145, 109,0.4)`}; 
-    padding : 3rem 2rem;
-    width : 80%;
-    overflow-y:auto;
-    overflow-x:hidden;
-    margin : 2rem 0;
-`
-
-const Code = styled.span`
-    padding: 0.2em 0.4em;
-    margin: 0.4em 0;
-    font-size: 85%;
-    white-space: break-spaces;
-    background-color: rgba(135,131,120,0.15);
-    color: rgba(68, 131, 97, 1);
-    fill: rgba(68, 131, 97, 1);
-    border-radius: 6px;
-    font-weight : bold;
-    line-height: normal;
 `
 
 

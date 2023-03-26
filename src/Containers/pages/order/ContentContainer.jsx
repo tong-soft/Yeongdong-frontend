@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import OrderContent from "../../../Components/organisms/OrderContent"
 import { notification } from "antd"
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,6 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
     useEffect(() => {
         window.scrollTo(0, 0);
         const localStorageList = JSON.parse(localStorage.getItem("youngdong_order_list"))
-        console.log(Array.isArray(localStorageList))
         if (!localStorageList || localStorageList.length === 0 || !Array.isArray(localStorageList)) {
             notification['error']({
                 message: `주문할 제품이 없습니다.`,
@@ -56,9 +55,6 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
 
 
 
-
-
-    console.log(orderProduct)
 
 
 
@@ -107,7 +103,6 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
         addrZoneCode: '',
     })
 
-    console.log("🚀 ~ adrrInfo", adrrInfo);
 
     /**
      * @description checked Func
@@ -116,9 +111,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
     const [isCheckedAddrInfo, setIsCheckedAddrInfo] = useState(false)
 
     const checkedAddrOnchange = (e) => {
-        console.log(e.target.checked)
         if (e.target.checked) {
-            console.log("체크됨")
             setAdrrInfo((state) => ({ ...state, adrrName: buyerInfo.name }))
             setAdrrInfo((state) => ({ ...state, adrrPhone: phoneNumber.replace(/[^0-9]/g, '') }))
             setAdrrInfo((state) => ({ ...state, addrAddress: jibunAddress }))
@@ -169,11 +162,6 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
     }
 
     const selectAddressHandle = (data) => {
-        console.log(data)
-        console.log(`
-        주소: ${data.address},
-        우편번호: ${data.zonecode}
-    `)
         setAdrrInfo((state) => ({ ...state, addrAddress: data.jibunAddress || data.address }))
         setAdrrInfo((state) => ({ ...state, addrZoneCode: data.zonecode }))
         setAdrrInfo((state) => ({ ...state, roadAddress: data.roadAddress }))
@@ -196,11 +184,9 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
     const [writeMemo, setWriteMemo] = useState('');
 
     const onMemoChange = (event) => {
-        console.log(event.target.value)
         setMemo(event.target.value);
     };
     const onWriteMemoChange = (event) => {
-        console.log(event.target.value)
         setWriteMemo(event.target.value);
     }
 
@@ -233,13 +219,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
         recipientPhoneNumber: buyerInfo.phoneNumber
     }
 
-    console.log(paymentData)
-
     //!SECTION - 결제 창에 넘길 정보
-
-
-
-
 
 
 
