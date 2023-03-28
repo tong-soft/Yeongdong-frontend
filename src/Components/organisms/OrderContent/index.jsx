@@ -164,7 +164,6 @@ const OrderContent = ({
                                                     </Col>
                                                 </Col>
                                             </Row>
-
                                         </Col>
                                     </Row>
 

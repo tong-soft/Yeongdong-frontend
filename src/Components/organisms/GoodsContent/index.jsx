@@ -57,6 +57,49 @@ const StarRating = styled.div`
     align-items: center;
 `
 
+const CountIconWrapper = styled.div`
+    width : auto;
+    border : 1px solid rgb(221, 223, 225);
+    border-radius : 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content : center;
+    align-items : center;
+`
+
+const CountIcon = styled.div`
+    width : 2rem;
+    height : 2rem;
+    font-size : 1.5rem;
+    font-weight: bold;
+    box-sizing: border-box;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    cursor : pointer;
+    ${props => props.count === 1 && props.icon === "minus" ? `
+    cursor : default;
+    color : #dddddd;
+    pointer-events: none;
+    `:
+        null} 
+  
+`
+const CountLabel = styled.label`
+ width : auto;
+    height : auto;
+    font-size : 1.2rem;
+    font-weight: bold;
+    box-sizing: border-box;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+`
+const TotalTypoWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+`
 
 const GoodsContent = ({ role,
     productOptions, selectOption, userProductObj, selectHandleFunc, amountHandleFunc,
@@ -69,7 +112,7 @@ const GoodsContent = ({ role,
 }) => {
     const navigate = useNavigate();
     const { descriptionImgUrl, discount, orderCount,
-        name, originalPrice, sellingPrice, starRating, thumbnailImgUrl,
+        name, originalPrice, sellingPrice, starRating, thumbnailImgUrl, description
     } = productInfo
 
 
@@ -102,55 +145,57 @@ const GoodsContent = ({ role,
     return (
         <>
             <ContentStyle>
-                <Row >
-                    <Col span={12} >
-                        <Row gutter={[5, 10]} align={"stretch"} justify={"center"}>
-                            {/* //SECTION - 썸네일 */}
-                            <Col xs={9} span={6} justify={"center"}>
-                                <Image src={thumbnailImgUrl} width={"90%"} height={"fit-content"} />
-                            </Col>
-                            {/* //!SECTION */}
-                            <Col xs={9} span={6} justify={"center"}>
-                                {/* //SECTION - 제목*/}
-                                <Col span={12} >
-                                    <Typo size={"2.5rem"} weight={"500"}>
-                                        {name}
-                                    </Typo>
-                                </Col>
-                                {/* //!SECTION */}
-
-                                {/* //SECTION - 할인 , 가격 */}
-                                <Col span={12} align={"center"}>
-                                    <Row align={"center"} justify={"space-between"}>
-                                        <Col span={3} justify={"flex-start"} align={"center"}>
-                                            {
-                                                originalPrice === sellingPrice ?
-                                                    null
-                                                    :
-                                                    <Typo fontFamily={"nixgon"} color={"#e64937"} weight={"bold"} size={"2.3rem"}>
-                                                        {discount}%
-                                                    </Typo>
-                                            }
+                <Row justify={'center'} >
+                    <Col xs={12} span={11}>
+                        <Row>
+                            <Col span={12} >
+                                <Row gutter={[5, 10]} align={"stretch"} justify={"center"}>
+                                    {/* //SECTION - 썸네일 */}
+                                    <Col xs={11} span={6} justify={"center"}>
+                                        <Image src={thumbnailImgUrl} width={"90%"} height={"fit-content"} />
+                                    </Col>
+                                    {/* //!SECTION */}
+                                    <Col xs={11} span={6} justify={"center"}>
+                                        {/* //SECTION - 제목*/}
+                                        <Col span={12} style={{ paddingTop: "0" }}>
+                                            <Typo size={"2rem"} weight={"500"}>
+                                                {name}
+                                            </Typo>
                                         </Col>
-                                        <Col span={9} justify={"flex-end"} align={"baseline"}>
-                                            {
-                                                originalPrice === sellingPrice ?
-                                                    <Typo size={"2.5rem"} weight={'bold'} >{sellingPrice}원</Typo>
-                                                    :
-                                                    <>
-                                                        <Typo size={"1.8rem"} weight={'bold'} color={'#6d6d6d'} style={{ textDecoration: "line-through 1.5px", marginRight: "9px" }} >
-                                                            {originalPrice.toLocaleString()}원
-                                                        </Typo>
-                                                        <Typo size={"2.5rem"} weight={'bold'} >{sellingPrice.toLocaleString()}원</Typo>
-                                                    </>
-                                            }
-                                        </Col>
-                                    </Row>
-                                </Col>
-                                {/* //!SECTION */}
+                                        {/* //!SECTION */}
 
-                                {/* //SECTION  옵션 선택 하기 */}
-                                <Col span={12}>
+                                        {/* //SECTION - 할인 , 가격 */}
+                                        <Col span={12} align={"center"} >
+                                            <Row align={"center"} justify={"space-between"}>
+                                                <Col span={3} justify={"flex-start"} align={"center"}>
+                                                    {
+                                                        originalPrice === sellingPrice ?
+                                                            null
+                                                            :
+                                                            <Typo fontFamily={"nixgon"} color={"#e64937"} weight={"bold"} size={"2.2rem"}>
+                                                                {discount}%
+                                                            </Typo>
+                                                    }
+                                                </Col>
+                                                <Col span={9} justify={"flex-end"} align={"baseline"}>
+                                                    {
+                                                        originalPrice === sellingPrice ?
+                                                            <Typo size={"2rem"} weight={'bold'} >{sellingPrice}원</Typo>
+                                                            :
+                                                            <>
+                                                                <Typo size={"1.4rem"} weight={'bold'} color={'#a6a6a6'} style={{ textDecoration: "line-through 1.5px", marginRight: "9px" }} >
+                                                                    {originalPrice.toLocaleString()}원
+                                                                </Typo>
+                                                                <Typo size={"2rem"} weight={'bold'} >{sellingPrice.toLocaleString()}원</Typo>
+                                                            </>
+                                                    }
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        {/* //!SECTION */}
+
+                                        {/* //SECTION  옵션 선택 하기 */}
+                                        {/* <Col span={12}>
                                     <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="normal">
                                         <Select
                                             displayEmpty
@@ -176,10 +221,11 @@ const GoodsContent = ({ role,
                                             ))}
                                         </Select>
                                     </FormControl>
-                                </Col>
-                                {/* //!SECTION  옵션 선택 하기 */}
+                                </Col> */}
+                                        {/* //!SECTION  옵션 선택 하기 */}
 
-                                {/* //SECTION  선택 된 옵션 표시 */}
+                                        {/* //SECTION  선택 된 옵션 표시 */}
+                                        {/* 
                                 <Col span={12}>
                                     {
                                         (productKeys) ?
@@ -202,7 +248,6 @@ const GoodsContent = ({ role,
                                                     </Col>
                                                     <Col span={6} justify={"flex-end"} align={"center"}>
                                                         <Typo size={"18px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "36px" }}>{10000 * userProductObj[key]} 원</Typo>
-                                                        {/* <Typo size={"2rem"} fontFamily={"Jeju"}>{10000 * userProductObj[key]}원</Typo> */}
                                                     </Col>
                                                 </Row>
 
@@ -210,268 +255,288 @@ const GoodsContent = ({ role,
                                             : null
                                     }
                                 </Col>
-                                {/* //!SECTION  선택 된 옵션 표시 */}
+                                 */}
+                                        {/* //!SECTION  선택 된 옵션 표시 */}
 
-                                {/* SECTION 주문 개수 //TODO 옵션 사용 유뮤 후 자우기 */}
-                                <Col span={12} align={'center'}>
-                                    <Typo>갯수 입력 하 세 욘 </Typo>
-                                    <NumberField value={orderCount || 1} onChange={(e) => orderCountHandler(e)} />
-                                </Col>
-                                {/* //!SECTION 주문 개수 */}
+                                        <Col span={12} align={'center'} justify={'space-between'} style={{ borderBottom: "1px solid rgb(244, 244, 244)", borderTop: "1px solid rgb(244, 244, 244)" }} >
+                                            <Typo size={"1.2rem"} color={"#6d6d6d"} padding={'0 0 0 3px'} >{description}</Typo>
 
-
-                                {/* //SECTION 총 상품 금액 */}
-                                <Col span={12} style={{ marginTop: "0.5rem", borderTop: "1px solid rgb(244, 244, 244)" }} justify={"flex-end"} align={"flex-end"} >
-                                    <Typo size={"14px"} fontFamily={"nixgon"} weight={"bold"} padding={"0 12px 0 0 "}>총 상품 금액</Typo>
-                                    {/* TODO 가격 계산해서 넣기 */}
-                                    <Typo size={"25px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "33px" }}>{((sellingPrice * orderCount || 1).toLocaleString())}</Typo>
-                                    <Typo size={"20px"} weight={"bold"} color={"rgb(51, 51, 51)"} padding={'0 0 0 5px'} >원</Typo>
-                                    <Typo size={"15px"} weight={"500"} color={"#999999"} padding={"6px 0 0 0 "} full >총 수량 | {orderCount || 1} 개</Typo>
-                                </Col>
-                                {/* //!SECTION 총 상품 금액 */}
+                                        </Col>
 
 
-                                {/* //SECTION  장바구니 결제하기 */}
-                                <Col span={12} style={{ marginTop: "0.5rem" }} justify={"space-between"}>
-                                    <IconBox onClick={addCartOnClick}>
-                                        <AddCart width={"55%"} height={"55%"} />
-                                    </IconBox>
-                                    <Col span={10} style={{ padding: 0 }} justify={"flex-end"}>
-                                        <Btn types={"primary"} value={"구매하기"} width={"100%"} onClick={paymentBtnOnClick}></Btn>
-                                    </Col>
-                                </Col>
-                                <Modal
-                                    open={isCartAlertVisible}
-                                    onClose={(e) => { e.stopPropagation(); cartAlertModal.close(); }}
-                                >
-                                    <Box sx={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)',
-                                        width: '45%',
-                                        bgcolor: 'background.paper',
-                                        boxShadow: 24,
-                                        borderRadius: '5px',
-                                        p: 4,
-                                        overflow: 'auto',
-                                        maxHeight: ' 80%',
-                                        padding: "2rem 2rem 1.3rem 2rem",
-                                    }}>
-                                        <Row>
-                                            <Col xs={0} span={12}>
-                                                <Typo full size={'1.1rem'}>선택한 상품이 성공적으로 장바구니에 담겼습니다.</Typo>
+
+                                        {/* SECTION 주문 개수 //TODO 옵션 사용 유뮤 후 자우기 */}
+                                        <Col span={12} align={'center'} justify={'space-between'} style={{ marginTop: "1rem", }}  >
+                                            <CountIconWrapper>
+                                                <CountIcon count={orderCount} icon={"minus"} onClick={orderCountHandler.minus} > − </CountIcon>
+                                                <CountLabel>
+                                                    <NumberField value={orderCount} onChange={orderCountHandler.setData} ></NumberField>
+                                                </CountLabel>
+                                                <CountIcon icon={"plus"} onClick={orderCountHandler.plus}>+</CountIcon>
+                                            </CountIconWrapper>
+                                            <TotalTypoWrapper >
+                                                <Typo size={"1rem"} fontFamily={"nixgon"} weight={"bold"} padding={"0 10px 0 0"} >총 상품 금액</Typo>
+                                                {/* TODO 가격 계산해서 넣기 */}
+                                                <Typo size={"2.2rem"} weight={"bold"} color={"#0d7000"} style={{ lineHeight: "33px" }}>{((sellingPrice * orderCount || 1).toLocaleString())}</Typo>
+                                                <Typo size={"1.5rem"} weight={"bold"} color={"#0d7000"} padding={'0 0 0 3px'} >원</Typo>
+                                            </TotalTypoWrapper>
+
+                                        </Col>
+                                        {/* //!SECTION 주문 개수 */}
+
+
+                                        {/* //SECTION 총 상품 금액 */}
+                                        {/* <Col span={6} justify={"flex-end"} align={"flex-end"} >
+                                            <Typo size={"14px"} fontFamily={"nixgon"} weight={"bold"} >총 상품 금액</Typo>
+                                            <Typo size={"25px"} weight={"bold"} color={"rgb(51, 51, 51)"} style={{ lineHeight: "33px" }}>{((sellingPrice * orderCount || 1).toLocaleString())}</Typo>
+                                            <Typo size={"20px"} weight={"bold"} color={"rgb(51, 51, 51)"} padding={'0 0 0 5px'} >원</Typo>
+                                            <Typo size={"15px"} weight={"500"} color={"#999999"} padding={"6px 0 0 0 "} full >총 수량 | {orderCount || 1} 개</Typo>
+                                        </Col> */}
+                                        {/* //!SECTION 총 상품 금액 */}
+
+
+                                        {/* //SECTION  장바구니 결제하기 */}
+                                        <Col span={12} style={{ marginTop: "0.5rem" }} justify={"space-between"} align={"flex-end"}>
+                                            <IconBox onClick={addCartOnClick}>
+                                                <AddCart width={"55%"} height={"55%"} />
+                                            </IconBox>
+                                            <Col span={10} style={{ padding: 0 }} justify={"flex-end"}>
+                                                <Btn types={"primary"} value={"구매하기"} width={"100%"} onClick={paymentBtnOnClick} style={{ height: "4rem" }}></Btn>
                                             </Col>
-                                            <Col span={12}>
-                                                <Typo full size={'1.1rem'}>장바구니로 이동하시겠습니까?</Typo>
-                                            </Col>
-                                            <Col span={12} >
-                                                <Divider marginBottom={"10px"} marginTop={'10px'}></Divider>
-                                            </Col>
-                                            <Col span={12} justify={'flex-end'} >
-                                                <Typo size={'1.1rem'} color={'#0d7000'} weight={'500'}
-                                                    style={{ marginRight: "2rem", cursor: "pointer" }}
-                                                    onClick={cartAlertModal.close}>
-                                                    취소
-                                                </Typo>
-                                                <Typo size={'1.1rem'} color={'#0d7000'} weight={'500'}
-                                                    style={{ cursor: "pointer" }}
-                                                    onClick={() => { navigate('/cart') }}>
-                                                    확인
-                                                </Typo>
+                                        </Col>
+                                        <Modal
+                                            open={isCartAlertVisible}
+                                            onClose={(e) => { e.stopPropagation(); cartAlertModal.close(); }}
+                                        >
+                                            <Box sx={{
+                                                position: 'absolute',
+                                                top: '50%',
+                                                left: '50%',
+                                                transform: 'translate(-50%, -50%)',
+                                                width: '45%',
+                                                bgcolor: 'background.paper',
+                                                boxShadow: 24,
+                                                borderRadius: '5px',
+                                                p: 4,
+                                                overflow: 'auto',
+                                                maxHeight: ' 80%',
+                                                padding: "2rem 2rem 1.3rem 2rem",
+                                            }}>
+                                                <Row>
+                                                    <Col xs={0} span={12}>
+                                                        <Typo full size={'1.1rem'}>선택한 상품이 성공적으로 장바구니에 담겼습니다.</Typo>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Typo full size={'1.1rem'}>장바구니로 이동하시겠습니까?</Typo>
+                                                    </Col>
+                                                    <Col span={12} >
+                                                        <Divider marginBottom={"10px"} marginTop={'10px'}></Divider>
+                                                    </Col>
+                                                    <Col span={12} justify={'flex-end'} >
+                                                        <Typo size={'1.1rem'} color={'#0d7000'} weight={'500'}
+                                                            style={{ marginRight: "2rem", cursor: "pointer" }}
+                                                            onClick={cartAlertModal.close}>
+                                                            취소
+                                                        </Typo>
+                                                        <Typo size={'1.1rem'} color={'#0d7000'} weight={'500'}
+                                                            style={{ cursor: "pointer" }}
+                                                            onClick={() => { navigate('/cart') }}>
+                                                            확인
+                                                        </Typo>
 
-                                            </Col>
-                                        </Row>
-                                    </Box>
-                                </Modal>
-                                {/* //!SECTION 장바구니 결제하기 */}
+                                                    </Col>
+                                                </Row>
+                                            </Box>
+                                        </Modal>
+                                        {/* //!SECTION 장바구니 결제하기 */}
 
-                            </Col>
-                        </Row>
-
-                    </Col>
-                    {/* //!SECTION */}
-
-                    {/* ------------------------------------------------------------------------------------------------------------------------ */}
-
-                    {/* //SECTION - 상세정보  */}
-                    <Col span={12} justify={"center"} style={{ padding: "2rem 0" }}>
-                        <Image src={descriptionImgUrl} width={"80%"} fit={"contain"} ></Image>
-                    </Col>
-                    {/* //!SECTION */}
-
-                    {/* ------------------------------------------------------------------------------------------------------------------------ */}
-
-
-                    {/* //SECTION - 제품후기  */}
-                    <Col span={12} justify={"center"} align={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd" }}>
-                        <Col span={10} align={"center"}   >
-                            <Row align={"center"} >
-                                <Col span={6} justify={"flex-start"}>
-                                    <Image src={reviewTitle} width={"15rem"}></Image>
-                                </Col>
-                            </Row>
-                        </Col>
-
-                        <Col span={10} justify={"space-between"} style={{
-                            marginTop: "1rem",
-                            borderTop: "1px solid rgb(51, 51, 51)"
-                        }}>
-                            {
-                                productReview.length !== 0 ?
-                                    <StarRating>
-                                        <Typo color={"rgb(111, 111, 111)"} size={'1.3rem'}>만족도</Typo>
-                                        <Rate disabled value={starRating} style={{ fontSize: '1.8rem' }} />
-                                    </StarRating>
-                                    :
-                                    null
-                            }
-
-                        </Col>
-                        <Col span={10} justify={"space-between"} >
-                            {
-                                productReview.length !== 0 ?
-                                    productReview.map((review, index) => (
-                                        <Row key={index} gutter={[3, 0]} style={{
-                                            padding: "2rem",
-                                            borderBottom: "1px solid rgb(238, 238, 238)"
-                                        }} justify={"center"} align={"flex-start"}>
-                                            <Col xs={12} span={3} >
-                                                <Rate disabled value={review.starRating} style={{ fontSize: "1.5rem", color: "#0d7000" }} />
-                                            </Col>
-                                            <Col xs={12} span={9} justify={'space-between'}>
-                                                <Col xs={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 8 : 4} span={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 6 : 2}>
-                                                    <Image src={review.reviewImgUrl} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
-                                                </Col>
-                                                <Col xs={12} span={9.5}>
-                                                    <Typo >
-                                                        {review.content}
-                                                    </Typo>
-                                                </Col>
-                                            </Col>
-                                        </Row>
-                                    ))
-                                    :
-                                    <>
-                                        <Row gutter={[2, 0]} style={{
-                                            padding: "2rem",
-                                        }} justify={"center"} align={"center"}>
-                                            <Col span={12} justify={'center'}>
-                                                <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'}>
-                                                    작성된 리뷰가 없습니다.
-                                                </Typo>
-                                            </Col>
-                                        </Row>
-                                    </>
-                            }
-                            <Col span={12} justify={'center'}>
-                                <Pagination count={totalReviewPageNum} onChange={reviewPagingClick} key={reviewPagingNum} defaultPage={reviewPagingNum} shape="rounded" />
-                            </Col>
-                        </Col>
-                    </Col>
-                    {/* //!SECTION */}
-                    {/* ------------------------------------------------------------------------------------------------------------------------ */}
-
-
-                    {/* //SECTION - 제품문의  */}
-                    <Col span={12} justify={"center"} style={{ padding: "1rem 0" }}>
-                        <Col span={10} justify={"center"} style={{ padding: "3rem 0", }}>
-                            <Col span={12} align={"center"}  >
-                                <Row align={"center"} >
-                                    <Col span={6} justify={"flex-start"}>
-                                        <Image src={inquiryTitle} width={"15rem"}></Image>
-                                    </Col>
-                                    <Col span={6} justify={"flex-end"}>
                                     </Col>
                                 </Row>
+
                             </Col>
-                            <Col span={12} justify={"space-between"} style={{
-                                marginTop: "2rem",
-                                borderTop: "1px solid rgb(51, 51, 51)"
-                            }}>
-                                <Row style={{ marginTop: "2rem" }}>
-                                    <Col span={12} align={"center"} justify={'center'}>
-                                        <Typo size={"2rem"} backColor={'none'} weight={'bold'} >상품에 대해 궁금한 것이 있으신가요?</Typo>
-                                    </Col>
-                                    <Col span={12} justify={"center"} style={{ marginTop: "1rem" }}>
-                                        {
-                                            role === "GUEST" ?
-                                                null
-                                                :
-                                                <Col span={6}>
-                                                    <Btn width={'100%'} size={"large"} types={"primary"} value={"문의 하기"} onClick={productQuestionOnClick} style={{ fontSize: "1.5rem" }} ></Btn>
-                                                </Col>
-                                        }
-                                    </Col>
+                            {/* //!SECTION */}
+
+                            {/* ------------------------------------------------------------------------------------------------------------------------ */}
+
+                            {/* //SECTION - 상세정보  */}
+                            <Col span={12} justify={"center"} style={{ padding: "2rem 0" }}>
+                                <Image src={descriptionImgUrl} width={"80%"} fit={"contain"} ></Image>
+                            </Col>
+                            {/* //!SECTION */}
+
+                            {/* ------------------------------------------------------------------------------------------------------------------------ */}
+
+
+                            {/* //SECTION - 제품후기  */}
+                            <Col span={12} justify={"center"} align={"center"} style={{ padding: "3rem 0", borderTop: "1px solid #ddd" }}>
+                                <Col span={10} align={"center"}   >
+                                    <Row align={"center"} >
+                                        <Col span={6} justify={"flex-start"}>
+                                            <Image src={reviewTitle} width={"15rem"}></Image>
+                                        </Col>
+                                    </Row>
+                                </Col>
+
+                                <Col span={10} justify={"space-between"} style={{
+                                    marginTop: "1rem",
+                                    borderTop: "1px solid rgb(51, 51, 51)"
+                                }}>
                                     {
-                                        role === "GUEST" ?
-                                            <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "1rem" }}>
-                                                <Typo color={'#999999'} weight={'500'} size={'1.3rem'} style={{ wordBreak: 'keep-all' }}>
-                                                    로그인 후 문의를 남겨주세요.
-                                                </Typo>
-                                            </Col>
+                                        productReview.length !== 0 ?
+                                            <StarRating>
+                                                <Typo color={"rgb(111, 111, 111)"} size={'1.3rem'}>만족도</Typo>
+                                                <Rate disabled value={starRating} style={{ fontSize: '1.8rem' }} />
+                                            </StarRating>
                                             :
-                                            <>
-                                                <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "2rem" }}>
-                                                    <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'}>
-                                                        상품에 대한 문의를 남기는 공간입니다.
-                                                    </Typo>
-                                                </Col>
-                                                <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "1rem" }}>
-                                                    <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'} >
-                                                        구매하시려는 상품에 대해 궁금한 점이 있으신 경우 문의 주세요.
-                                                    </Typo>
-                                                </Col>
-                                            </>
+                                            null
                                     }
 
-                                </Row>
+                                </Col>
+                                <Col span={10} justify={"space-between"} >
+                                    {
+                                        productReview.length !== 0 ?
+                                            productReview.map((review, index) => (
+                                                <Row key={index} gutter={[3, 0]} style={{
+                                                    padding: "2rem",
+                                                    borderBottom: "1px solid rgb(238, 238, 238)"
+                                                }} justify={"center"} align={"flex-start"}>
+                                                    <Col xs={12} span={3} >
+                                                        <Rate disabled value={review.starRating} style={{ fontSize: "1.5rem", color: "#0d7000" }} />
+                                                    </Col>
+                                                    <Col xs={12} span={9} justify={'space-between'}>
+                                                        <Col xs={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 8 : 4} span={onClickReviewImg.focus === true && onClickReviewImg.index === index ? 6 : 2}>
+                                                            <Image src={review.reviewImgUrl} onClick={() => reviewImgOnCLick(index)} width={"100%"} height={"fit-content"} cursor={'pointer'} />
+                                                        </Col>
+                                                        <Col xs={12} span={9.5}>
+                                                            <Typo >
+                                                                {review.content}
+                                                            </Typo>
+                                                        </Col>
+                                                    </Col>
+                                                </Row>
+                                            ))
+                                            :
+                                            <>
+                                                <Row gutter={[2, 0]} style={{
+                                                    padding: "2rem",
+                                                }} justify={"center"} align={"center"}>
+                                                    <Col span={12} justify={'center'}>
+                                                        <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'}>
+                                                            작성된 리뷰가 없습니다.
+                                                        </Typo>
+                                                    </Col>
+                                                </Row>
+                                            </>
+                                    }
+                                    <Col span={12} justify={'center'}>
+                                        <Pagination count={totalReviewPageNum} onChange={reviewPagingClick} key={reviewPagingNum} defaultPage={reviewPagingNum} shape="rounded" />
+                                    </Col>
+                                </Col>
                             </Col>
-                        </Col>
+                            {/* //!SECTION */}
+                            {/* ------------------------------------------------------------------------------------------------------------------------ */}
+
+
+                            {/* //SECTION - 제품문의  */}
+                            <Col span={12} justify={"center"} style={{ padding: "1rem 0" }}>
+                                <Col span={10} justify={"center"} style={{ padding: "3rem 0", }}>
+                                    <Col span={12} align={"center"}  >
+                                        <Row align={"center"} >
+                                            <Col span={6} justify={"flex-start"}>
+                                                <Image src={inquiryTitle} width={"15rem"}></Image>
+                                            </Col>
+                                            <Col span={6} justify={"flex-end"}>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col span={12} justify={"space-between"} style={{
+                                        marginTop: "2rem",
+                                        borderTop: "1px solid rgb(51, 51, 51)"
+                                    }}>
+                                        <Row style={{ marginTop: "2rem" }}>
+                                            <Col span={12} align={"center"} justify={'center'}>
+                                                <Typo size={"2rem"} backColor={'none'} weight={'bold'} >상품에 대해 궁금한 것이 있으신가요?</Typo>
+                                            </Col>
+                                            <Col span={12} justify={"center"} style={{ marginTop: "1rem" }}>
+                                                {
+                                                    role === "GUEST" ?
+                                                        null
+                                                        :
+                                                        <Col span={6}>
+                                                            <Btn width={'100%'} size={"large"} types={"primary"} value={"문의 하기"} onClick={productQuestionOnClick} style={{ fontSize: "1.5rem" }} ></Btn>
+                                                        </Col>
+                                                }
+                                            </Col>
+                                            {
+                                                role === "GUEST" ?
+                                                    <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "1rem" }}>
+                                                        <Typo color={'#999999'} weight={'500'} size={'1.3rem'} style={{ wordBreak: 'keep-all' }}>
+                                                            로그인 후 문의를 남겨주세요.
+                                                        </Typo>
+                                                    </Col>
+                                                    :
+                                                    <>
+                                                        <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "2rem" }}>
+                                                            <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'}>
+                                                                상품에 대한 문의를 남기는 공간입니다.
+                                                            </Typo>
+                                                        </Col>
+                                                        <Col span={12} align={"center"} justify={'center'} style={{ marginTop: "1rem" }}>
+                                                            <Typo size={"1.5rem"} backColor={'none'} weight={'500'} color={'#999999'} >
+                                                                구매하시려는 상품에 대해 궁금한 점이 있으신 경우 문의 주세요.
+                                                            </Typo>
+                                                        </Col>
+                                                    </>
+                                            }
+
+                                        </Row>
+                                    </Col>
+                                </Col>
+                            </Col>
+                            {/* //!SECTION - 제품문의*/}
+
+
+
+
+
+                            {/* //SECTION - 문의 하기 모달 */}
+                            <Modal
+                                open={isQuestionModalOpen}
+                                closable={'true'}
+                                onClose={(e) => { e.stopPropagation(); questionModalHandler.close(); }}
+                            >
+                                <Box sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    width: {
+                                        xs: "90%",
+                                        sm: "80%",
+                                        md: "70%",
+                                        lg: "70%",
+                                        xl: "70%",
+                                    },
+                                    bgcolor: 'background.paper',
+                                    boxShadow: 24,
+                                    borderRadius: '5px',
+                                    p: 4,
+                                    overflow: 'auto',
+                                    maxHeight: ' 80%',
+                                    padding: "2rem 2rem 1.3rem 2rem",
+                                }}>
+                                    <QuestionModalForm
+                                        productName={name}
+                                        productQuestionData={productQuestionData}
+                                        productQuestionFunc={productQuestionFunc}
+                                        questionModalHandler={questionModalHandler}
+                                        productQuestionSaveOnClick={productQuestionSaveOnClick}
+                                    />
+                                </Box>
+                            </Modal>
+                            {/* //!SECTION - 문의 하기 모달 */}
+                        </Row>
                     </Col>
-                    {/* //!SECTION - 제품문의*/}
-
-
-
-
-
-                    {/* //SECTION - 문의 하기 모달 */}
-                    <Modal
-                        open={isQuestionModalOpen}
-                        closable={'true'}
-                        onClose={(e) => { e.stopPropagation(); questionModalHandler.close(); }}
-                    >
-                        <Box sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: {
-                                xs: "90%",
-                                sm: "80%",
-                                md: "70%",
-                                lg: "70%",
-                                xl: "70%",
-                            },
-                            bgcolor: 'background.paper',
-                            boxShadow: 24,
-                            borderRadius: '5px',
-                            p: 4,
-                            overflow: 'auto',
-                            maxHeight: ' 80%',
-                            padding: "2rem 2rem 1.3rem 2rem",
-                        }}>
-                            <QuestionModalForm
-                                productName={name}
-                                productQuestionData={productQuestionData}
-                                productQuestionFunc={productQuestionFunc}
-                                questionModalHandler={questionModalHandler}
-                                productQuestionSaveOnClick={productQuestionSaveOnClick}
-                            />
-                        </Box>
-                    </Modal>
-                    {/* //!SECTION - 문의 하기 모달 */}
-
 
                 </Row >
 

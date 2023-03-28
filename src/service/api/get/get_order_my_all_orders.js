@@ -21,7 +21,10 @@ const get_order_my_all_orders = (pageNumber = 0) => {
   )
     .then((res) => {
       if (res.status === 500)
-        throw Promise.resolve({ errorCode: 500, errorName: 'Server error' });
+        throw Promise.resolve({
+          errorCode: 500,
+          errorName: 'Server error',
+        });
       if (!res.ok) throw res.json();
       let data = res.json();
 
@@ -30,6 +33,7 @@ const get_order_my_all_orders = (pageNumber = 0) => {
     .catch(async (error) => {
       let err = await error.then();
       console.log(err);
+
       notification['error']({
         message: `주문내역 가져오기 실패 ❌`,
         description: err.error.message || err.error.status,

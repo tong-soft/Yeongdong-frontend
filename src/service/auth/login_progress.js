@@ -6,11 +6,15 @@ import get_my_info from '../api/get/get_account_my_info';
  * @function
  * @param
  */
-const LoginProcess = (accessToken) => {
+const LoginProcess = (accessToken, refreshToken) => {
   console.log('🏃LoginProcess running 🏃‍♂️,,,,');
   console.log('👇 youngdong.accessToken');
   console.log(accessToken);
   localStorage.setItem('young-dong', accessToken);
+
+  localStorage.setItem('testToken', accessToken);
+
+  localStorage.setItem('young-dong-refreshToken', refreshToken);
 
   get_my_simple_info()
     .then((res) => {

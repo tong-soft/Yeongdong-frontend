@@ -163,9 +163,20 @@ const ContentContainer = ({ role, product }) => {
 
     // SECTION - 일단 갯수 카운트 햄수 
     //TODO 옵션 사용 유뮤 후 자우기 
-    const orderCountHandler = (e) => {
-        const value = Number(e.target.value);
-        setProductInfo((state) => ({ ...state, orderCount: value, orderCost: value * productInfo.discountCost }))
+    // const orderCountHandler = (e) => {
+    //     const value = Number(e.target.value);
+    //     setProductInfo((state) => ({ ...state, orderCount: value }))
+    // }
+    const orderCountHandler = {
+        minus: () => {
+            setProductInfo((state) => ({ ...state, orderCount: state.orderCount - 1 }))
+        },
+        plus: () => {
+            setProductInfo((state) => ({ ...state, orderCount: state.orderCount + 1 }))
+        },
+        setData: (e) => {
+            setProductInfo((state) => ({ ...state, orderCount: e.target.value }))
+        }
     }
     // !SECTION - 일단 갯수 카운트 햄수 
 

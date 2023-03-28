@@ -21,7 +21,8 @@ const LoginPage = () => {
                 post_naver_token(token)
                     .then((res) => {
                         console.log(res.response);
-                        LoginProcess(res.response.accessToken);
+                        const { accessToken, refreshToken } = res.response;
+                        LoginProcess(accessToken, refreshToken);
                     }).catch(error => console.log(error))
 
             }
@@ -31,7 +32,6 @@ const LoginPage = () => {
         if (window.location.href.includes('error')) {
             window.alert("로그인에 실패하였습니다.")
             window.location.replace(_.HOST_URL + '/' + _.BASE_URL)
-
         }
 
 
