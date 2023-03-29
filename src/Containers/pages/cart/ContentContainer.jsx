@@ -3,7 +3,7 @@ import CartContent from "../../../Components/organisms/CartContent"
 import { useNavigate } from "react-router-dom"
 import EmptyCartForm from "../../../Components/molecules/EmptyCartForm";
 
-const ContentContainer = ({ role, deliveryFee,
+const ContentContainer = ({ role,
 }) => {
 
     const navigate = useNavigate()
@@ -36,7 +36,7 @@ const ContentContainer = ({ role, deliveryFee,
      * @property {Number}  
      */
     const [totalProductCost, setTotalProductCost] = useState(0);
-    const [totalPaymentCost, setTotalPaymentCost] = useState(deliveryFee);
+    const [totalPaymentCost, setTotalPaymentCost] = useState(0);
     const [totalDiscountCost, setTotalDiscountCost] = useState(0);
 
     //NOTE - 선택 데이터
@@ -62,7 +62,7 @@ const ContentContainer = ({ role, deliveryFee,
 
     useEffect(() => {
         setTotalProductCost(0)
-        setTotalPaymentCost(deliveryFee)
+        setTotalPaymentCost(0)
         setTotalDiscountCost(0)
         cartData.forEach((products) => {
             if (checkedArr.includes(products.id)) {
@@ -71,7 +71,7 @@ const ContentContainer = ({ role, deliveryFee,
                 setTotalProductCost((state) => state + (products.orderCount * products.originalPrice))
             }
         })
-    }, [cartData, deliveryFee, checkedArr])
+    }, [cartData, checkedArr])
 
     //NOTE - 전체선택 
     const [isCheckedAll, setCheckedAll] = useState(true)
@@ -156,16 +156,7 @@ const ContentContainer = ({ role, deliveryFee,
         const orderProductsList = []
         cartData.forEach((data) => {
             if (checkedArr.includes(data.id)) {
-                orderProductsList.push({
-                    amount: data.amount,
-                    originalPrice: data.originalPrice,
-                    sellingPrice: data.sellingPrice,
-                    description: data.description,
-                    id: data.id,
-                    name: data.name,
-                    orderCount: data.orderCount,
-                    thumbnailImg: data.thumbnailImg
-                })
+                orderProductsList.push(data)
             }
         })
         localStorage.setItem('youngdong_order_list', JSON.stringify(orderProductsList));
@@ -193,7 +184,6 @@ const ContentContainer = ({ role, deliveryFee,
                         totalProductCost={totalProductCost}
                         totalPaymentCost={totalPaymentCost}
                         totalDiscountCost={totalDiscountCost}
-                        deliveryFee={deliveryFee}
                         role={role}
                     />
             }

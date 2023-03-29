@@ -244,17 +244,12 @@ const HomeContent = ({
 
             </Carousel>
             <Row justify={"center"}>
-                <Col span={12}>
-
-
-                </Col>
-                <Col span={12} style={{ backgroundColor: "#e9e9e9", padding: "1rem 0", }}>
+                {/*   <Col span={12} style={{ backgroundColor: "#e9e9e9", padding: "1rem 0", }}>
                     <Row>
                         <Col span={12}>
                             <Image src={liveCommerceIcon} width={"13rem"} />
                         </Col>
                         <Col span={12} style={{ width: "100%", padding: "1rem", height: "350px" }}>
-                            {/*//NOTE Carousel */}
                             <CarouselWrapper>
                                 <CarouselImage src={carousel_1} width={"10rem"} move={MoveValue(1)} onClick={() => { CarouselOnClick(1) }} />
                                 <CarouselImage src={carousel_2} width={"10rem"} move={MoveValue(2)} onClick={() => { CarouselOnClick(2) }} />
@@ -270,14 +265,14 @@ const HomeContent = ({
                         </Col>
                     </Row>
                 </Col>
-
+            */}
                 {/* SECTION 내용 전체 */}
                 <Col xs={11} sm={10} md={10} lg={8} xl={8} xxl={8} span={8} justify={"center"} >
                     {/* SECTION  인기상품 - hot Item*/}
                     <Col span={12} justify={"center"} style={{ padding: "5rem 1rem 1rem 1rem", }}>
                         <Row justify={"center"}>
                             <Col span={12} justify={"center"} algin={"center"} style={{ padding: "5rem 0 3rem 0" }}>
-                                <Typo cursor={"pointer"} fontFamily={'nixgon'} size={"2rem"}>인기상품&nbsp;{">"}</Typo>
+                                <Typo cursor={"default"} fontFamily={'nixgon'} size={"2rem"}>인기상품</Typo>
                             </Col>
                             {
                                 (hotItemArr.length === 0) ?
@@ -396,7 +391,7 @@ const HomeContent = ({
                     <Col span={12} style={{ padding: "5rem 1rem 1rem 1rem", }}>
                         <Row >
                             <Col span={12} justify={"center"} style={{ padding: "5rem 0 3rem 0" }} >
-                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"}>따끈따끈 신상품&nbsp;{">"}</Typo>
+                                <Typo cursor={"pointer"} size={"2rem"} fontFamily={"nixgon"} onClick={() => navigate("/collections")}>따끈따끈 신상품&nbsp;{">"}</Typo>
                             </Col>
 
                             {

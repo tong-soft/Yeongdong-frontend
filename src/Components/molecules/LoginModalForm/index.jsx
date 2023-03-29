@@ -49,186 +49,38 @@ const SnsIconWrapper = styled.div`
 
 `
 
-const LoginModalForm = ({ isSelectLoginSignup, selectLogin, selectSignup, handleNaverLogin }) => {
+const LoginModalForm = ({ handleNaverLogin }) => {
     return (
         <>
 
             <Row>
-                <Col span={12} style={{ borderBottom: "2px solid #393939" }}>
+                <Col span={12} style={{ borderBottom: "2px solid #393939", paddingBottom: "0.5rem" }}>
                     <Row>
-                        <Col span={6}>
-                            <SelectLoginSign isSelect={(isSelectLoginSignup === "login" ? true : false)}
-                                onClick={selectLogin}>
-                                로그인
-                            </SelectLoginSign>
-                        </Col>
-                        <Col span={6}>
-                            <SelectLoginSign isSelect={(isSelectLoginSignup === "signup" ? true : false)}
-                                onClick={selectSignup}>
-                                회원가입
-                            </SelectLoginSign>
+                        <Col span={12}>
+                            <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 간편하게</Typo>
                         </Col>
                     </Row>
                 </Col>
 
-                {
-                    isSelectLoginSignup === "login" ?
-                        <Col span={12} style={{ marginTop: "1.5rem" }}>
-                            {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>아이디로 로그인</Typo> */}
-                            <Row justify={"space-between"}>
-                                <>
+                <Col span={12} style={{ marginTop: "1.5rem" }}>
+                    <Row justify={"space-between"}>
+                        {/* //SECTION - JSX 소셜로그인 */}
+                        <Col span={12} style={{ padding: "1rem 0" }}>
+                            {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo> */}
 
-                                    {/* 
-                                                        <Col span={12}>
-                                                            <Col span={12}>
-                                                                <TextField
-                                                                    size="normal"
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    id="email"
-                                                                    label="이메일을 입력하세요."
-                                                                    name="email"
-                                                                    autoComplete="email"
-                                                                    autoFocus
-                                                                    onChange={settingLogInValueFunction.email}
-                                                                    value={logInInfo.email}
-                                                                />
-                                                                <TextField
+                            <SnsLoginBtn naver onClick={handleNaverLogin}>
+                                <SnsIconWrapper >
+                                    <img src={naverBtn} alt="NAVER" width={"80%"} />
+                                </SnsIconWrapper>
+                                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
+                            </SnsLoginBtn>
+                            <LoginNaver style={{ display: "none" }}></LoginNaver>
 
-                                                                    margin="dense"
-                                                                    required
-                                                                    fullWidth
-                                                                    name="password"
-                                                                    label="비밀번호를 입력하세요"
-                                                                    type="password"
-                                                                    id="password"
-                                                                    autoComplete="current-password"
-                                                                    size="normal"
-                                                                    onChange={settingLogInValueFunction.password}
-                                                                    value={logInInfo.password}
-                                                                />
-                                                            </Col>
-                                                            <Col span={12}>
-                                                                <Button variant="contained" fullWidth style={{
-                                                                    boxShadow: 'none',
-                                                                    fontSize: '1.5rem',
-                                                                    padding: '1rem 0px',
-                                                                }}
-                                                                    onClick={LoginBtnOnclick}
-                                                                >
-                                                                    로그인
-                                                                </Button>
-                                                            </Col>
-
-                                                        </Col> 
-                                                        */}
-                                </>
-
-                                {/* //SECTION - JSX 소셜로그인 */}
-                                <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                    <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo>
-
-                                    <SnsLoginBtn naver onClick={handleNaverLogin}>
-                                        <SnsIconWrapper >
-                                            <img src={naverBtn} alt="NAVER" width={"80%"} />
-
-                                        </SnsIconWrapper>
-                                        <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
-                                    </SnsLoginBtn>
-                                    <SnsLoginBtn >
-                                        <SnsIconWrapper >
-                                            <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
-
-                                        </SnsIconWrapper>
-                                        <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 로그인</Typo>
-                                    </SnsLoginBtn>
-                                    <LoginNaver style={{ display: "none" }}></LoginNaver>
-
-                                </Col>
-                                {/* //!SECTION - 소셜로그인 */}
-
-                                <Col span={12} >
-                                    <Divider></Divider>
-
-                                    <Button variant="outlined" fullWidth size="large" style={{
-                                        fontSize: '1.3rem',
-                                        padding: '1rem 0px',
-                                    }}>비회원으로 구매하기</Button>
-                                </Col>
-                            </Row>
                         </Col>
-                        :
+                        {/* //!SECTION - 소셜로그인 */}
+                    </Row>
+                </Col>
 
-                        <Col span={12} style={{ marginTop: "1.5rem" }}>
-                            <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 회원가입하기</Typo>
-                            <Row justify={"space-between"}>
-                                <>
-                                    {/* <Col span={12} >
-                                                            <Col span={12}>
-                                                                <TextField
-                                                                    size="normal"
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    id="email"
-                                                                    label="이메일을 입력하세요."
-                                                                    name="email"
-                                                                    autoComplete="email"
-                                                                    onChange={settingSingUpValueFunction.email}
-                                                                    value={signUpInfo.email}
-                                                                />
-                                                                <TextField
-
-                                                                    margin="normal"
-                                                                    required
-                                                                    fullWidth
-                                                                    name="password"
-                                                                    label="비밀번호를 입력하세요"
-                                                                    type="password"
-                                                                    id="password"
-                                                                    autoComplete="current-password"
-                                                                    size="normal"
-                                                                    onChange={settingSingUpValueFunction.password}
-                                                                    value={signUpInfo.password}
-                                                                />
-
-                                                            </Col>
-                                                            <Col span={12}>
-                                                                <Button variant="contained" fullWidth style={{
-                                                                    boxShadow: 'none',
-                                                                    fontSize: '1.5rem',
-                                                                    padding: '1rem 0px',
-                                                                }}
-                                                                    onClick={SignupBtnOnclick}
-                                                                >
-                                                                    가입신청
-                                                                </Button>
-                                                            </Col>
-                                                        </Col> */}
-                                </>
-                                <Col span={12} style={{ marginTop: "1.5rem" }}>
-                                    <SnsLoginBtn naver onClick={handleNaverLogin}>
-                                        <SnsIconWrapper >
-                                            <img src={naverBtn} alt="NAVER" width={"80%"} />
-
-                                        </SnsIconWrapper>
-                                        <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 회원가입</Typo>
-                                    </SnsLoginBtn>
-                                    <SnsLoginBtn >
-                                        <SnsIconWrapper >
-                                            <img src={kakaoBtn} alt="KAKAO" width={"90%"} />
-
-                                        </SnsIconWrapper>
-                                        <Typo width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>카카오톡으로 회원가입</Typo>
-                                    </SnsLoginBtn>
-                                    <LoginNaver style={{ display: "none" }}></LoginNaver>
-
-                                </Col>
-
-                            </Row>
-                        </Col>
-                }
             </Row>
         </>
     )

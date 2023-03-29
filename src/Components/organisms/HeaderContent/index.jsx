@@ -184,18 +184,11 @@ const HeaderContent = ({ logined, role, name }) => {
     const handleLoginModalOpen = () => setOpenLoginModal(true);
     const handleLoginModalClose = () => setOpenLoginModal(false);
 
-    const [isSelectLoginSignup, setIsSelectLoginSignup] = useState("login");
-    const selectLogin = () => setIsSelectLoginSignup("login");
-    const selectSignup = () => setIsSelectLoginSignup("signup");
 
     const doingLogin = () => {
         handleLoginModalOpen();
-        selectLogin()
     }
-    const doingSignup = () => {
-        handleLoginModalOpen();
-        selectSignup();
-    }
+
 
     /**
         * @description 마이페이지, 장바구니 클릭시 func
@@ -386,11 +379,11 @@ const HeaderContent = ({ logined, role, name }) => {
                                     overflow: 'auto',
                                     maxHeight: ' 80%'
                                 }}>
-                                    <LoginModalForm isSelectLoginSignup={isSelectLoginSignup} selectLogin={selectLogin} selectSignup={selectSignup} handleNaverLogin={handleNaverLogin} />
+                                    <LoginModalForm handleNaverLogin={handleNaverLogin} />
 
                                 </Box>
                             </Modal>
-                            <LoginValueBtn onClick={doingSignup} >회원가입</LoginValueBtn>
+                            <LoginValueBtn onClick={doingLogin} >회원가입</LoginValueBtn>
                         </LoginBtnBox>
                     </>
                 // !SECTION - jsx 장바구니 | 로그인 | 회원가입
@@ -503,7 +496,7 @@ const HeaderContent = ({ logined, role, name }) => {
 
                     </Col>
                     <Col xs={10} sm={10} md={9} lg={9} xl={9} xxl={8} span={8} justify={"space-evenly"}>
-                        <CategoryBox >라이브커머스</CategoryBox>
+                        {/* <CategoryBox >라이브커머스</CategoryBox> */}
                         <CategoryBox onClick={() => navigate("/collections")}>전체상품</CategoryBox>
                         <CategoryBox onClick={() => navigate("/collections/signature")} >시그시처</CategoryBox>
                         <CategoryBox>회사소개</CategoryBox>

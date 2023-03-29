@@ -19,10 +19,6 @@ const ContentContainer = () => {
 
     }, [sort])
 
-    useEffect(() => {
-        console.log(keywordValue)
-        setSelectedCategory(keywordValue || '')
-    }, [keywordValue])
 
     //SECTION pagination
     //NOTE 전체 페이지 갯수 
@@ -148,41 +144,43 @@ const ContentContainer = () => {
 
 
     const categoryData = ['쌀 · 잡곡', '채소', '과일', '감 · 곶감', '와인', '벌꿀', '가공식품', '장류', '떡 · 간식', '견과 · 버섯', '기타'];
-    const categoryObj = {
-        '쌀 · 잡곡': "RICE",
-        '채소': "VEGETABLE",
-        '과일': "FRUIT",
-        '감 · 곶감': "PERSIMMON",
-        '와인': "WINE",
-        '벌꿀': "HONEY",
-        '가공식품': "PROCESSED",
-        '장류': "PASTE",
-        '떡 · 간식': "SNACK",
-        '견과 · 버섯': "NUT",
-        '기타': "ETC",
-    }
+
     const [selectedCategory, setSelectedCategory] = useState('');
     const handleChangeCategory = (tag, checked) => {
         if (tag === selectedCategory) {
             setSelectedCategory('');
             setCategoryList([]);
-            return navigate(`/collections`)
+            return sort === "signature" ? navigate(`/collections/signature`) : navigate(`/collections`)
 
         }
-        navigate(`/collections?keyword=${tag}`)
+        return sort === "signature" ? navigate(`/collections/signature?keyword=${tag}`) : navigate(`/collections?keyword=${tag}`)
+    };
 
-        const nextSelectedCategory = checked
-            ? tag
-            : selectedCategory.filter((t) => {
-                return t !== tag;
-            });
-        setSelectedCategory(nextSelectedCategory);
+    useEffect(() => {
+        const categoryObj = {
+            '쌀 · 잡곡': "RICE",
+            '채소': "VEGETABLE",
+            '과일': "FRUIT",
+            '감 · 곶감': "PERSIMMON",
+            '와인': "WINE",
+            '벌꿀': "HONEY",
+            '가공식품': "PROCESSED",
+            '장류': "PASTE",
+            '떡 · 간식': "SNACK",
+            '견과 · 버섯': "NUT",
+            '기타': "ETC",
+        }
+        console.log(keywordValue)
+        setSelectedCategory(keywordValue || '')
         setCategoryList(
             [...lists].filter((item) => {
-                return item.category === categoryObj[tag]
+                return item.category === categoryObj[keywordValue]
             })
         )
-    };
+
+
+    }, [keywordValue, lists,])
+
     //!SECTION 카테고리
 
 

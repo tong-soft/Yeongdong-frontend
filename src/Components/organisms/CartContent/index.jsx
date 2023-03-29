@@ -3,6 +3,7 @@ import { Row, Col, ContentStyle } from "../../../layout"
 import { Image, Typo, Btn, CheckBox, } from "../../index"
 import styled from "styled-components"
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -47,9 +48,9 @@ const CartContent = ({
     totalProductCost,
     totalPaymentCost,
     totalDiscountCost,
-    deliveryFee,
     role,
 }) => {
+    const navigate = useNavigate();
 
     return (
         <>
@@ -83,7 +84,7 @@ const CartContent = ({
                                                                     <CheckBox checked={checkedArr.includes(goods.id)} onChange={(e) => checkedGoodsOnchange(e, goods.id)} size={"1.7rem"} />
                                                                 </label>
                                                                 <Col span={2}>
-                                                                    <Image src={goods.thumbnailImgUrl} width={"100%"}></Image>
+                                                                    <Image src={goods.thumbnailImgUrl} width={"100%"} cursor={"pointer"} onClick={() => navigate(`/goods/${goods.id}`)}></Image>
                                                                 </Col>
                                                                 <Col span={5} style={{ padding: "0 1rem" }} >
                                                                     <Col span={12}>
@@ -131,7 +132,7 @@ const CartContent = ({
 
 
                             <Col span={12} style={{ padding: '2rem 0', borderBottom: '1px solid rgb(51, 51, 51)', borderTop: '1px solid rgb(51, 51, 51)' }}>
-                                <Row gutter={[2, 0]} align={'center'}>
+                                <Row gutter={[2, 0]} align={'center'} justify={"space-evenly"}>
                                     <Col xs={3} span={2} justify={'center'}>
                                         <Row>
                                             <Col span={12} justify={'center'} >
@@ -160,23 +161,8 @@ const CartContent = ({
                                         </Row>
 
                                     </Col>
-                                    <Col xs={1.5} span={1} justify={'center'}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" strokeWidth="2" stroke="#d3d7df" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 5l0 14m-7 -7l14 0"></path>
-                                        </svg>
-                                    </Col>
-                                    <Col xs={3} span={2} justify={'center'}>
-                                        <Row>
-                                            <Col span={12} justify={'center'} >
-                                                <Typo size={"1.1rem"} weight={"400"} color={"#333333"}>배송비</Typo>
-                                            </Col>
-                                            <Col justify={'center'} span={12}>
-                                                <Typo size={"1.5rem"} weight={"bold"} color={"#333333"}>{deliveryFee.toLocaleString()}&nbsp;원</Typo>
-                                            </Col>
-                                        </Row>
 
-                                    </Col>
+
                                     <Col xs={0} span={1} justify={'center'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" strokeWidth="3" stroke="#0d7000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

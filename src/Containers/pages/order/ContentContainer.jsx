@@ -4,7 +4,7 @@ import { notification } from "antd"
 import { useNavigate } from "react-router-dom";
 
 
-const ContentContainer = ({ deliveryFee, role, name, logined, email,
+const ContentContainer = ({ role, name, logined, email,
     phoneNumber, jibunAddress, detailAddress, zipCode, roadAddress
 }) => {
 
@@ -26,7 +26,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
            * @property {Number}  
            */
     const [totalProductCost, setTotalProductCost] = useState(0);
-    const [totalPaymentCost, setTotalPaymentCost] = useState(deliveryFee);
+    const [totalPaymentCost, setTotalPaymentCost] = useState(0);
     const [totalDiscountCost, setTotalDiscountCost] = useState(0);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
         setOrderProduct(localStorage.getItem("youngdong_order_list") ? localStorageList : [])
         setTotalProductCost(0)
         setTotalDiscountCost(0)
-        setTotalPaymentCost(deliveryFee)
+        setTotalPaymentCost(0)
         localStorageList.forEach(products => {
             setTotalPaymentCost((state) => state + (products.orderCount * products.sellingPrice))
             setTotalDiscountCost((state) => state + (products.orderCount * (products.originalPrice - products.sellingPrice)))
@@ -50,7 +50,7 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
 
         });
 
-    }, [navigate, deliveryFee])
+    }, [navigate])
 
 
 
@@ -229,7 +229,6 @@ const ContentContainer = ({ deliveryFee, role, name, logined, email,
                 role={role}
                 name={name}
                 logined={logined}
-                deliveryFee={deliveryFee}
                 product={orderProduct}
 
 

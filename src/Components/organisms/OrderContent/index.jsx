@@ -10,7 +10,6 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom"
 
-import monkListImg from "../../../assets/images/monkListImg.png"
 
 const SearchWrapper = styled.div`
     display : flex;
@@ -29,7 +28,7 @@ const SearchWrapper = styled.div`
 
 const OrderContent = ({
     role, name = "비회원", logined,
-    product, deliveryFee,
+    product,
     buyerInfo, //buyer Info / 주문자 정보
     editBuyerInfo,
     isCheckedAddrInfo,
@@ -87,7 +86,7 @@ const OrderContent = ({
                                                     <Col span={12} key={index} style={{ padding: "0.5rem 0" }}>
                                                         <Row align={'center'} justify={"space-between"}>
                                                             <Col xs={3} span={2}>
-                                                                <Image src={monkListImg} width={"80%"} height={"fit-content"} />
+                                                                <Image src={products.thumbnailImgUrl} width={"80%"} height={"fit-content"} />
 
                                                             </Col>
                                                             <Col xs={4} span={6} style={{ padding: "0 1rem" }} >
@@ -333,20 +332,7 @@ const OrderContent = ({
                                                     }
 
 
-                                                    <Col span={12} justify={'center'}>
-                                                        <Row align={'center'}>
-                                                            <Col span={6} justify={'flex-start'} >
-                                                                <Typo size={"1.5rem"} weight={"400"} color={"#333333"}>배송비</Typo>
-                                                            </Col>
-                                                            <Col span={6} justify={'flex-end'} align={'center'}>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" strokeWidth="2" stroke="#333333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                    <path d="M12 5l0 14m-7 -7l14 0"></path>
-                                                                </svg>
-                                                                <Typo padding={'0 0 0 2px'} size={"1.5rem"} weight={"bold"} color={"#333333"}>{deliveryFee.toLocaleString()}&nbsp;원</Typo>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
+
                                                     <Col span={12}>
                                                         <Divider marginBottom={'0.5rem'} marginTop={'0.5rem'} color={'rgb(244, 244, 244)'}></Divider>
                                                     </Col>

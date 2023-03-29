@@ -83,14 +83,14 @@ const HomeContent = ({
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8} style={{ borderTop: "3px solid #ededed", padding: "1rem 0" }}>
+                <Col span={8} style={{ borderTop: "3px solid #ededed", padding: "3rem 0" }}>
                     <Row>
-                        <Col span={3}>
+                        {/* <Col span={3}>
                             <Btn value={"공지사항"} size={"large"} width={"80%"} onClick={() => navigate("/servicecenter")} />
                             <div style={{ marginTop: "1rem", width: "100%" }}></div>
                             <Btn value={"1:1문의"} size={"large"} width={"80%"} onClick={() => navigate("/servicecenter/inquiry")} />
-                        </Col>
-                        <Col span={9}>
+                        </Col> */}
+                        <Col span={12}>
                             <Col span={12} style={{ padding: '1rem 0', transitionDuration: "0s" }} align={"center"}>
                                 {
                                     service === "inquiry" ?
